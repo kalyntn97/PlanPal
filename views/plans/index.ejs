@@ -1,0 +1,26 @@
+<%- include('../partials/html-head.ejs') %>
+<%- include('../partials/nav.ejs') %>
+
+<% if (user) { %>
+  <h1>Add a plan</h1>
+  <form  class="addForm" id="addPlanForm" action="/plans" method="POST">
+    <label>Name: <input type="string" name="name" autocomplete="off"></label>
+    <label>Date: <input type="date" name="date"></label>
+    <label>Notes: <input type="string", name="notes"></label>
+    <button type="submit">Add a plan</button>
+  </form>
+<% } %>
+
+<h1>All plans</h1>
+<% plans.forEach(plan => { %>
+  <h3>
+    Name: <%= plan.name %>
+    Date: <%= plan.date %>
+    Creator: <%= plan.creator %>
+    <a href="/plans/<%= plan._id %>">Details</a>
+  </h3>
+<% }) %>
+
+
+
+<%- include('../partials/footer.ejs') %>

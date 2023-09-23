@@ -1,0 +1,31 @@
+<%- include('../partials/html-head.ejs') %>
+<%- include('../partials/nav.ejs') %>
+
+<h1>Plan <%= plan.name %></h1>
+<h3>
+  Name: <%= plan.name %>
+  Date: <%= plan.date %>
+  Creator: <%= plan.creator.name %>
+  Notes: <%= plan.notes %>
+</h3>
+
+<% if (user) { %>
+  <form class="commentForm" id="planCommentForm" action="/plans/<%= plan._id %>/comments" method="POST">
+    <textarea name="content"></textarea>
+    <button type="submit">Add Comment</button>
+  </form>
+<% } %>
+
+<%# Show all comments %>
+<h2>💬 <%= plan.comments.length %> Comments</h2>
+<ul>
+  <% plan.comments.forEach(comment => { %>
+    <li>
+      <%= comment.author.name %> - <%= comment.content %>
+    </li>
+  <% }) %>
+</ul>
+  
+
+
+<%- include('../partials/footer.ejs') %>
