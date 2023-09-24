@@ -2,10 +2,10 @@ import mongoose from 'mongoose'
 
 const Schema = mongoose.Schema
 
-// const commentSchema = new Schema({
-//   content: String,
-//   author: {type: Schema.Types.ObjectId, ref: 'Profile'}
-// })
+const commentSchema = new Schema({
+  content: String,
+  author: {type: Schema.Types.ObjectId, ref: 'Profile'}
+})
 
 const taskSchema = new Schema({
   name: String,
@@ -13,7 +13,7 @@ const taskSchema = new Schema({
   creator: {type: Schema.Types.ObjectId, ref: 'Profile'},
   notes: String,
   status: String,
-  // comments: [commentSchema],
+  comments: [commentSchema],
 }, {
   timestamps: true
 })

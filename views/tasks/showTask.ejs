@@ -17,4 +17,22 @@
   Notes: <%= task.notes %>
 </h3>
 
+<%# Comments Section %>
+<% if (user) { %>
+  <form class="commentForm" id="taskCommentForm" action="/plans/<%= plan._id %>/tasks/<%= task._id %>/comments" method="POST">
+    <textarea name="content"></textarea>
+    <button class='mainBtn' type="submit">Add Comment</button>
+  </form>
+<% } %>
+
+<%# Show all comments %>
+<h2>💬 <%= task.comments.length %> Comments</h2>
+<ul>
+  <% task.comments.forEach(comment => { %>
+    <li>
+      <%= comment.author.name %> - <%= comment.content %>
+    </li>
+  <% }) %>
+</ul>
+
 <%- include('../partials/footer.ejs') %>

@@ -38,7 +38,7 @@
 <% if (user) { %>
   <form class="commentForm" id="planCommentForm" action="/plans/<%= plan._id %>/comments" method="POST">
     <textarea name="content"></textarea>
-    <button type="submit">Add Comment</button>
+    <button class='mainBtn' type="submit">Add Comment</button>
   </form>
 <% } %>
 

@@ -150,7 +150,7 @@ function showTask(req, res) {
     Task.findById(req.params.taskId)
     .populate([
       {path: 'creator'},
-      // {path: 'comments.author'},
+      {path: 'comments.author'},
     ])
     .then(task => {
       res.render('tasks/showTask', {
@@ -227,7 +227,7 @@ function deleteTask(req, res) {
       if (task.creator.equals(req.user.profile._id)) {
         task.deleteOne()
         .then(() => {
-          res.redirect(`/plans/${plan._id}`)
+          res.redirect(`/plans/${plan._id}/`)
         })
       } else {
         throw new Error('✋ Not Authorized 🛑')
@@ -264,32 +264,32 @@ function addComment(req, res) {
 	})
 }
 
-// function addTaskComment(req, res) {
-//   Plan.findById(req.params.planId)
-//   .then(plan => {
-//     Task.findById(req.params.taskId)
-//     .then(task => {
-//       req.body.author = req.user.profile._id
-//       task.comments.push(req.body)
-//       task.save()
-//       .then(() => {
-//         res.redirect(`/plans/${plan._id}/tasks/${task._id}`)
-//       })
-//       .catch(err => {
-//         console.log(err)
-//         res.redirect('/plans')
-//       })
-//     })
-//     .catch(err => {
-//       console.log(err)
-//       res.redirect('/plans')
-//     })
-//   })
-//   .catch(err => {
-// 		console.log(err)
-// 		res.redirect('/plans')
-// 	})
-// }
+function addTaskComment(req, res) {
+  Plan.findById(req.params.planId)
+  .then(plan => {
+    Task.findById(req.params.taskId)
+    .then(task => {
+      req.body.author = req.user.profile._id
+      task.comments.push(req.body)
+      task.save()
+      .then(() => {
+        res.redirect(`/plans/${plan._id}/tasks/${task._id}`)
+      })
+      .catch(err => {
+        console.log(err)
+        res.redirect('/plans')
+      })
+    })
+    .catch(err => {
+      console.log(err)
+      res.redirect('/plans')
+    })
+  })
+  .catch(err => {
+		console.log(err)
+		res.redirect('/plans')
+	})
+}
 
 
 export {
@@ -306,5 +306,5 @@ export {
   editTask,
   updateTask,
   deleteTask,
-  // addTaskComment,
+  addTaskComment,
 }
