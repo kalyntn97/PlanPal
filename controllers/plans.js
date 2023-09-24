@@ -59,7 +59,6 @@ function edit(req, res) {
   Plan.findById(req.params.planId)
   .then(plan => {
     const planDate = plan.date.toISOString().slice(0, 16)
-    console.log(planDate)
     res.render('plans/edit', {
       plan,
       title: 'Edit a Plan',
@@ -171,6 +170,80 @@ function showTask(req, res) {
   })
 }
 
+function editTask(req, res) {
+  Plan.findById(req.params.planId)
+  .then(plan => {
+    Task.findById(req.params.taskId)
+    .then(task => {
+      const taskDate = task.date.toISOString().slice(0, 16)
+      res.render('tasks/editTask', {
+        plan,
+        task,
+        taskDate,
+        title: '',
+      })
+    })
+    .catch(err => {
+      console.log(err)
+      res.redirect('/plans')
+    })
+  })
+  .catch(err => {
+    console.log(err)
+    res.redirect('/plans')
+  })
+}
+
+function updateTask(req, res) {
+  Plan.findById(req.params.planId)
+  .then(plan => {
+    Task.findById(req.params.taskId)
+    .then(task => {
+      if (task.creator.equals(req.user.profile._id)) {
+        task.updateOne(req.body)
+        .then(() => {
+          res.redirect(`/plans/${plan._id}/tasks/${task._id}`)
+        })
+      } else {
+        throw new Error('✋ Not Authorized 🛑')
+      }
+    })
+    .catch(err => {
+      console.log(err)
+      res.redirect('/plans')
+    })
+  })
+  .catch(err => {
+		console.log(err)
+		res.redirect('/plans')
+	})
+}
+
+function deleteTask(req, res) {
+  Plan.findById(req.params.planId)
+  .then(plan => {
+    Task.findById(req.params.taskId)
+    .then(task => {
+      if (task.creator.equals(req.user.profile._id)) {
+        task.deleteOne()
+        .then(() => {
+          res.redirect(`/plans/${plan._id}`)
+        })
+      } else {
+        throw new Error('✋ Not Authorized 🛑')
+      }
+    })
+    .catch(err => {
+      console.log(err)
+    res.redirect('/plans')
+    })
+  })
+  .catch(err => {
+    console.log(err)
+  res.redirect('/plans')
+  })
+}
+ 
 function addComment(req, res) {
   Plan.findById(req.params.planId)
   .then(plan => {
@@ -230,5 +303,8 @@ export {
   addTask,
   newTask,
   showTask,
+  editTask,
+  updateTask,
+  deleteTask,
   // addTaskComment,
 }

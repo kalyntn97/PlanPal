@@ -21,6 +21,9 @@
           <a href='/plans/<%= plan._id %>/tasks/<%= task._id %>'>
             <button class='detailsBtn'>Details</button>
           </a>
+          <form action='/plans/<%= plan._id %>/tasks/<%= task._id %>?_method=DELETE' method='POST'>
+            <button class='deleteBtn' type='submit'>⊖</button>
+          </form>
         </li>
       <% }) %>
     </ul>
