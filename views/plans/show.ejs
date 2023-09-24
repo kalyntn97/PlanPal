@@ -1,13 +1,36 @@
 <%- include('../partials/html-head.ejs') %>
 <%- include('../partials/nav.ejs') %>
 
-<h1>Plan <%= plan.name %></h1>
+<h1>Plan <%= plan.name %> Details </h1>
+<%# Edit the plan %>
+<% if (plan.creator.equals(user?.profile._id)) { %>
+<a href='/plans/<%= plan._id %>/edit'>
+  <button class='mainBtn'>Edit Plan</button>
+</a>
+<% } %>
 <h3>
   Name: <%= plan.name %>
   Date: <%= plan.date %>
   Creator: <%= plan.creator.name %>
   Notes: <%= plan.notes %>
+  Tasks: 
+    <ul>
+      <% plan.tasks.forEach(task => { %>
+        <li>
+          <%= task.name %>
+          <a href='/plans/<%= plan._id %>/tasks/<%= task._id %>'>
+            <button class='detailsBtn'>Details</button>
+          </a>
+        </li>
+      <% }) %>
+    </ul>
+    <% if (user) { %>
+      <a href='/plans/<%= plan._id %>/tasks/newTask'>
+        <button class='subBtn'>Add Task</button>
+      </a>
+    <% } %>
 </h3>
+
 
 <% if (user) { %>
   <form class="commentForm" id="planCommentForm" action="/plans/<%= plan._id %>/comments" method="POST">

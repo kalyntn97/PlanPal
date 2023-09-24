@@ -1,12 +1,13 @@
 import { populate } from 'dotenv'
 import { Plan } from '../models/plan.js'
+import { Task } from '../models/task.js'
 
 function index(req, res) {
   Plan.find({})
   .then(plans => {
 		res.render('plans/index', {
 			plans,
-			title: ''
+			title: 'All Plans',
 		})
 	})
 	.catch(err => {
@@ -19,7 +20,7 @@ function create(req, res) {
   req.body.creator = req.user.profile._id
   Plan.create(req.body)
   .then(plan => {
-    res.render('/plans')
+    res.redirect('/plans')
   })
   .catch(err => {
 		console.log(err)
@@ -31,18 +32,143 @@ function show(req, res) {
 	Plan.findById(req.params.planId)
   .populate([
     {path: 'creator'},
-    {path: 'comments.author'}
+    {path: 'tasks'},
+    {path: 'comments.author'},
   ])
 	.then(plan => {
-		res.render('plans/show', {
-			plan,
-			title: ''
-		})
-	})
+    Task.find({})
+    .then(tasks => {
+      res.render('plans/show', {
+        plan,
+        tasks,
+        title:'Plan Details',
+      })  
+    })
+    .catch(err => {
+      console.log(err)
+      res.redirect('/')
+    })
+  })
 	.catch(err => {
 		console.log(err)
 		res.redirect('/')
 	})
+}
+
+function edit(req, res) {
+  Plan.findById(req.params.planId)
+  .then(plan => {
+    const planDate = plan.date.toISOString().slice(0, 16)
+    console.log(planDate)
+    res.render('plans/edit', {
+      plan,
+      title: 'Edit a Plan',
+      planDate,
+    })
+  })
+  .catch(err => {
+		console.log(err)
+		res.redirect('/plans')
+	})
+}
+
+function update(req, res) {
+  Plan.findById(req.params.planId)
+  .then(plan => {
+    if (plan.creator.equals(req.user.profile._id)) {
+      plan.updateOne(req.body)
+      .then(() => {
+        res.redirect(`/plans/${plan._id}`)
+      })
+    } else {
+      throw new Error('✋ Not Authorized 🛑')
+    }
+  })
+  .catch(err => {
+		console.log(err)
+		res.redirect('/plans')
+	})
+}
+
+function deletePlan(req, res) {
+  Plan.findById(req.params.planId)
+  .then(plan => {
+    if (plan.creator.equals(req.user.profile._id)) {
+      plan.deleteOne()
+      .then(() => {
+        res.redirect(`/plans/`)
+      })
+    } else {
+      throw new Error('✋ Not Authorized 🛑')
+    }
+  })
+  .catch(err => {
+		console.log(err)
+		res.redirect('/plans')
+	})
+}
+
+function newTask(req, res) {
+  Plan.findById(req.params.planId)
+  .then(plan => {
+    res.render('tasks/newTask', {
+      plan,
+      title: ''
+    })
+  })
+}
+
+function addTask(req, res) {
+  Plan.findById(req.params.planId)
+  .then(plan => {
+    req.body.creator = req.user.profile._id
+    Task.create(req.body)
+    .then(task => {
+      plan.tasks.push(task._id)
+      plan.save()
+      .then(() => {
+        res.redirect(`/plans/${plan._id}`)
+      })
+      .catch(err => {
+        console.log(err)
+        res.redirect('/plans')
+      })
+    })
+    .catch(err => {
+      console.log(err)
+      res.redirect('/plans')
+    })
+  })
+  .catch(err => {
+    console.log(err)
+    res.redirect('/plans')
+  })
+}
+
+function showTask(req, res) {
+  Plan.findById(req.params.planId)
+  .then(plan => {
+    Task.findById(req.params.taskId)
+    .populate([
+      {path: 'creator'},
+      // {path: 'comments.author'},
+    ])
+    .then(task => {
+      res.render('tasks/showTask', {
+        plan,
+        task,
+        title: '',
+      })
+    })
+    .catch(err => {
+      console.log(err)
+      res.redirect('/plans')
+    })
+  })
+  .catch(err => {
+    console.log(err)
+    res.redirect('/plans')
+  })
 }
 
 function addComment(req, res) {
@@ -65,9 +191,44 @@ function addComment(req, res) {
 	})
 }
 
+// function addTaskComment(req, res) {
+//   Plan.findById(req.params.planId)
+//   .then(plan => {
+//     Task.findById(req.params.taskId)
+//     .then(task => {
+//       req.body.author = req.user.profile._id
+//       task.comments.push(req.body)
+//       task.save()
+//       .then(() => {
+//         res.redirect(`/plans/${plan._id}/tasks/${task._id}`)
+//       })
+//       .catch(err => {
+//         console.log(err)
+//         res.redirect('/plans')
+//       })
+//     })
+//     .catch(err => {
+//       console.log(err)
+//       res.redirect('/plans')
+//     })
+//   })
+//   .catch(err => {
+// 		console.log(err)
+// 		res.redirect('/plans')
+// 	})
+// }
+
+
 export {
   index,
   show,
   create,
+  edit,
+  update,
+  deletePlan as delete,
   addComment,
+  addTask,
+  newTask,
+  showTask,
+  // addTaskComment,
 }

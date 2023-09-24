@@ -1,0 +1,14 @@
+<%- include('../partials/html-head.ejs') %>
+<%- include('../partials/nav.ejs') %>
+
+<h1>Edit plan</h1>
+<form  class="editForm" id="editPlanForm" action="/plans/<%= plan._id %>?_method=PUT" method="POST">
+  <label>Name: <input type="string" name="name" autocomplete="off" value='<%= plan.name %>'></label>
+  <label>Date: <input type="datetime-local" name="date" value='<%= planDate %>'></label>
+  <label>Notes: <input type="string", name="notes" value='<%= plan.notes %>'></label>
+  <button class='mainBtn' type="submit">Save</button>
+</form>
+
+<%- include('../partials/footer.ejs') %>
+
+

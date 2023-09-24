@@ -1,0 +1,14 @@
+<%- include('../partials/html-head.ejs') %>
+<%- include('../partials/nav.ejs') %>
+
+<h1>Task <%= task.name %> Details </h1>
+<%# Edit the plan %>
+<h3>
+  Name: <%= task.name %>
+  Date: <%= task.date %>
+  Creator: <%= task.creator.name %>
+  Status: <%= task.status %>
+  Notes: <%= task.notes %>
+</h3>
+
+<%- include('../partials/footer.ejs') %>

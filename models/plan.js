@@ -13,7 +13,7 @@ const planSchema = new Schema({
   creator: {type: Schema.Types.ObjectId, ref: 'Profile'},
   notes: String,
   // members: [{type: Schema.Types.ObjectId, ref: 'Profile'}],
-  // tasks: [{type: Schema.Types.ObjectId, ref: 'Task'}],
+  tasks: [{type: Schema.Types.ObjectId, ref: 'Task'}],
   comments: [commentSchema]
 }, {
   timestamps: true
