@@ -6,14 +6,14 @@
   <section class='left'>
     <% if (user) { %>
       <h1>Add a plan</h1>
-      <form  class="addForm" id="addPlanForm" action="/plans" method="POST">
+      <form  class="add-form" id="addPlanForm" action="/plans" method="POST">
         <label for='planName-input'>Name</label>
         <input type="string" name="name" autocomplete="off" id='planName-input'>
         <label for='planDate-input'>Date</label>
         <input type="date" name="date" id='planDate-input'>
         <label for='planNotes-input'>Notes</label>
         <textarea name='notes' id='planNotes-input'></textarea>
-        <button class='mainBtn' type="submit">Add Plan</button>
+        <button class='main-btn' type="submit">Add Plan</button>
       </form>
       <% } %>
   </section>
@@ -34,13 +34,13 @@
             <td><%= plan.date %></td>
             <td>
               <a href="/plans/<%= plan._id %>">
-                <button class='detailsBtn'>Details</button>
+                <button class='details-btn'>Details</button>
               </a>
             </td>
             <% if (plan.creator.equals(user?.profile._id)) { %>
               <td>
                 <form action='/plans/<%= plan._id %>?_method=DELETE' method='POST'>
-                  <button class='deleteBtn' type='submit'>⊖</button>
+                  <button class='delete-btn' type='submit'>⊖</button>
                 </form>
               </td>
               <% } %>

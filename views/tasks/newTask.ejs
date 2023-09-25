@@ -4,7 +4,7 @@
 
 <main>
   <h1>Add a Task</h1>
-  <form class='addForm' id='addTaskForm' action='/plans/<%= plan._id %>/tasks' method='POST'>
+  <form class='add-form' id='addTaskForm' action='/plans/<%= plan._id %>/tasks' method='POST'>
     <label for='taskName-input'>Name</label>
     <input type='string' name='name' autocomplete='off' id='taskName-input'>
     <label for='taskDate-input'>Date</label>
@@ -16,7 +16,7 @@
     </select>
     <label for='taskNotes-input'>Notes</label>
     <textarea name='notes' id='taskNotes-input'></textarea>
-    <button class='mainBtn' type='submit'>Add Task</button>
+    <button class='main-btn' type='submit'>Add Task</button>
   </form>
 </main>
   

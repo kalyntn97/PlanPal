@@ -5,14 +5,20 @@
   <h1>Welcome to PlanPal </h1>
   <h2><%= user ? user.profile.name : "" %></h2>
   <% if (user?.profile.avatar) { %>
-    <div>
+    <div id='user-box'>
       <img
         src="<%= user.profile.avatar %>"
         alt="<%= user.profile.name %> avatar"
       />
+      <a class='link-no-style' href='/profiles/<%= user.profile._id %>'>
+        <button class='main-btn'>See your profile</button>
+      </a>
+      <a class='link-no-style' href='/plans'>
+        <button class='main-btn'>See your plans</button>
+      </a>
     </div>
   <% } else { %>    
-    <div id='signInBox'>
+    <div id='sign-in-box'>
       <h3>Get Started ▷</h3>
       <div
         id="g_id_onload"

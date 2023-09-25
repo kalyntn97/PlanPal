@@ -65,7 +65,7 @@ nav > a.active {
   text-decoration: none;
 }
 
-.link {
+.link-no-style {
   text-decoration: none;
 }
 
@@ -73,16 +73,26 @@ nav > a.active {
   font-family: "Font Awesome 5 Free";
 }
 
-#signInBox {
+#sign-in-box {
   display: flex;
   align-items: center;
 }
 
-#signInBox > div {
+#sign-in-box > div {
   padding: 5px;
 }
 
-.mainBtn {
+#user-box > * {
+  display: flex;
+  flex-direction: row;
+  margin: auto;
+}
+
+#user-box > img {
+  padding-bottom: 40px;
+}
+
+.main-btn {
   background-color: #4AFCE2;
   border: none;
   border-radius: 10px;
@@ -90,44 +100,44 @@ nav > a.active {
   margin: 5px;
 }
 
-.mainBtn:hover {
+.main-btn:hover {
   background-color: #44e9d0;
   box-shadow: 0 3px 3px 0 rgb(175, 175, 175);
   transition: all 0.2s;
 }
 
-.detailsBtn {
+.details-btn {
   background-color: #DDEAF5;
   border: none;
   border-radius: 10px;
   padding: 7px;
 }
 
-.detailsBtn:hover {
+.details-btn:hover {
   background-color: #b9c5d1;
   box-shadow: 0 3px 3px 0 rgb(174, 174, 174);
   transition: all 0.2s;
 }
 
-.deleteBtn {
+.delete-btn {
   background: none;
   border: none;
   color: #c62b88;
 }
 
-.deleteBtn:hover{
+.delete-btn:hover{
   font-size: larger;
   transition: all 0.2s;
 }
 
-.subBtn {
+.sub-btn {
   background: none;
   border: 2px solid #00C9AF;
   color: #00C9AF;
   margin: 5px
 }
 
-.subBtn:hover {
+.sub-btn:hover {
   background-color: #fbedf4;
   color: #4AFCE2;
   border: 2px solid #4AFCE2;
@@ -135,6 +145,7 @@ nav > a.active {
 }
 
 input, textarea, select {
+  border: 1px solid #EFC3D9;
   border-radius: 4px;
   background-color: #ffe5ff;
   width: 700px;
@@ -142,21 +153,21 @@ input, textarea, select {
   margin: 10px;
 }
 
-.commentForm {
+.comment-form {
   display: flex;
   align-items: center;
 
 }
-.commentForm > button {
+.comment-form > button {
   margin: 20px;
 }
 
-.boxHeading {
+.box-head {
   display: flex;
   flex-direction: row;
   align-items: center;
 }
 
-.boxHeading > a {
+.box-head > a {
   margin-left: auto;
 }

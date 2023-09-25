@@ -4,17 +4,17 @@
 
 <main>
   <section>
-    <div class='boxHeading'>
+    <div class='box-head'>
       <h1>Task <%= task.name %> Details </h1>
       <%# Edit the task %>
       <% if (task.creator.equals(user?.profile._id)) { %>
         <a href='/plans/<%= plan._id %>/tasks/<%= task._id %>/editTask'>
-          <button class='mainBtn'>Edit Task</button>
+          <button class='main-btn'>Edit Task</button>
         </a>
         <% } %>
     </div>
       <%# Show the task %>
-    <div class='detailsBox'>
+    <div class='details-box'>
       <div>
         <p>Name: <%= task.name %></p>
         <p>Date: <%= task.date %></p>
@@ -30,9 +30,9 @@
   <%# Comments Section %>
   <section>
     <% if (user) { %>
-      <form class="commentForm" id="taskCommentForm" action="/plans/<%= plan._id %>/tasks/<%= task._id %>/comments" method="POST">
+      <form class="comment-form" id="taskcomment-form" action="/plans/<%= plan._id %>/tasks/<%= task._id %>/comments" method="POST">
         <textarea name="content"></textarea>
-        <button class='mainBtn' type="submit">Add Comment</button>
+        <button class='main-btn' type="submit">Add Comment</button>
       </form>
       <% } %>
       

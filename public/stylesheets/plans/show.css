@@ -1,4 +1,4 @@
-.detailsBox {
+.details-box {
   display: flex;
   flex-direction: row;
   border-radius: 10px;
@@ -9,13 +9,13 @@
   margin-bottom: 60px;
 }
 
-.detailsBox > div {
+.details-box > div {
   display: flex;
   flex-direction: column;
   padding: 10px;
 } 
 
-.detailsBox > * {
+.details-box > * {
   flex: 1 2;
 }
 

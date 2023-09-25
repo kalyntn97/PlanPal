@@ -4,7 +4,7 @@
 
 <main>
   <h1>Edit task</h1>
-  <form class='editForm' id='editTaskForm' action='/plans/<%= plan._id %>/tasks/<%= task._id %>?_method=PUT' method='POST'>
+  <form class='edit-form' id='editTaskForm' action='/plans/<%= plan._id %>/tasks/<%= task._id %>?_method=PUT' method='POST'>
     <label for='taskName-input'>Name</label>
     <input type='string' name='name' autocomplete='off' id='taskName-input' value='<%= task.name %>'>
     <label for='taskDate-input'>Date</label>
@@ -16,7 +16,7 @@
     </select>
     <label for='taskNotes-input'>Notes</label>
     <textarea name='taskNotes-input' value='<%= task.notes %>'></textarea>
-    <button class='mainBtn' type='submit'>Save</button>
+    <button class='main-btn' type='submit'>Save</button>
   </form>
 </main>
   

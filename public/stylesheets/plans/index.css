@@ -1,5 +1,4 @@
-
-.addForm {
+.add-form {
   display: flex;
   flex-direction: column;
   border-radius: 10px;
@@ -8,7 +7,7 @@
   background: #FFF4FE;
 }
 
-.addForm > button {
+.add-form > button {
   margin: 20px;
   width: fit-content;
   margin-left: auto;
