@@ -1,20 +1,23 @@
 <%- include('../partials/html-head.ejs') %>
+<link rel='stylesheet' href='/stylesheets/plans/index.css'/>
 <%- include('../partials/nav.ejs') %>
 
-<h1>Add a Task</h1>
-<form class='addForm' id='addTaskForm' action='/plans/<%= plan._id %>/tasks' method='POST'>
-  <label for='taskName-input'>Name</label>
-  <input type='string' name='name' autocomplete='off' id='taskName-input'>
-  <label for='taskDate-input'>Date</label>
-  <input type='datetime-local' name='date' id='taskDate-input'>
-  <label for='taskStatus-input'>Status</label>
+<main>
+  <h1>Add a Task</h1>
+  <form class='addForm' id='addTaskForm' action='/plans/<%= plan._id %>/tasks' method='POST'>
+    <label for='taskName-input'>Name</label>
+    <input type='string' name='name' autocomplete='off' id='taskName-input'>
+    <label for='taskDate-input'>Date</label>
+    <input type='datetime-local' name='date' id='taskDate-input'>
+    <label for='taskStatus-input'>Status</label>
     <select name='status' id='taskStatus-input'>
       <option value='Done'>Done</option>
       <option value='Pending'>Pending</option>
     </select>
-  <label for='taskNotes-input'>Notes</label>
-  <textarea name='notes' id='taskNotes-input'></textarea>
-  <button class='mainBtn' type='submit'>Add Task</button>
-</form>
-
+    <label for='taskNotes-input'>Notes</label>
+    <textarea name='notes' id='taskNotes-input'></textarea>
+    <button class='mainBtn' type='submit'>Add Task</button>
+  </form>
+</main>
+  
 <%- include('../partials/footer.ejs') %>

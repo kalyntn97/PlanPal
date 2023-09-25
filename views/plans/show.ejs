@@ -1,57 +1,68 @@
 <%- include('../partials/html-head.ejs') %>
+<link rel='stylesheet' href='/stylesheets/plans/show.css'/>
 <%- include('../partials/nav.ejs') %>
 
-<h1>Plan <%= plan.name %> Details </h1>
-<%# Edit the plan %>
-<% if (plan.creator.equals(user?.profile._id)) { %>
-<a href='/plans/<%= plan._id %>/edit'>
-  <button class='mainBtn'>Edit Plan</button>
-</a>
-<% } %>
-<h3>
-  Name: <%= plan.name %>
-  Date: <%= plan.date %>
-  Creator: <%= plan.creator.name %>
-  Notes: <%= plan.notes %>
-  Tasks: 
+<main>
+  <section>
+    <div class='boxHeading'>
+      <h1>Plan <%= plan.name %> Details </h1>
+      <%# Edit the plan %>
+      <% if (plan.creator.equals(user?.profile._id)) { %>
+        <a href='/plans/<%= plan._id %>/edit'>
+          <button class='mainBtn'>Edit Plan</button>
+        </a>
+        <% } %>
+    </div>
+    <div class='detailsBox'>
+      <div>
+        <p>Name: <%= plan.name %></p>
+        <p>Date: <%= plan.date %></p>
+        <p>Creator: <%= plan.creator.name %></p>
+      </div> 
+      <div>
+        <p>Notes: <%= plan.notes %></p>
+        <p>Tasks: 
+          <ul>
+            <% plan.tasks.forEach(task => { %>
+              <li>
+                <%= task.name %>
+                <a class='link' href='/plans/<%= plan._id %>/tasks/<%= task._id %>'>
+                  <button class='detailsBtn'>Details</button>
+                </a>
+                <form action='/plans/<%= plan._id %>/tasks/<%= task._id %>?_method=DELETE' method='POST'>
+                  <button class='deleteBtn' type='submit'>⊖</button>
+                </form>
+              </li>
+            <% }) %>
+          </ul>
+          <% if (user) { %>
+            <a href='/plans/<%= plan._id %>/tasks/newTask'>
+              <button class='subBtn'>Add Task</button>
+            </a>
+          <% } %>
+        </p>
+      </div> 
+    </div>
+  </section>
+        
+  <section>
+    <% if (user) { %>
+      <form class="commentForm" id="planCommentForm" action="/plans/<%= plan._id %>/comments" method="POST">
+        <textarea name="content"></textarea>
+        <button class='mainBtn' type="submit">Add Comment</button>
+      </form>
+    <% } %>
+      
+    <%# Show all comments %>
+    <h2>💬 <%= plan.comments.length %> Comments</h2>
     <ul>
-      <% plan.tasks.forEach(task => { %>
+      <% plan.comments.forEach(comment => { %>
         <li>
-          <%= task.name %>
-          <a href='/plans/<%= plan._id %>/tasks/<%= task._id %>'>
-            <button class='detailsBtn'>Details</button>
-          </a>
-          <form action='/plans/<%= plan._id %>/tasks/<%= task._id %>?_method=DELETE' method='POST'>
-            <button class='deleteBtn' type='submit'>⊖</button>
-          </form>
+          <%= comment.author.name %> - <%= comment.content %>
         </li>
       <% }) %>
     </ul>
-    <% if (user) { %>
-      <a href='/plans/<%= plan._id %>/tasks/newTask'>
-        <button class='subBtn'>Add Task</button>
-      </a>
-    <% } %>
-</h3>
-
-
-<% if (user) { %>
-  <form class="commentForm" id="planCommentForm" action="/plans/<%= plan._id %>/comments" method="POST">
-    <textarea name="content"></textarea>
-    <button class='mainBtn' type="submit">Add Comment</button>
-  </form>
-<% } %>
-
-<%# Show all comments %>
-<h2>💬 <%= plan.comments.length %> Comments</h2>
-<ul>
-  <% plan.comments.forEach(comment => { %>
-    <li>
-      <%= comment.author.name %> - <%= comment.content %>
-    </li>
-  <% }) %>
-</ul>
-  
-
+  </section>   
+</main>
 
 <%- include('../partials/footer.ejs') %>

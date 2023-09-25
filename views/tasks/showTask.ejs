@@ -1,38 +1,52 @@
 <%- include('../partials/html-head.ejs') %>
+<link rel='stylesheet' href='/stylesheets/plans/show.css'/>
 <%- include('../partials/nav.ejs') %>
 
-<h1>Task <%= task.name %> Details </h1>
-<%# Edit the task %>
-<% if (task.creator.equals(user?.profile._id)) { %>
-  <a href='/plans/<%= plan._id %>/tasks/<%= task._id %>/editTask'>
-    <button class='mainBtn'>Edit Task</button>
-  </a>
-<% } %>
-<%# Show the task %>
-<h3>
-  Name: <%= task.name %>
-  Date: <%= task.date %>
-  Creator: <%= task.creator.name %>
-  Status: <%= task.status %>
-  Notes: <%= task.notes %>
-</h3>
-
-<%# Comments Section %>
-<% if (user) { %>
-  <form class="commentForm" id="taskCommentForm" action="/plans/<%= plan._id %>/tasks/<%= task._id %>/comments" method="POST">
-    <textarea name="content"></textarea>
-    <button class='mainBtn' type="submit">Add Comment</button>
-  </form>
-<% } %>
-
-<%# Show all comments %>
-<h2>💬 <%= task.comments.length %> Comments</h2>
-<ul>
-  <% task.comments.forEach(comment => { %>
-    <li>
-      <%= comment.author.name %> - <%= comment.content %>
-    </li>
-  <% }) %>
-</ul>
+<main>
+  <section>
+    <div class='boxHeading'>
+      <h1>Task <%= task.name %> Details </h1>
+      <%# Edit the task %>
+      <% if (task.creator.equals(user?.profile._id)) { %>
+        <a href='/plans/<%= plan._id %>/tasks/<%= task._id %>/editTask'>
+          <button class='mainBtn'>Edit Task</button>
+        </a>
+        <% } %>
+    </div>
+      <%# Show the task %>
+    <div class='detailsBox'>
+      <div>
+        <p>Name: <%= task.name %></p>
+        <p>Date: <%= task.date %></p>
+        <p>Creator: <%= task.creator.name %></p>
+      </div>
+      <div>
+        <p>Status: <%= task.status %></p>
+        <p>Notes: <%= task.notes %></p>
+      </div>
+    </div>
+  </section>
+  
+  <%# Comments Section %>
+  <section>
+    <% if (user) { %>
+      <form class="commentForm" id="taskCommentForm" action="/plans/<%= plan._id %>/tasks/<%= task._id %>/comments" method="POST">
+        <textarea name="content"></textarea>
+        <button class='mainBtn' type="submit">Add Comment</button>
+      </form>
+      <% } %>
+      
+      <%# Show all comments %>
+      <h2>💬 <%= task.comments.length %> Comments</h2>
+      <ul>
+        <% task.comments.forEach(comment => { %>
+          <li>
+            <%= comment.author.name %> - <%= comment.content %>
+          </li>
+          <% }) %>
+        </ul>
+        
+  </section>    
+</main>
 
 <%- include('../partials/footer.ejs') %>

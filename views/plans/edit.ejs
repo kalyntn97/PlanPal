@@ -1,17 +1,20 @@
 <%- include('../partials/html-head.ejs') %>
+<link rel='stylesheet' href='/stylesheets/plans/edit.css' />
 <%- include('../partials/nav.ejs') %>
 
-<h1>Edit plan</h1>
-<form  class="editForm" id="editPlanForm" action="/plans/<%= plan._id %>?_method=PUT" method="POST">
-  <label for='planName-input'>Name</label>
-  <input type="string" name="name" autocomplete="off" value='<%= plan.name %>'>
-  <label for='planDate-input'>Date</label>
-  <input type="datetime-local" name="date" value='<%= planDate %>'>
-  <label for='planNotes-input'>Notes</label>
-  <textarea type="string", name="notes" value='<%= plan.notes %>'></textarea>
-  <button class='mainBtn' type="submit">Save</button>
-</form>
-
+<main>
+  <h1>Edit plan</h1>
+  <form  class="editForm" id="editPlanForm" action="/plans/<%= plan._id %>?_method=PUT" method="POST">
+    <label for='planName-input'>Name</label>
+    <input type="string" name="name" autocomplete="off" value='<%= plan.name %>'>
+    <label for='planDate-input'>Date</label>
+    <input type="datetime-local" name="date" value='<%= planDate %>'>
+    <label for='planNotes-input'>Notes</label>
+    <textarea type="string", name="notes" value='<%= plan.notes %>'></textarea>
+    <button class='mainBtn' type="submit">Save</button>
+  </form>
+</main>
+  
 <%- include('../partials/footer.ejs') %>
 
 

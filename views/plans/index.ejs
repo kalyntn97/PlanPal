@@ -1,51 +1,56 @@
 <%- include('../partials/html-head.ejs') %>
+<link rel='stylesheet' href='/stylesheets/plans/index.css' />
 <%- include('../partials/nav.ejs') %>
 
-<% if (user) { %>
-  <h1>Add a plan</h1>
-  <form  class="addForm" id="addPlanForm" action="/plans" method="POST">
-    <label for='planName-input'>Name</label>
-    <input type="string" name="name" autocomplete="off" id='planName-input'>
-    <label for='planDate-input'>Date</label>
-    <input type="date" name="date" id='planDate-input'>
-    <label for='planNotes-input'>Notes</label>
-    <textarea name='notes' id='planNotes-input'></textarea>
-  <button class='mainBtn' type="submit">Add a plan</button>
-  </form>
-<% } %>
-
-<h1>All plans</h1>
-<table>
-  <thead>
-    <tr>
-      <th>Date</th>
-      <th>Name</th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% plans.forEach(plan => { %>
-      <tr>
-        <td><%= plan.name %></td>
-        <td><%= plan.date %></td>
-        <td>
-          <a href="/plans/<%= plan._id %>">
-            <button class='detailsBtn'>Details</button>
-          </a>
-        </td>
-        <% if (plan.creator.equals(user?.profile._id)) { %>
-          <td>
-            <form action='/plans/<%= plan._id %>?_method=DELETE' method='POST'>
-              <button class='deleteBtn' type='submit'>⊖</button>
-            </form>
-          </td>
-        <% } %>
-      </tr>
-    <% }) %>
-  </tbody>
-</table>
-
-
-
+<main>
+  <section class='left'>
+    <% if (user) { %>
+      <h1>Add a plan</h1>
+      <form  class="addForm" id="addPlanForm" action="/plans" method="POST">
+        <label for='planName-input'>Name</label>
+        <input type="string" name="name" autocomplete="off" id='planName-input'>
+        <label for='planDate-input'>Date</label>
+        <input type="date" name="date" id='planDate-input'>
+        <label for='planNotes-input'>Notes</label>
+        <textarea name='notes' id='planNotes-input'></textarea>
+        <button class='mainBtn' type="submit">Add Plan</button>
+      </form>
+      <% } %>
+  </section>
+  
+  <section class='right'>
+    <h1>All plans</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Name</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% plans.forEach(plan => { %>
+          <tr>
+            <td><%= plan.name %></td>
+            <td><%= plan.date %></td>
+            <td>
+              <a href="/plans/<%= plan._id %>">
+                <button class='detailsBtn'>Details</button>
+              </a>
+            </td>
+            <% if (plan.creator.equals(user?.profile._id)) { %>
+              <td>
+                <form action='/plans/<%= plan._id %>?_method=DELETE' method='POST'>
+                  <button class='deleteBtn' type='submit'>⊖</button>
+                </form>
+              </td>
+              <% } %>
+            </tr>
+            <% }) %>
+          </tbody>
+        </table>
+  </section>
+</main>
+      
+      
+      
 <%- include('../partials/footer.ejs') %>

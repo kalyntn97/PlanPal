@@ -7,7 +7,7 @@ function index(req, res) {
   .then(plans => {
 		res.render('plans/index', {
 			plans,
-			title: 'All Plans',
+			title: 'My Plans',
 		})
 	})
 	.catch(err => {
@@ -41,7 +41,7 @@ function show(req, res) {
       res.render('plans/show', {
         plan,
         tasks,
-        title:'Plan Details',
+        title:'My Plans',
       })  
     })
     .catch(err => {
@@ -61,7 +61,7 @@ function edit(req, res) {
     const planDate = plan.date.toISOString().slice(0, 16)
     res.render('plans/edit', {
       plan,
-      title: 'Edit a Plan',
+      title: 'My Plans',
       planDate,
     })
   })
@@ -112,7 +112,7 @@ function newTask(req, res) {
   .then(plan => {
     res.render('tasks/newTask', {
       plan,
-      title: ''
+      title: 'My Plans'
     })
   })
 }
@@ -156,7 +156,7 @@ function showTask(req, res) {
       res.render('tasks/showTask', {
         plan,
         task,
-        title: '',
+        title: 'My Plans',
       })
     })
     .catch(err => {
@@ -180,7 +180,7 @@ function editTask(req, res) {
         plan,
         task,
         taskDate,
-        title: '',
+        title: 'My Plans',
       })
     })
     .catch(err => {

@@ -5,27 +5,10 @@
 <body>
   <nav>
     <% if (user) { %>
-      <a href="/profiles">My Friends</a>
-      <a href="/plans">My Plans</a>
+      <a href="/profiles" class="<%= title === "My Friends" ? "active" : "" %>">My Friends</a>
+      <a href="/plans" class="<%= title === "My Plans" ? "active" : "" %>">My Plans</a>
       <a href="/auth/logout" class="right">
         <button type="submit">Logout</button>
       </a>
-    <% } else { %>
-      <div 
-        id="g_id_onload"
-        data-client_id="<%= googleClientID %>"
-        data-login_uri="/auth/google"
-        data-auto_prompt="false"
-        data-prompt_parent_id="g_id_onload"
-      ></div>
-      <div 
-        class="g_id_signin right"
-        data-type="standard"
-        data-size="large"
-        data-theme="outline"
-        data-text="sign_in_with"
-        data-shape="rectangular"
-        data-logo_alignment="left"
-      ></div>
     <% } %>
   </nav>

@@ -1,0 +1,14 @@
+.editForm {
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+  border: 1px solid #EFC3D9;
+  padding: 20px;
+  background: #FFF4FE;
+}
+
+.editForm > button {
+  margin: 20px;
+  width: fit-content;
+  margin-left: auto;
+}

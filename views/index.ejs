@@ -2,7 +2,8 @@
 <%- include('./partials/nav') %>
 
 <main>
-  <h1>hello, <%= user ? user.profile.name : "friend" %></h1>
+  <h1>Welcome to PlanPal </h1>
+  <h2><%= user ? user.profile.name : "" %></h2>
   <% if (user?.profile.avatar) { %>
     <div>
       <img
@@ -10,7 +11,24 @@
         alt="<%= user.profile.name %> avatar"
       />
     </div>
+  <% } else { %>    
+    <div id='signInBox'>
+      <h3>Get Started ▷</h3>
+      <div
+        id="g_id_onload"
+        data-client_id="<%= googleClientID %>"
+        data-login_uri="/auth/google">
+      </div>
+      <div
+        class="g_id_signin right"
+        data-type="icon"
+        data-size="large"
+        data-theme="filled_blue"
+        data-shape="circle">
+      </div>
+    </div>
   <% } %>
+
 </main>
 
 <%- include('./partials/footer') %>

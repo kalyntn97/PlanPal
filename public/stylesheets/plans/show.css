@@ -1,0 +1,24 @@
+.detailsBox {
+  display: flex;
+  flex-direction: row;
+  border-radius: 10px;
+  border: 1px solid #EFC3D9;
+  background-color: #FFF4FE;
+  padding: 10px;
+  margin-top: 5px;
+  margin-bottom: 60px;
+}
+
+.detailsBox > div {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+} 
+
+.detailsBox > * {
+  flex: 1 2;
+}
+
+li > form {
+  display: inline;
+}
