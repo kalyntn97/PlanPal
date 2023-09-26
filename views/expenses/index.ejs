@@ -4,6 +4,10 @@
 
 
 <section>
+  
+</section>
+
+<section>
   <h1>All Expenses</h1>
   <table>
     <thead>
@@ -16,9 +20,21 @@
     <tbody>
       <% expenses.forEach(expense => { %>
         <% if (expense.creator.equals(user?.profile._id)) { %>
-          
-          <% } %>
-          <% }) %>
-        </tbody>
-      </table>
+           <td><%= expense.date %></td> 
+           <td><%= expense.name %></td>
+           <td><%= expense.cost %></td>
+           <td>
+            <a class='link-no-style' href='/expenses/<%= expense._id %>'>
+              <button class='details-btn'>Details</button>
+            </a>
+           </td>
+           <td>
+            <form>
+              <button class='delete-btn' type='submit'>⊖</button>
+            </form>
+           </td>
+        <% } %>
+      <% }) %>
+    </tbody>
+  </table>
 </section>
