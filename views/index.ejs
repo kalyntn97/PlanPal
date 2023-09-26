@@ -1,37 +1,38 @@
 <%- include('./partials/html-head') %>
+<link rel='stylesheet' href='/stylesheets/user.css' />
 <%- include('./partials/nav') %>
 
 <main>
   <h1>Welcome to PlanPal </h1>
-  <h2><%= user ? user.profile.name : "" %></h2>
-  <% if (user?.profile.avatar) { %>
-    <div id='user-box'>
-      <img
-        src="<%= user.profile.avatar %>"
-        alt="<%= user.profile.name %> avatar"
-      />
-      <a class='link-no-style' href='/profiles/<%= user.profile._id %>'>
-        <button class='main-btn'>See your profile</button>
-      </a>
-      <a class='link-no-style' href='/plans'>
-        <button class='main-btn'>See your plans</button>
-      </a>
-    </div>
-  <% } else { %>    
-    <div id='sign-in-box'>
-      <h3>Get Started ▷</h3>
-      <div
-        id="g_id_onload"
-        data-client_id="<%= googleClientID %>"
-        data-login_uri="/auth/google">
+  <div class='user-box'>
+    <h2><%= user ? user.profile.name : "" %></h2>
+    <% if (user?.profile.avatar) { %>
+        <img
+          src="<%= user.profile.avatar %>"
+          alt="<%= user.profile.name %> avatar"
+        />
+        <a class='link-no-style' href='/profiles/<%= user.profile._id %>'>
+          <button class='main-btn'>See your profile</button>
+        </a>
+        <a class='link-no-style' href='/plans'>
+          <button class='main-btn'>See your plans</button>
+        </a>
       </div>
-      <div
-        class="g_id_signin right"
-        data-type="icon"
-        data-size="large"
-        data-theme="filled_blue"
-        data-shape="circle">
-      </div>
+    <% } else { %>    
+      <div class='sign-in-box'>
+        <h3>Get Started ▷</h3>
+        <div
+          id="g_id_onload"
+          data-client_id="<%= googleClientID %>"
+          data-login_uri="/auth/google">
+        </div>
+        <div
+          class="g_id_signin right"
+          data-type="icon"
+          data-size="large"
+          data-theme="filled_blue"
+          data-shape="circle">
+        </div>
     </div>
   <% } %>
 

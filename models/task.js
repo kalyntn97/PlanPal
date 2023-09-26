@@ -13,6 +13,7 @@ const taskSchema = new Schema({
   creator: {type: Schema.Types.ObjectId, ref: 'Profile'},
   notes: String,
   status: String,
+  expense: {type: Schema.Types.ObjectId, ref: 'Expense'},
   comments: [commentSchema],
 }, {
   timestamps: true

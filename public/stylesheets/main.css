@@ -73,25 +73,6 @@ nav > a.active {
   font-family: "Font Awesome 5 Free";
 }
 
-#sign-in-box {
-  display: flex;
-  align-items: center;
-}
-
-#sign-in-box > div {
-  padding: 5px;
-}
-
-#user-box > * {
-  display: flex;
-  flex-direction: row;
-  margin: auto;
-}
-
-#user-box > img {
-  padding-bottom: 40px;
-}
-
 .main-btn {
   background-color: #4AFCE2;
   border: none;

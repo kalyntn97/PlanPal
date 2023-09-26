@@ -1,0 +1,35 @@
+<%- include('../partials/html-head.ejs') %>
+<link rel='stylesheet' href='/stylesheets/user.css' />
+<%- include('../partials/nav.ejs') %>
+
+<main>
+  <div class='user-box'>
+    <img 
+      class="profile-avatar"
+      src="<%= profile.avatar %>" 
+      alt="<%= profile.name %>'s avatar"
+    >
+    <form class='user-edit-form' id='edit-profile-form' action='/profiles/<%= profile._id %>?_method=PUT' method='POST'>
+      <label for='displayName-input'>Display name</label>
+      <input type='text' name='displayName' id='displayName-input' value='<%= profile.displayName %>' autocomplete='off'>
+      <fieldset>
+      <legend>Payment Forms</legend>
+        <div>
+          <label for='zelle-link'><img class='icons' src='/assets/images/zelle-icon.png' alt='zelle-icon'></label>
+          <input type='string' id='zelle-link' name='zelleId' value='<%= profile.zelleId %>'>  
+        </div>
+        <div>
+          <label for='venmo-link'><img class='icons' src='/assets/images/venmo-icon.png' alt='venmo-icon'></label>
+          <input type='string' id='venmo-link' name='venmoId' value='<%= profile.venmoId %>'>  
+        </div>
+        <div>
+          <label for='paypal-link'><img class='icons' src='/assets/images/paypal-icon.png' alt='paypal-icon'></label>
+          <input type='string' id='paypal-link' name='paypalId' value='<%= profile.paypalId %>'>  
+        </div>
+      </fieldset>
+      <button class='main-btn' type='submit'>Save</button>
+    </form>
+  </div>
+</main>
+
+<%- include('../partials/footer.ejs') %>

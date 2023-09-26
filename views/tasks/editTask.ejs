@@ -1,16 +1,17 @@
 <%- include('../partials/html-head.ejs') %>
-<link rel='stylesheet' href='/stylesheets/plans/edit.css' />
+<link rel='stylesheet' href='/stylesheets/user.css' />
+<link rel='stylesheet' href='/stylesheets/plans/index.css' />
 <%- include('../partials/nav.ejs') %>
 
 <main>
   <h1>Edit task</h1>
-  <form class='edit-form' id='editTaskForm' action='/plans/<%= plan._id %>/tasks/<%= task._id %>?_method=PUT' method='POST'>
+  <form class='add-edit-form' id='edit-task-form' action='/plans/<%= plan._id %>/tasks/<%= task._id %>?_method=PUT' method='POST'>
     <label for='taskName-input'>Name</label>
     <input type='string' name='name' autocomplete='off' id='taskName-input' value='<%= task.name %>'>
     <label for='taskDate-input'>Date</label>
     <input type='datetime-local' name='date' id='taskDate-input' value='<%= taskDate %>'>
-    <label for='taskStatus-input'>Status</label>
-    <select name='status' id='taskStatus-input'>
+    <label for='taskStatus-select'>Status</label>
+    <select name='status' id='taskStatus-select'>
       <option value='<%= task.status %>' selected><%= task.status == 'Done' ? 'Done' : 'Pending'%></option>
       <option value='<%= task.status == 'Done' ? 'Pending' : 'Done' %>'><%= task.status == 'Done' ? 'Pending' : 'Done'%></option>
     </select>

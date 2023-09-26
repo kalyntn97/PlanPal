@@ -1,15 +1,52 @@
 <%- include('../partials/html-head.ejs') %>
+<link rel='stylesheet' href='/stylesheets/user.css' />
 <%- include('../partials/nav.ejs') %>
 
 <main>
-  <div>
-    <img 
-      class="profile-avatar"
-      src="<%= profile.avatar %>" 
-      alt="<%= profile.name %>'s avatar"
-    >
+  <div class='profile-details-box'>
+    <div class='profile-name'>
+      <h2><%= user ? user.profile.name : "" %></h2>
+      <% if (user?.profile.avatar) { %>
+        <img 
+        class="profile-avatar"
+        src="<%= profile.avatar %>" 
+        alt="<%= profile.name %>'s avatar"
+        >
+      <% } %>
+      <% if (isSelf) { %>
+        <a class='link-no-style' href='/profiles/<%= profile._id %>/edit'>
+          <button class='main-btn'>Edit your profile</button>
+        </a>
+      <% } %>
+    </div>
+
+    <div class='display-name-head'>Display Name:</div>
+    <div class='display-name'><%= profile.displayName ? profile.displayName : profile.name %></div>
+    <div class='payment-forms-head'>Payment Forms</div>
+    <div class='payment-forms'>
+      <% if (profile.zelleId) { %>
+        <div>
+            <img class='icons' src='/assets/images/zelle-icon.png' alt='zelle-icon'>
+            <%= profile.zelleId %>
+        </div>
+      <% } %>
+      <% if (profile.venmoId) { %>
+        <div>
+          <img class='icons' src='/assets/images/venmo-icon.png' alt='venmo-icon'>
+          <%= profile.venmoId %>
+        </div>
+      <% } %>
+      <% if (profile.paypalId) { %>
+        <div>
+          <img class='icons' src='/assets/images/paypal-icon.png' alt='paypal-icon'>
+          <%= profile.paypalId %>
+        </div>
+      <% } %>
+    </div>
+
   </div>
-  <h1>It's <%= isSelf ? "you" : profile.name %>!</h1>
+
+
 </main>
 
 <%- include('../partials/footer.ejs') %>

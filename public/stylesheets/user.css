@@ -1,0 +1,96 @@
+.sign-in-box {
+  display: flex;
+  align-items: center;
+}
+
+.sign-in-box > div {
+  padding: 5px;
+}
+
+.user-box > * {
+  display: flex;
+  flex-direction: row;
+  margin: auto;
+}
+
+.user-box > img {
+  margin-bottom: 40px;
+  border-radius: 50%;
+  border: 2px solid #E362AC;
+}
+
+.user-edit-form {
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+  border: 1px solid #EFC3D9;
+  padding: 20px;
+  background: #FFF4FE;
+}
+
+.user-edit-form > button {
+  margin: 20px;
+  width: fit-content;
+  margin-left: auto;
+}
+
+.icons {
+  width: 60px;
+  padding-right: 20px;
+}
+
+.profile-details-box {  
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto auto;
+  gap: 0px 0px;
+  grid-auto-flow: row;
+  grid-template-areas:
+    "profile-name profile-name"
+    "display-name-head display-name"
+    "payment-forms-head payment-forms";
+}
+
+.display-name-head { 
+  grid-area: display-name-head;
+  padding: 10px 20px;
+  margin-top: 20px;
+  margin-bottom: 40px;
+}
+
+.payment-forms-head { 
+  grid-area: payment-forms-head; 
+  padding: 10px 30px;
+  margin-bottom: 40px;
+
+}
+
+.display-name { 
+  grid-area: display-name; 
+  padding: 10px 30px;
+  margin-top: 20px;
+
+}
+
+.payment-forms {
+  grid-area: payment-forms;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 40px;
+  justify-content: center;
+}
+
+.payment-forms > * {
+  padding: 10px 30px;
+}
+
+.profile-name {
+  grid-area: profile-name;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px;
+}
+.profile-name > * {
+  padding: 10px;
+}

@@ -1,6 +1,7 @@
 import { populate } from 'dotenv'
 import { Plan } from '../models/plan.js'
 import { Task } from '../models/task.js'
+import { Expense } from '../models/expense.js'
 
 function index(req, res) {
   Plan.find({})

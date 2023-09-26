@@ -1,10 +1,10 @@
 <%- include('../partials/html-head.ejs') %>
-<link rel='stylesheet' href='/stylesheets/plans/edit.css' />
+<link rel='stylesheet' href='/stylesheets/plans/index.css' />
 <%- include('../partials/nav.ejs') %>
 
 <main>
   <h1>Edit plan</h1>
-  <form  class="edit-form" id="editPlanForm" action="/plans/<%= plan._id %>?_method=PUT" method="POST">
+  <form  class="add-edit-form" id="edit-plan-form" action="/plans/<%= plan._id %>?_method=PUT" method="POST">
     <label for='planName-input'>Name</label>
     <input type="string" name="name" autocomplete="off" value='<%= plan.name %>'>
     <label for='planDate-input'>Date</label>
