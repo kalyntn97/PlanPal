@@ -39,9 +39,8 @@ function show(req, res) {
     {path: 'comments.author'},
   ])
 	.then(plan => {
-    Profile.find({_id: {$in: plan.creator.friends}})
+    Profile.find({_id: {$in: plan.creator.friends} && {$nin: plan.members}})
     .then(creatorFriends => {
-      console.log(creatorFriends)
       Task.find({})
       .then(tasks => {
         res.render('plans/show', {
@@ -117,6 +116,31 @@ function deletePlan(req, res) {
 		console.log(err)
 		res.redirect('/plans')
 	})
+}
+
+function addMember(req, res) {
+  Plan.findById(req.params.planId)
+  .then(plan => {
+    if (plan.creator.equals(req.user.profile._id)) {
+      console.log(req.body.memberId)
+      plan.members.push(req.body.memberId)
+      plan.save()
+      .then(() => {
+        console.log(plan.members)
+        res.redirect(`/plans/${plan._id}`)
+      })
+      .catch(err => {
+        console.log(err)
+        res.redirect('/plans')
+      })
+    } else {
+      throw new Error('✋ Not Authorized 🛑')
+    }
+  })
+  .catch(err => {
+    console.log(err)
+    res.redirect('/plans')
+  })
 }
 
 function newTask(req, res) {
@@ -396,6 +420,7 @@ export {
   edit,
   update,
   deletePlan as delete,
+  addMember,
   addComment,
   deleteComment,
   addTask,

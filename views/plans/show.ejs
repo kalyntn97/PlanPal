@@ -33,7 +33,7 @@
             <% }) %>
           </ul>
           <% if (plan.creator.equals(user?.profile)) { %>
-            <form id='add-member-form' action='/plans/<%= plan._id %>/members' method='POST'>
+            <form id='add-member-form' action='/plans/<%= plan._id %>/members?_method=PATCH' method='POST'>
               <select name='memberId'>
                 <% creatorFriends.forEach(friend => { %>
                   <option value='<%= friend._id %>'><%= friend.name %></option>
