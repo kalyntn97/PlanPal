@@ -19,7 +19,8 @@ router.put('/:planId', isLoggedIn, plansCtrl.update)
 router.put('/:planId/tasks/:taskId', isLoggedIn, plansCtrl.updateTask)
 router.delete('/:planId', isLoggedIn, plansCtrl.delete)
 router.delete('/:planId/tasks/:taskId', isLoggedIn, plansCtrl.deleteTask)
-
+router.delete('/:planId/comments/:commentId', isLoggedIn, plansCtrl.deleteComment)
+router.delete('/:planId/tasks/:taskId/comments/:commentId', isLoggedIn, plansCtrl.deleteTaskComment)
 
 export {
   router

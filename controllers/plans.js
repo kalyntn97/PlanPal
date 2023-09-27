@@ -270,6 +270,30 @@ function addComment(req, res) {
 	})
 }
 
+function deleteComment(req, res) {
+  Plan.findById(req.params.planId)
+  .then(plan => {
+    const comment = plan.comments.id(req.params.commentId)
+    if (comment.author.equals(req.user.profile._id)) {
+      plan.comments.remove(comment)
+      plan.save()
+      .then(() => {
+        res.redirect(`/plans/${plan._id}`)
+      })
+      .catch(err => {
+        console.log(err)
+        res.redirect(`/plans`)
+      })
+    } else {
+      throw new Error('✋ Not Authorized 🛑')
+    }
+  })
+  .catch(err => {
+		console.log(err)
+		res.redirect('/plans')
+	})
+}
+
 function addTaskComment(req, res) {
   Plan.findById(req.params.planId)
   .then(plan => {
@@ -289,6 +313,37 @@ function addTaskComment(req, res) {
     .catch(err => {
       console.log(err)
       res.redirect('/plans')
+    })
+  })
+  .catch(err => {
+		console.log(err)
+		res.redirect('/plans')
+	})
+}
+
+function deleteTaskComment(req, res) {
+  Plan.findById(req.params.planId)
+  .then(plan => {
+    Task.findById(req.params.taskId)
+    .then(task => {
+      const comment = task.comments.id(req.params.commentId)
+      if (comment.author.equals(req.user.profile._id)) {
+        task.comments.remove(comment)
+        task.save()
+        .then(() => {
+          res.redirect(`/plans/${plan._id}/tasks/${task._id}`)
+        })
+        .catch(err => {
+          console.log(err)
+          res.redirect(`/plans/${plan._id}/tasks`)
+        })
+      } else {
+        throw new Error('✋ Not Authorized 🛑')
+      }
+    })
+    .catch(err => {
+      console.log(err)
+      res.redirect(`/plans/${plan._id}`)
     })
   })
   .catch(err => {
@@ -331,6 +386,7 @@ export {
   update,
   deletePlan as delete,
   addComment,
+  deleteComment,
   addTask,
   newTask,
   showTask,
@@ -338,5 +394,6 @@ export {
   updateTask,
   deleteTask,
   addTaskComment,
+  deleteTaskComment,
   addExpense,
 }

@@ -64,6 +64,11 @@
         <% task.comments.forEach(comment => { %>
           <li>
             <%= comment.author.name %> - <%= comment.content %>
+            <% if (comment.author.equals(user?.profile)) { %>
+              <form action='/plans/<%= plan._id %>/tasks/<%= task._id %>/comments/<%= comment._id %>?_method=DELETE' method='POST'>
+                <button class='delete-btn' type='submit'>⊖</button>
+              </form>
+            <% } %>
           </li>
           <% }) %>
         </ul>
