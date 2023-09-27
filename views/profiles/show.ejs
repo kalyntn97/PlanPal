@@ -17,6 +17,18 @@
         <a class='link-no-style' href='/profiles/<%= profile._id %>/edit'>
           <button class='main-btn'>Edit your profile</button>
         </a>
+        <% if (profile.friends.length === 0) { %>
+          <P>You don't have any friends yet</P>
+          <a href='/profiles'>Find friends</a>
+        <% } else { %>
+          <ul>
+            <% profile.friends.forEach(friend => { %>
+              <li>
+                  <img class='profile-avatar' src='<%= friend.avatar %>' alt="<%= friend.name %>'s avatar"><%= friend.name %> is your friend!
+              </li>
+            <% }) %>
+            </ul>
+        <% } %>
         <% if (profile.friendRequests.length === 0) { %>
           <p>You don't have any friend requests</p>
         <% } else { %>
@@ -25,7 +37,7 @@
               <li>
                 <form action='/profiles/<%= profile._id %>/friends?_method=PATCH' method='POST'>
                   <img class='profile-avatar' src='<%= friendRequest.avatar %>' alt="<%= friendRequest.name %>'s avatar"><%= friendRequest.name %> sent you a friend request!
-                  <button class='main-btn' type='submit'>Confirm</button>
+                  <button class='main-btn' type='submit' value='<%= friendRequest._id %>' name='friendRequestId'>Confirm</button>
                 </form>
               </li>
             <% }) %>

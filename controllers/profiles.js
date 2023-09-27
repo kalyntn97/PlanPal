@@ -1,3 +1,4 @@
+import mongoose from "mongoose"
 import { Profile} from "../models/profile.js"
 
 function index(req, res) {
@@ -84,15 +85,28 @@ function sendFriendRequest(req, res) {
 }
 
 function addFriend(req, res) {
+	// find user profile and push friend request profile id to friends array
 	Profile.findById(req.params.profileId)
-	.then(profile => {
-		console.log(req.params.profileId)
-		console.log(req.user.profile._id)
-		console.log(req.body)
-		profile.friends.push(req.body)
-		profile.save()
+	.then(userProfile => {
+		// find friend profile
+		Profile.findById(req.body.friendRequestId)
+		.then(friendProfile => {
+			userProfile.friends.push(friendProfile._id)
+			// find the index of the friend request to remove it from the friend requests array
+			const friendRequestIdx = userProfile.friendRequests.findIndex(friendRequestId  => {
+				const ObjectId = mongoose.Types.ObjectId
+				return friendRequestId.equals(new ObjectId(req.body.friendRequestId))
+			})
+			if (friendRequestIdx >= 0) {
+				userProfile.friendRequests.splice(friendRequestIdx, 1)
+			}
+			// add user profile id to friend profile friends array
+			friendProfile.friends.push(userProfile._id)
+			//save user profile and friend profile
+			Promise.all([userProfile.save(), friendProfile.save()])
+		})
 		.then(() => {
-			res.redirect(`/profiles/${profile._id}`)
+			res.redirect(`/profiles/${userProfile._id}`)
 		})
 		.catch(err => {
 			console.log(err)
@@ -104,6 +118,7 @@ function addFriend(req, res) {
 		res.redirect('/')
 	})
 }
+
 
 export {
 	index,
