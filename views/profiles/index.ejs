@@ -6,10 +6,7 @@
     <% profiles.forEach(profile => { %>
       <a class="link-no-style" href="/profiles/<%= profile._id %>">
         <div class="card">
-          <img 
-            src="<%= profile.avatar %>" 
-            alt="<%= profile.name %>'s avatar"
-          >
+          <img  class='profile-avatar' src="<%= profile.avatar %>" alt="<%= profile.name %>'s avatar">
           <div class="card-body">
             <h1 class="card-title"><%= profile.name %></h1>
           </div>

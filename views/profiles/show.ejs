@@ -7,11 +7,7 @@
     <div class='profile-name'>
       <h2><%= user ? user.profile.name : "" %></h2>
       <% if (user?.profile.avatar) { %>
-        <img 
-        class="profile-avatar"
-        src="<%= profile.avatar %>" 
-        alt="<%= profile.name %>'s avatar"
-        >
+        <img class="profile-avatar" src="<%= profile.avatar %>" alt="<%= profile.name %>'s avatar">
       <% } %>
       <% if (isSelf) { %>
         <a class='link-no-style' href='/profiles/<%= profile._id %>/edit'>

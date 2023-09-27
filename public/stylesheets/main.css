@@ -153,3 +153,60 @@ input, textarea, select {
 .box-head > a {
   margin-left: auto;
 }
+
+.profile-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.profile-avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+}
+
+.profile-avatar-log {
+  width: 60px;
+  border-radius: 50%;
+}
+
+.modal {
+  display: none;
+  z-index: 1;
+  position: fixed;
+  top: 80px;
+  overflow: auto;
+  background-color: #F3DDE7;
+}
+.profile-log-modal-content {
+  border: 1px solid #EFC3D9;
+  background-color: #F3DDE7;
+  border-radius: 10px;
+  padding: 20px 10px;
+}
+.profile-avatar-container {
+  text-align: center;
+  margin: 20px 10px;
+}
+
+.logout-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px 10px;
+}
+
+.close {
+  position: absolute;
+  right: 15px;
+  top: 0;
+  color: #005B48;
+  font-size: 35px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: red;
+}
