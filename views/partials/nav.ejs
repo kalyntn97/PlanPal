@@ -5,6 +5,7 @@
 <body>
   <nav>
     <% if (user) { %>
+      <a href='/profiles/<%= user.profile._id %>' class='<%= title === 'My Profile' ? 'active' : '' %>'>My Profile</a>
       <a href="/profiles" class="<%= title === "My Friends" ? "active" : "" %>">My Friends</a>
       <a href="/plans" class="<%= title === "My Plans" ? "active" : "" %>">My Plans</a>
       <a href="/expenses" class="<%= title === "My Expenses" ? "active" : "" %>">My Expenses</a>

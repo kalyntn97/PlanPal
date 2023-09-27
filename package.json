@@ -17,5 +17,8 @@
     "morgan": "^1.10.0",
     "passport": "^0.6.0",
     "passport-google-one-tap": "^1.0.1"
+  },
+  "devDependencies": {
+    "@flydotio/dockerfile": "^0.4.10"
   }
 }

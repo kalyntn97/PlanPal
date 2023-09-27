@@ -9,6 +9,8 @@ const profileSchema = new Schema({
   zelleId: String,
   venmoId: String,
   paypalId: String,
+  friends: [{type: Schema.Types.ObjectId, ref: 'Profile'}],
+  friendRequests: [{type: Schema.Types.ObjectId, ref: 'Profile'}],
 }, {
   timestamps: true
 })

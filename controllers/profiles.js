@@ -16,12 +16,13 @@ function index(req, res) {
 
 function show(req, res) {
 	Profile.findById(req.params.profileId)
+	.populate([{path: 'friends'}, {path: 'friendRequests'}])
 		.then(profile => {
 			const isSelf = profile._id.equals(req.user.profile._id)
 			res.render('profiles/show', {
 				profile,
 				isSelf,
-				title: 'My Friends'
+				title: 'My Profile'
 			})
 		})
 		.catch(err => {
@@ -63,9 +64,52 @@ function update(req, res) {
 	})
 }
 
+function sendFriendRequest(req, res) {
+	Profile.findById(req.params.profileId)
+	.then(profile => {
+		profile.friendRequests.push(req.user.profile._id)
+		profile.save()
+		.then(() => {
+			res.redirect(`/profiles/${profile._id}`)
+		})
+		.catch(err => {
+			console.log(err)
+			res.redirect('/')
+		})
+	})
+	.catch(err => {
+		console.log(err)
+		res.redirect('/')
+	})
+}
+
+function addFriend(req, res) {
+	Profile.findById(req.params.profileId)
+	.then(profile => {
+		console.log(req.params.profileId)
+		console.log(req.user.profile._id)
+		console.log(req.body)
+		profile.friends.push(req.body)
+		profile.save()
+		.then(() => {
+			res.redirect(`/profiles/${profile._id}`)
+		})
+		.catch(err => {
+			console.log(err)
+			res.redirect('/')
+		})
+	})
+	.catch(err => {
+		console.log(err)
+		res.redirect('/')
+	})
+}
+
 export {
 	index,
 	show,
 	edit,
-	update
+	update,
+	sendFriendRequest,
+	addFriend,
 }

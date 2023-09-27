@@ -17,8 +17,30 @@
         <a class='link-no-style' href='/profiles/<%= profile._id %>/edit'>
           <button class='main-btn'>Edit your profile</button>
         </a>
+        <% if (profile.friendRequests.length === 0) { %>
+          <p>You don't have any friend requests</p>
+        <% } else { %>
+          <ul>
+            <% profile.friendRequests.forEach(friendRequest => { %>
+              <li>
+                <form action='/profiles/<%= profile._id %>/friends?_method=PATCH' method='POST'>
+                  <img class='profile-avatar' src='<%= friendRequest.avatar %>' alt="<%= friendRequest.name %>'s avatar"><%= friendRequest.name %> sent you a friend request!
+                  <button class='main-btn' type='submit'>Confirm</button>
+                </form>
+              </li>
+            <% }) %>
+            </ul>
+        <% } %>
       <% } %>
+
+      <% if (!isSelf && !profile.friendRequests.includes(user.profile._id) && !profile.friends.includes(user.profile._id)) { %>
+        <form action='/profiles/<%= profile._id %>?_method=PATCH' method='POST'>
+          <button class='sub-btn' type='submit'>Add Friend</button>
+        </form>
+      <% } %>
+
     </div>
+    
 
     <div class='display-name-head'>Display Name:</div>
     <div class='display-name'><%= profile.displayName ? profile.displayName : profile.name %></div>
@@ -26,19 +48,19 @@
     <div class='payment-forms'>
       <% if (profile.zelleId) { %>
         <div>
-            <img class='icons' src='/assets/images/zelle-icon.png' alt='zelle-icon'>
+            <img class='icons' src='/images/zelle-icon.png' alt='zelle-icon'>
             <%= profile.zelleId %>
         </div>
       <% } %>
       <% if (profile.venmoId) { %>
         <div>
-          <img class='icons' src='/assets/images/venmo-icon.png' alt='venmo-icon'>
+          <img class='icons' src='/images/venmo-icon.png' alt='venmo-icon'>
           <%= profile.venmoId %>
         </div>
       <% } %>
       <% if (profile.paypalId) { %>
         <div>
-          <img class='icons' src='/assets/images/paypal-icon.png' alt='paypal-icon'>
+          <img class='icons' src='/images/paypal-icon.png' alt='paypal-icon'>
           <%= profile.paypalId %>
         </div>
       <% } %>
