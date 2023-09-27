@@ -2,6 +2,7 @@ import { populate } from 'dotenv'
 import { Plan } from '../models/plan.js'
 import { Task } from '../models/task.js'
 import { Expense } from '../models/expense.js'
+import { Profile } from '../models/profile.js'
 
 function index(req, res) {
   Plan.find({})
@@ -33,17 +34,27 @@ function show(req, res) {
 	Plan.findById(req.params.planId)
   .populate([
     {path: 'creator'},
+    {path: 'members'},
     {path: 'tasks'},
     {path: 'comments.author'},
   ])
 	.then(plan => {
-    Task.find({})
-    .then(tasks => {
-      res.render('plans/show', {
-        plan,
-        tasks,
-        title:'My Plans',
-      })  
+    Profile.find({_id: {$in: plan.creator.friends}})
+    .then(creatorFriends => {
+      console.log(creatorFriends)
+      Task.find({})
+      .then(tasks => {
+        res.render('plans/show', {
+          plan,
+          tasks,
+          creatorFriends,
+          title:'My Plans',
+        })     
+      })
+      .catch(err => {
+        console.log(err)
+        res.redirect('/')
+      })
     })
     .catch(err => {
       console.log(err)

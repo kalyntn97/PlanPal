@@ -18,6 +18,31 @@
         <p>Name: <%= plan.name %></p>
         <p>Date: <%= plan.date %></p>
         <p>Creator: <%= plan.creator.name %></p>
+        <p>Members:
+          <ul>
+            <% plan.members.forEach(member => { %>
+              <li>
+                <img class='profile-avatar' src='<%= member.avatar %>' alt="<%= member.name %>'s avatar"><%= member.name %>
+                <a class='link-no-style' href='/profiles/<%= member._id %>'>
+                  <button class='details-btn'>See Profile</button>
+                </a>
+                <form action='' method='POST'>
+                  <button class='delete-btn' type='submit'>⊖</button>
+                </form>
+              </li>
+            <% }) %>
+          </ul>
+          <% if (plan.creator.equals(user?.profile)) { %>
+            <form id='add-member-form' action='/plans/<%= plan._id %>/members' method='POST'>
+              <select name='memberId'>
+                <% creatorFriends.forEach(friend => { %>
+                  <option value='<%= friend._id %>'><%= friend.name %></option>
+                <% }) %>
+              </select>
+              <button class='sub-btn' type='submit'>Add Member</button>
+             </form>
+          <% } %>
+        </p>
       </div> 
       <div>
         <p>Notes: <%= plan.notes %></p>

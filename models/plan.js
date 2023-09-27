@@ -11,6 +11,7 @@ const planSchema = new Schema({
   name: String,
   date: Date,
   creator: {type: Schema.Types.ObjectId, ref: 'Profile'},
+  members: [{type: Schema.Types.ObjectId, ref: 'Profile'}],
   notes: String,
   // members: [{type: Schema.Types.ObjectId, ref: 'Profile'}],
   tasks: [{type: Schema.Types.ObjectId, ref: 'Task'}],
