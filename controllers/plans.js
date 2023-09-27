@@ -111,7 +111,7 @@ function deletePlan(req, res) {
 function newTask(req, res) {
   Plan.findById(req.params.planId)
   .then(plan => {
-    res.render('tasks/newTask', {
+    res.render('tasks/new', {
       plan,
       title: 'My Plans'
     })
@@ -154,7 +154,7 @@ function showTask(req, res) {
       {path: 'comments.author'},
     ])
     .then(task => {
-      res.render('tasks/showTask', {
+      res.render('tasks/show', {
         plan,
         task,
         title: 'My Plans',
@@ -177,7 +177,7 @@ function editTask(req, res) {
     Task.findById(req.params.taskId)
     .then(task => {
       const taskDate = task.date.toISOString().slice(0, 16)
-      res.render('tasks/editTask', {
+      res.render('tasks/edit', {
         plan,
         task,
         taskDate,

@@ -75,10 +75,29 @@ function update(req, res) {
   })
 }
 
+function deleteExpense(req, res) {
+  Expense.findById(req.params.expenseId)
+  .then(expense => {
+    if (expense.creator.equals(req.user.profile._id)) {
+      expense.deleteOne()
+      .then(() => {
+        res.redirect('/expenses')
+      })
+    } else {
+      throw new Error('✋ Not Authorized 🛑')
+    }
+  })
+  .catch(err => {
+    console.log(err)
+    res.redirect('/expenses')
+  })
+}
+
 export {
   index,
   create,
   show,
   edit,
   update,
+  deleteExpense as delete,
 }

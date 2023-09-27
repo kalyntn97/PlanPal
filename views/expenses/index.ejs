@@ -44,7 +44,7 @@
               </a>
             </td>
             <td>
-              <form>
+              <form action='/expenses/<%= expense._id %>?_method=DELETE' method='POST'>
                 <button class='delete-btn' type='submit'>⊖</button>
               </form>
             </td>

@@ -9,7 +9,7 @@ router.get('/:expenseId', isLoggedIn, expensesCtrl.show)
 router.get('/:expenseId/edit', isLoggedIn, expensesCtrl.edit)
 router.post('/', isLoggedIn, expensesCtrl.create)
 router.put('/:expenseId', isLoggedIn, expensesCtrl.update)
-
+router.delete('/:expenseId', isLoggedIn, expensesCtrl.delete)
 
 export {
   router

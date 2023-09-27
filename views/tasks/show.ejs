@@ -8,7 +8,7 @@
       <h1>Task <%= task.name %> Details </h1>
       <%# Edit the task %>
       <% if (task.creator.equals(user?.profile._id)) { %>
-        <a href='/plans/<%= plan._id %>/tasks/<%= task._id %>/editTask'>
+        <a href='/plans/<%= plan._id %>/tasks/<%= task._id %>/edit'>
           <button class='main-btn'>Edit Task</button>
         </a>
         <% } %>
