@@ -1,0 +1,23 @@
+<%- include('../partials/html-head') %>
+<link rel='stylesheet' href='/stylesheets/plans/index.css' />
+<%- include('../partials/nav') %>
+
+<main>
+  <h1>Edit Expense</h1>
+  <form class='add-edit-form' id='edit-expense-form' action='/expenses/<%= expense._id %>?_method=PUT' method='POST'>
+    <label for='expense-name-input'>Name</label>
+    <input type='text' name='name' id='expense-name-input' autocomplete='off' value='<%= expense.name %>'>
+    <label for='expense-date-input'>Date</label>
+    <input type='datetime-local' name='date' id='expense-date-input' value='<%= expenseDate %>'>
+    <label for='occasion-input'>Occasion</label>
+    <input type='text' name='occasion' id='occasion-input' autocomplete='off' value='<%= expense.occasion %>'>
+    <label for='cost-input'>Cost</label>
+    <input type='number' name='cost' id='cost-input' value='<%= expense.cost %>'>
+    <label for='expense-notes-input'>Notes</label>
+    <textarea name='notes' id='expense-notes-input' aria-valuemax='<%= expense.notes %>'></textarea>
+    <button class='main-btn' type='submit'>Save Expense</button>
+  </form>
+
+</main>
+
+<%- include('../partials/footer.ejs') %>

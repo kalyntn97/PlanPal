@@ -1,0 +1,34 @@
+<%- include('../partials/html-head') %>
+<link rel='stylesheet' href='/stylesheets/plans/show.css' />
+<%- include('../partials/nav') %>
+
+<main>
+
+  <section>
+    <div class='box-head'>
+      <h1>Expense <%= expense.name %> Details </h1>
+      <%# Edit the expense %>
+      <% if (expense.creator.equals(user?.profile._id)) { %>
+        <a href='/expenses/<%= expense._id %>/edit'>
+          <button class='main-btn'>Edit Expense</button>
+        </a>
+      <% } %>
+    </div>
+      <%# Show the expense %>
+    <div class='details-box'>
+      <div>
+        <p>Name: <%= expense.name %></p>
+        <p>Date: <%= expense.date %></p>
+        <p>Creator: <%= expense.creator.name %></p>
+      </div>
+      <div>
+        <p>Occasion: <%= expense.occasion %></p>
+        <p>Cost: <%= expense.cost %></p>
+        <p>Notes: <%= expense.notes %></p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<%- include('../partials/footer.ejs') %>

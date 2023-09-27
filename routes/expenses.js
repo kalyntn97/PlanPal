@@ -5,7 +5,11 @@ import * as expensesCtrl from '../controllers/expenses.js'
 const router = Router()
 
 router.get('/', isLoggedIn, expensesCtrl.index)
+router.get('/:expenseId', isLoggedIn, expensesCtrl.show)
+router.get('/:expenseId/edit', isLoggedIn, expensesCtrl.edit)
 router.post('/', isLoggedIn, expensesCtrl.create)
+router.put('/:expenseId', isLoggedIn, expensesCtrl.update)
+
 
 export {
   router

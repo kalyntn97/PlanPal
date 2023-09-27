@@ -6,7 +6,7 @@
   <h1>Add a Task</h1>
   <form class='add-add-edit-form' id='add-task-form' action='/plans/<%= plan._id %>/tasks' method='POST'>
     <label for='taskName-input'>Name</label>
-    <input type='string' name='name' autocomplete='off' id='taskName-input'>
+    <input type='text' name='name' autocomplete='off' id='taskName-input'>
     <label for='taskDate-input'>Date</label>
     <input type='datetime-local' name='date' id='taskDate-input'>
     <label for='taskStatus-input'>Status</label>

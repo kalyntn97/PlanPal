@@ -26,7 +26,59 @@ function create(req, res) {
   })
 }
 
+function show(req, res) {
+  Expense.findById(req.params.expenseId)
+  .populate('creator')
+  .then(expense => {
+    res.render('expenses/show', {
+      expense,
+      title: 'My Expenses'
+    })
+  })
+  .catch(err => {
+    console.log(err)
+    res.redirect('/expenses')
+  })
+}
+
+function edit(req, res) {
+  Expense.findById(req.params.expenseId)
+  .then(expense => {
+    const expenseDate = expense.date.toISOString().slice(0, 16)
+    res.render('expenses/edit', {
+      expense,
+      title: '',
+      expenseDate
+    })
+  })
+  .catch(err => {
+    console.log(err)
+    res.redirect('/expenses')
+  })
+}
+
+function update(req, res) {
+  Expense.findById(req.params.expenseId)
+  .then(expense => {
+    if (expense.creator.equals(req.user.profile._id)) {
+      expense.updateOne(req.body)
+      .then(() => {
+        res.redirect(`/expenses/${expense._id}`)
+      })
+    } else {
+      throw new Error('✋ Not Authorized 🛑')
+    }
+  })
+  .catch(err => {
+    console.log(err)
+    res.redirect('/expenses')
+  })
+}
+
 export {
   index,
   create,
+  show,
+  edit,
+  update,
 }

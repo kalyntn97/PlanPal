@@ -2,39 +2,59 @@
 <link rel='stylesheet' href='/stylesheets/plans/index.css' />
 <%- include('../partials/nav') %>
 
+<main>
 
-<section>
-  
-</section>
+  <section>
+    <form class='add-edit-form' id='add-expense-form' action='/expenses' method='POST'>
+      <label for='expense-name-input'>Name</label>
+      <input type='text' name='name' id='expense-name-input' autocomplete='off'>
+      <label for='expense-date-input'>Date</label>
+      <input type='date' name='date' id='expense-date-input'>
+      <label for='occasion-input'>Occasion</label>
+      <input type='text' name='occasion' id='occasion-input' autocomplete='off'>
+      <label for='cost-input'>Cost</label>
+      <input type='number' name='cost' id='cost-input'>
+      <label for='expense-notes-input'>Notes</label>
+      <textarea name='notes' id='expense-notes-input'></textarea>
+      <button class='main-btn' type='submit'>Add Expense</button>
+    </form>
+  </section>
 
-<section>
-  <h1>All Expenses</h1>
-  <table>
-    <thead>
-      <tr>
-        <th>Date</th>
-        <th>Name</th>
-        <th>Cost</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% expenses.forEach(expense => { %>
-        <% if (expense.creator.equals(user?.profile._id)) { %>
-           <td><%= expense.date %></td> 
-           <td><%= expense.name %></td>
-           <td><%= expense.cost %></td>
-           <td>
-            <a class='link-no-style' href='/expenses/<%= expense._id %>'>
-              <button class='details-btn'>Details</button>
-            </a>
-           </td>
-           <td>
-            <form>
-              <button class='delete-btn' type='submit'>⊖</button>
-            </form>
-           </td>
-        <% } %>
-      <% }) %>
-    </tbody>
-  </table>
-</section>
+  <section>
+    <h1>All Expenses</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Name</th>
+          <th>Cost</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% expenses.forEach(expense => { %>
+          <% if (expense.creator.equals(user?.profile._id)) { %>
+          <tr>
+
+            <td><%= expense.date %></td> 
+            <td><%= expense.name %></td>
+            <td><%= expense.cost %></td>
+            <td>
+              <a class='link-no-style' href='/expenses/<%= expense._id %>'>
+                <button class='details-btn'>Details</button>
+              </a>
+            </td>
+            <td>
+              <form>
+                <button class='delete-btn' type='submit'>⊖</button>
+              </form>
+            </td>
+          </tr>
+            <% } %>
+        <% }) %>
+      </tbody>
+    </table>
+  </section>
+
+</main>
+
+<%- include('../partials/footer.ejs') %>

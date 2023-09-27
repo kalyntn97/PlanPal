@@ -7,7 +7,7 @@
   <h1>Edit task</h1>
   <form class='add-edit-form' id='edit-task-form' action='/plans/<%= plan._id %>/tasks/<%= task._id %>?_method=PUT' method='POST'>
     <label for='taskName-input'>Name</label>
-    <input type='string' name='name' autocomplete='off' id='taskName-input' value='<%= task.name %>'>
+    <input type='text' name='name' autocomplete='off' id='taskName-input' value='<%= task.name %>'>
     <label for='taskDate-input'>Date</label>
     <input type='datetime-local' name='date' id='taskDate-input' value='<%= taskDate %>'>
     <label for='taskStatus-select'>Status</label>

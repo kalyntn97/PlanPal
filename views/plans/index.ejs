@@ -7,12 +7,12 @@
     <% if (user) { %>
       <h1>Add a plan</h1>
       <form  class="add-edit-form" id="add-plan-form" action="/plans" method="POST">
-        <label for='planName-input'>Name</label>
-        <input type="string" name="name" autocomplete="off" id='planName-input'>
-        <label for='planDate-input'>Date</label>
+        <label for='plan-name-input'>Name</label>
+        <input type="string" name="name" autocomplete="off" id='plan-name-input'>
+        <label for='plan-date-input'>Date</label>
         <input type="date" name="date" id='planDate-input'>
-        <label for='planNotes-input'>Notes</label>
-        <textarea name='notes' id='planNotes-input'></textarea>
+        <label for='plan-notes-input'>Notes</label>
+        <textarea name='notes' id='plan-notes-input'></textarea>
         <button class='main-btn' type="submit">Add Plan</button>
       </form>
       <% } %>

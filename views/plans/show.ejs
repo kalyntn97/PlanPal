@@ -47,7 +47,7 @@
         
   <section>
     <% if (user) { %>
-      <form class="comment-form" id="plancomment-form" action="/plans/<%= plan._id %>/comments" method="POST">
+      <form class="comment-form" id="plan-comment-form" action="/plans/<%= plan._id %>/comments" method="POST">
         <textarea name="content"></textarea>
         <button class='main-btn' type="submit">Add Comment</button>
       </form>
