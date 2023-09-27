@@ -19,9 +19,31 @@
         <p>Name: <%= task.name %></p>
         <p>Date: <%= task.date %></p>
         <p>Creator: <%= task.creator.name %></p>
+        <p>Status: <%= task.status %></p>
       </div>
       <div>
-        <p>Status: <%= task.status %></p>
+        <p>Expenses:
+          <ul>
+            <% task.expenses.forEach(expense => { %>
+              <li>
+                <%= expense.name %>
+                <a class='link-no-style' href='/expenses/<%= expense._id %>'>
+                  <button class='details-btn'>Details</button>
+                </a>
+              </li>    
+            <% }) %>
+          </ul>
+        </p>
+        <% if (user) { %>
+         <form id='add-expense-form' action='/plans/<%= plan._id %>/tasks/<%= task._id %>/expenses' method='POST'>
+          <select name='expenseId'>
+            <% expenses.forEach(expense => { %>
+              <option value='<%= expense._id %>'><%= expense.name %></option>
+            <% }) %>
+          </select>
+          <button class='sub-btn' type='submit'>Add Expense</button>
+         </form>
+        <% } %>
         <p>Notes: <%= task.notes %></p>
       </div>
     </div>

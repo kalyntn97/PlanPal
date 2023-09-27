@@ -152,12 +152,17 @@ function showTask(req, res) {
     .populate([
       {path: 'creator'},
       {path: 'comments.author'},
+      {path: 'expenses'}
     ])
     .then(task => {
-      res.render('tasks/show', {
-        plan,
-        task,
-        title: 'My Plans',
+      Expense.find({_id: {$nin: task.expenses}})
+      .then(expenses => {
+        res.render('tasks/show', {
+          plan,
+          task,
+          expenses,
+          title: 'My Plans',
+        })
       })
     })
     .catch(err => {
@@ -292,6 +297,31 @@ function addTaskComment(req, res) {
 	})
 }
 
+function addExpense(req, res) {
+  Plan.findById(req.params.planId)
+  .then(plan => {
+    Task.findById(req.params.taskId)
+    .then(task => {
+      task.expenses.push(req.body.expenseId)
+      task.save()
+      .then(() => {
+        res.redirect(`/plans/${plan._id}/tasks/${task._id}`)
+      })
+      .catch(err => {
+        console.log(err)
+        res.redirect(`/plans/${plan._id}/tasks`)
+      })
+    })
+    .catch(err => {
+      console.log(err)
+      res.redirect(`/plans/${plan._id}`)
+    })
+  })
+  .catch(err => {
+		console.log(err)
+		res.redirect('/plans')
+	})
+}
 
 export {
   index,
@@ -308,4 +338,5 @@ export {
   updateTask,
   deleteTask,
   addTaskComment,
+  addExpense,
 }

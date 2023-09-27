@@ -34,7 +34,6 @@
         <% expenses.forEach(expense => { %>
           <% if (expense.creator.equals(user?.profile._id)) { %>
           <tr>
-
             <td><%= expense.date %></td> 
             <td><%= expense.name %></td>
             <td><%= expense.cost %></td>
