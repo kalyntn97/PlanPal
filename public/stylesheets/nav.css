@@ -1,9 +1,12 @@
+body > main {
+  background-color: #FCE5F0;
+}
+
 nav > .menu-icon {
   width: 34px;
   object-fit: contain;
   display: none;
 }
-
 
 nav > a {
   
@@ -74,11 +77,13 @@ nav > a:hover, .drop-btn:hover {
   width: 100px;
   height: 100px;
   border-radius: 50%;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
 }
 
 .profile-avatar-log {
   width: 60px;
   border-radius: 50%;
+  box-shadow: 0px 4px 8px 0px rgba(0,0,0,0.2);
 }
 
 .modal {
@@ -159,5 +164,52 @@ nav > a:hover, .drop-btn:hover {
     display: block;
     width: 100%;
     text-align: left;
+  }
+}
+
+.sidebar {
+  margin: 0;
+  padding: 0;
+  padding-top: 60px;
+  top: 0;
+  left: 0;
+  width: 200px;
+  height: 100%;
+  position: fixed;
+  overflow-x: hidden;
+  background-color: #EFC3D9;
+}
+
+.sidebar a {
+  display: block;
+  padding: 16px;
+  text-decoration: none;
+}
+
+.sidebar a.active {
+  background-color: #3E828D;
+  color: #FCE5F0;
+}
+
+.sidebar a:hover:not(.active) {
+  background-color: #CA9FB5;
+  color: #FFE4FB;
+}
+
+div.page-content {
+  margin-left: 200px;
+  padding: 1px 16px;
+  height: 1000px;
+}
+
+/* responsive side bar */
+@media screen and (max-width: 400px) {
+  .sidebar {
+    padding-top: 15px;
+  }
+  .sidebar a {
+    text-align: center;
+    float: none;
+    font-size: 18px;
   }
 }
