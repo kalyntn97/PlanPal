@@ -1,10 +1,62 @@
+#index-container {
+  display: grid; 
+  grid-auto-columns: auto auto; 
+  grid-template-rows: 1fr; 
+  gap: 0px 0px; 
+  grid-template-areas: 
+    "title-slogan-box sign-in-box"; 
+}
+
+#index-img {
+  height: 50vh;
+  margin-bottom: 50px;
+  margin-right: auto;
+  border-radius: 15px;
+  position: relative;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+
 .sign-in-box {
+  grid-area: sign-in-box;
   display: flex;
+  flex-direction: column;
   align-items: center;
+  width: 40vw;
+  margin-left: 4vw;
+  font-size: 20px;
+}
+
+.title-slogan-box {
+  grid-area: title-slogan-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 50vw;
+}
+
+.get-started-box {
+  display: flex;
+  flex-direction: row;
+}
+
+.slogan {
+  font-size: 1.5vw;
+  margin: 10px;
 }
 
 .sign-in-box > div {
   padding: 5px;
+}
+
+#get-started-btn {
+  font-size: 30px;
+  color: inherit;
+}
+
+.g-id-box {
+  margin-top: 30px;
+  margin-left: 50px;
 }
 
 .user-box {
@@ -93,4 +145,57 @@
 }
 .profile-name > * {
   padding: 10px;
+}
+
+/* title animation */
+.title-word {
+  font-family: "Montserrat", sans-serif;
+  font-size: 7.0vw;
+  font-weight: 800;
+  animation: color-animation 4s linear infinite;
+}
+
+.title-word-1 {
+  --color-1: #DF8453;
+  --color-2: #3D8DAE;
+  --color-3: #E4A9A8;
+}
+
+.title-word-2 {
+  --color-1: #DBAD4A;
+  --color-2: #ACCFCB;
+  --color-3: #17494D;
+}
+
+@keyframes color-animation {
+  0%    {color: var(--color-1)}
+  32%   {color: var(--color-1)}
+  33%   {color: var(--color-2)}
+  65%   {color: var(--color-2)}
+  66%   {color: var(--color-3)}
+  99%   {color: var(--color-3)}
+  100%  {color: var(--color-1)}
+}
+
+/* Get Started text animation */
+.waviy {
+  position: relative;
+  -webkit-box-reflect: below -20px linear-gradient(transparent, rgba(0,0,0,.2));
+  font-size: 30px;
+}
+.waviy span {
+  position: relative;
+  display: inline-block;
+  text-transform: uppercase;
+  animation: waviy 1s infinite;
+  animation-delay: calc(.1s * var(--i));
+  
+}
+@keyframes waviy {
+  0%,40%,100% {
+    transform: translateY(0)
+  }
+  20% {
+    transform: translateY(-20px)
+  }
 }

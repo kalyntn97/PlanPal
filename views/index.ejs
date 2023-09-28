@@ -3,39 +3,55 @@
 <%- include('./partials/nav') %>
 
 <main>
-  <h1>Welcome to PlanPal </h1>
-  <div class='user-box'>
-    <h2><%= user ? user.profile.name : "" %></h2>
-    <% if (user?.profile.avatar) { %>
-        <img
-          src="<%= user.profile.avatar %>"
-          alt="<%= user.profile.name %> avatar"
-        />
-        <a class='link-no-style' href='/profiles/<%= user.profile._id %>'>
-          <button class='main-btn'>See your profile</button>
-        </a>
-        <a class='link-no-style' href='/plans'>
-          <button class='main-btn'>See your plans</button>
-        </a>
-      </div>
-    <% } else { %>    
-      <div class='sign-in-box'>
-        <h3>Get Started ▷</h3>
-        <div
-          id="g_id_onload"
-          data-client_id="<%= googleClientID %>"
-          data-login_uri="/auth/google">
-        </div>
-        <div
-          class="g_id_signin right"
-          data-type="icon"
-          data-size="large"
-          data-theme="filled_blue"
-          data-shape="circle">
-        </div>
+  <div id='index-container'>
+    <div class='title-slogan-box'>
+      <%# title animation %>
+      <h1 class="title">
+        <span class="title-word title-word-1">PLAN</span>
+        <span class="title-word title-word-2">PAL</span>
+      </h1>
+      <h2 class='slogan'>Connecting moments and</h2> 
+      <h2 class='slogan'>crafting memories...</h2>
     </div>
-  <% } %>
-
+    
+    <div class='sign-in-box'>
+      <img id='index-img' src='/images/index-img.jpg'>
+      <div class='get-started-box'>
+        <h2>
+          <i class="fas fa-solid fa-angles-right fa-bounce"></i>
+          <button class='no-style-btn' id='get-started-btn' onmouseover="document.getElementById('g-id-login').style.display='block'">
+            <div class="waviy">
+              <span style="--i:1">G</span>
+              <span style="--i:2">E</span>
+              <span style="--i:3">T</span>
+              <span style="--i:4"></span>
+              <span style="--i:5">S</span>
+              <span style="--i:6">T</span>
+              <span style="--i:7">A</span>
+              <span style="--i:8">R</span>
+              <span style="--i:9">T</span>
+              <span style="--i:10">E</span>
+              <span style="--i:11">D</span>
+            </div>
+        </button>
+        </h2>
+        <div class='g-id-box' id='g-id-login'>
+          <div
+            id="g_id_onload"
+            data-client_id="<%= googleClientID %>"
+            data-login_uri="/auth/google">
+          </div>
+          <div
+            class="g_id_signin right"
+            data-type="icon"
+            data-size="large"
+            data-theme="filled_blue"
+            data-shape="square">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </main>
 
 <%- include('./partials/footer') %>

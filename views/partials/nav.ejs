@@ -1,37 +1,47 @@
   <% if (!user) { %>
     <script defer src="https://accounts.google.com/gsi/client"></script>
   <% } %>
+  <link rel='stylesheet' href='/stylesheets/nav.css' />
 </head>
 <body>
   <nav>
-    <div class='top-nav'>
-    </div>
-    <% if (user) { %>
-      <a href='/profiles/<%= user.profile._id %>' class='<%= title === 'My Profile' ? 'active' : '' %>'>My Profile</a>
-      <a href="/profiles" class="<%= title === "My Friends" ? "active" : "" %>">My Friends</a>
-      <a href="/plans" class="<%= title === "My Plans" ? "active" : "" %>">My Plans</a>
-      <a href="/expenses" class="<%= title === "My Expenses" ? "active" : "" %>">My Expenses</a>
-      <a href="/" class="<%= title === "Home Page" ? "active" : "" %>">Home</a>
-      <button style='border: none;' onclick="document.getElementById('profile-log-modal').style.display='block'">
-        <img class="profile-icon" src="<%= user.profile.avatar %>" alt="<%= user.profile.name %>'s avatar">
-      </button>
-      <div class='modal' id='profile-log-modal'>
-        <span onclick="document.getElementById('profile-log-modal').style.display='none'" class="close" title="Close Modal">&times;</span>
-        <div class='profile-log-modal-content'>
-          <div class='profile-avatar-container'>
-            <img class="profile-avatar-log" src="<%= user.profile.avatar %>" alt="<%= user.profile.name %>'s avatar">
-          </div>
-          <div class='logout-container'>
-            <a class='link-no-style' href='/profiles/<%= user.profile._id %>'>
-              <button class='main-btn'>See your profile</button>
-            </a>
-            <a href="/auth/logout" class="right">
-              <button class='sub-btn'>Logout</button>
-            </a>
+      <% if (user) { %>
+        <a href="#about" class="">About
+          <i class="fas fa-solid fa-note-sticky"></i>
+        </a>
+        <div class="dropdown">
+          <button class='drop-btn'>Explore
+            <i class="fas fa-solid fa-caret-down fa-beat-fade"></i>
+          </button>
+          <div class='dropdown-content'>
+            <a href="/plans" class="<%= title === "My Plans" ? "active" : "" %>">My Plans</a>
+            <a href="/expenses" class="<%= title === "My Expenses" ? "active" : "" %>">My Expenses</a>
+            <a href="/profiles" class="<%= title === "My Friends" ? "active" : "" %>">My Friends</a>
           </div>
         </div>
-      </div>
-    <% } %>
-    
+        <a href="javascript:void(0);" class="menu-icon" onclick="myFunction()">&#9776;</a>
+        <a href='/' class='<%= title === "Home Page" ? "active" : "" %>'>Home
+          <i class="fas fa-solid fa-house"></i>
+        </a>
+        <button class='no-style-btn' class='split' onclick="document.getElementById('profile-log-modal').style.display='block'">
+          <img class="profile-icon" src="<%= user.profile.avatar %>" alt="<%= user.profile.name %>'s avatar">
+        </button>
+        <div class='modal' id='profile-log-modal'>
+          <span onclick="document.getElementById('profile-log-modal').style.display='none'" class="close" title="Close Modal">&times;</span>
+          <div class='profile-log-modal-content'>
+            <div class='profile-avatar-container'>
+              <img class="profile-avatar-log" src="<%= user.profile.avatar %>" alt="<%= user.profile.name %>'s avatar">
+            </div>
+            <div class='logout-container'>
+              <a class='link-no-style' href='/profiles/<%= user.profile._id %>'>
+                <button class='main-btn'>See your profile</button>
+              </a>
+              <a href="/auth/logout" class="right">
+                <button class='sub-btn'>Logout</button>
+              </a>
+            </div>
+          </div>
+        </div>
+        <% } %>
   </nav>
     

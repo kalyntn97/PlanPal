@@ -1,5 +1,5 @@
 html {
-  box-sizing: border-box
+ 
 }
 
 /* The Universal Selector */
@@ -7,17 +7,24 @@ html {
 *::before, /* All ::before pseudo-elements */
 *::after { /* All ::after pseudo-elements */
   /* height & width will now include border & padding by default
-     but can be over-ridden as needed */
+  but can be over-ridden as needed */
   box-sizing: inherit;
   font-family: 'Jura', sans-serif,  system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
   Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
 }
 
+.fas::before {
+  font-family: "Font Awesome 5 Free";
+  padding: 5px;
+}
+
 body {
-  background-color: #FCE5F0;
-  color: #005B48;
+  box-sizing: border-box;
   min-height: 100vh;
-  font-size: 18px;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+  text-align: center;
 }
 
 body > main {
@@ -25,54 +32,21 @@ body > main {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  background-color: #FCE5F0;
+  height: 100vh;
 }
+
 
 body > nav {
-  overflow: hidden;
   display: flex;
-  justify-content: flex-end;
   align-items: center;
-  padding: 0 20px 0 30px;
-}
-
-nav > i {
-  width: 34px;
-  object-fit: contain;
-}
-
-nav > a:visited {
-
-}
-
-nav > a {
-  margin-left: auto;
-  display: block;
+  justify-content: flex-end;
+  overflow: hidden;
+  background-color: #ce4b8a3a;
   text-align: center;
-  margin: 10px;
-  padding: 10px;
-  color: #005B48;
-  text-decoration: none;
-  font-weight: bold;
 }
 
-nav > a:hover {
-  text-decoration: underline;
-}
-
-nav > a.active {
-  border-radius: 10px;
-  background-color: #F7C1CA;
-  text-decoration: none;
-}
-
-.link-no-style {
-  text-decoration: none;
-}
-
-.fas::before {
-  font-family: "Font Awesome 5 Free";
-}
-
+/* buttons */
 .main-btn {
   background-color: #4AFCE2;
   border: none;
@@ -126,6 +100,13 @@ nav > a.active {
   transition: all 0.2s;
 }
 
+.no-style-btn {
+  background: none;
+  border: none;
+  font-size: 18px;
+  color: #005B48;
+}
+
 input, textarea, select {
   border: 1px solid #EFC3D9;
   border-radius: 4px;
@@ -133,6 +114,10 @@ input, textarea, select {
   width: 700px;
   padding: 7px;
   margin: 10px;
+}
+
+.link-no-style {
+  text-decoration: none;
 }
 
 .comment-form {
@@ -158,55 +143,4 @@ input, textarea, select {
   width: 40px;
   height: 40px;
   border-radius: 50%;
-}
-
-.profile-avatar {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-}
-
-.profile-avatar-log {
-  width: 60px;
-  border-radius: 50%;
-}
-
-.modal {
-  display: none;
-  z-index: 1;
-  position: fixed;
-  top: 80px;
-  overflow: auto;
-  background-color: #F3DDE7;
-}
-.profile-log-modal-content {
-  border: 1px solid #EFC3D9;
-  background-color: #F3DDE7;
-  border-radius: 10px;
-  padding: 20px 10px;
-}
-.profile-avatar-container {
-  text-align: center;
-  margin: 20px 10px;
-}
-
-.logout-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 20px 10px;
-}
-
-.close {
-  position: absolute;
-  right: 15px;
-  top: 0;
-  color: #005B48;
-  font-size: 35px;
-  font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-  color: red;
 }
