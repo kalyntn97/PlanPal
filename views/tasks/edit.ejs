@@ -9,7 +9,7 @@
     <label for='taskName-input'>Name</label>
     <input type='text' name='name' autocomplete='off' id='taskName-input' value='<%= task.name %>'>
     <label for='taskDate-input'>Date</label>
-    <input type='datetime-local' name='date' id='taskDate-input' value='<%= taskDate %>'>
+    <input type='date' name='date' id='taskDate-input' value='<%= task.date.toDateString() %>'>
     <label for='taskStatus-select'>Status</label>
     <select name='status' id='taskStatus-select'>
       <option value='<%= task.status %>' selected><%= task.status == 'Done' ? 'Done' : 'Pending'%></option>

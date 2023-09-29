@@ -31,7 +31,7 @@
         <% plans.forEach(plan => { %>
           <tr>
             <td><%= plan.name %></td>
-            <td><%= plan.date %></td>
+            <td><%= plan.date.toDateString() %></td>
             <td>
               <a href="/plans/<%= plan._id %>">
                 <button class='details-btn'>Details</button>

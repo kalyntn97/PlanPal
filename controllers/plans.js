@@ -39,7 +39,7 @@ function show(req, res) {
     {path: 'comments.author'},
   ])
 	.then(plan => {
-    Profile.find({_id: {$in: plan.creator.friends} && {$nin: plan.members}})
+    Profile.find({_id: {$in: plan.creator.friends}})
     .then(creatorFriends => {
       Task.find({})
       .then(tasks => {
@@ -69,11 +69,9 @@ function show(req, res) {
 function edit(req, res) {
   Plan.findById(req.params.planId)
   .then(plan => {
-    const planDate = plan.date.toISOString().slice(0, 16)
     res.render('plans/edit', {
       plan,
       title: 'My Plans',
-      planDate,
     })
   })
   .catch(err => {
@@ -121,17 +119,16 @@ function deletePlan(req, res) {
 function addMember(req, res) {
   Plan.findById(req.params.planId)
   .then(plan => {
-    if (plan.creator.equals(req.user.profile._id)) {
-      console.log(req.body.memberId)
+    const memberExisted = plan.members.some(member => member._id.toString() === req.body.memberId.toString())
+    if (plan.creator.equals(req.user.profile._id) && !memberExisted) {
       plan.members.push(req.body.memberId)
       plan.save()
       .then(() => {
-        console.log(plan.members)
         res.redirect(`/plans/${plan._id}`)
       })
       .catch(err => {
         console.log(err)
-        res.redirect('/plans')
+        res.redirect(`/plans`)
       })
     } else {
       throw new Error('✋ Not Authorized 🛑')
@@ -216,11 +213,9 @@ function editTask(req, res) {
   .then(plan => {
     Task.findById(req.params.taskId)
     .then(task => {
-      const taskDate = task.date.toISOString().slice(0, 16)
       res.render('tasks/edit', {
         plan,
         task,
-        taskDate,
         title: 'My Plans',
       })
     })

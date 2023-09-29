@@ -5,7 +5,7 @@
 <main>
   <section>
     <div class='box-head'>
-      <h1>Plan <%= plan.name %> Details </h1>
+      <h1><%= plan.name %> <span class='small-header'>Details</span></h1>
       <%# Edit the plan %>
       <% if (plan.creator.equals(user?.profile._id)) { %>
         <a href='/plans/<%= plan._id %>/edit'>
@@ -14,15 +14,15 @@
         <% } %>
     </div>
     <div class='details-box'>
-      <div>
-        <p>Name: <%= plan.name %></p>
-        <p>Date: <%= plan.date %></p>
-        <p>Creator: <%= plan.creator.name %></p>
+      <div class='left-column'>
+        <p>Name: <span><%= plan.name %></span></p>
+        <p>Date: <span><%= plan.date.toDateString() %></span></p>
+        <p>Creator: <span><%= plan.creator.name %></span></p>
         <p>Members:
           <ul>
             <% plan.members.forEach(member => { %>
-              <li>
-                <img class='profile-avatar' src='<%= member.avatar %>' alt="<%= member.name %>'s avatar"><%= member.name %>
+              <li style='list-style-type: none;'>
+                <%= member.name %>
                 <a class='link-no-style' href='/profiles/<%= member._id %>'>
                   <button class='details-btn'>See Profile</button>
                 </a>
@@ -42,14 +42,15 @@
               <button class='sub-btn' type='submit'>Add Member</button>
             </form>
           <% } %>
-        </p>
+       </p>
       </div> 
-      <div>
-        <p>Notes: <%= plan.notes %></p>
+      
+      <div class='right-column'>
+        <p>Notes: <span><%= plan.notes %></span></p>
         <p>Tasks: 
           <ul>
             <% plan.tasks.forEach(task => { %>
-              <li>
+              <li style='list-style-type: none;'>
                 <%= task.name %>
                 <a class='link-no-style' href='/plans/<%= plan._id %>/tasks/<%= task._id %>'>
                   <button class='details-btn'>Details</button>
@@ -73,6 +74,7 @@
   <section>
     <% if (user) { %>
       <form class="comment-form" id="plan-comment-form" action="/plans/<%= plan._id %>/comments" method="POST">
+        <div class='cmt-icon'><img class="profile-icon" src="<%= user.profile.avatar %>" alt="<%= user.profile.name %>'s avatar"><p><%= user.profile.name %></p></div>
         <textarea name="content"></textarea>
         <button class='main-btn' type="submit">Add Comment</button>
       </form>
@@ -82,12 +84,15 @@
     <h2>💬 <%= plan.comments.length %> Comments</h2>
     <ul>
       <% plan.comments.forEach(comment => { %>
-        <li>
-          <%= comment.author.name %> - <%= comment.content %>
+        <li class='comment'>
+          <div class='cmt-icon'><img class="profile-icon" src="<%= comment.author.avatar %>" alt="<%= comment.author.name %>'s avatar"><p><%= comment.author.name %></p></div>
+          <div class='cmt-content'><span><%= comment.content %></span>
           <% if (comment.author.equals(user?.profile)) { %>
-            <form action='/plans/<%= plan._id %>/comments/<%= comment._id %>?_method=DELETE' method='POST'>
-              <button class='delete-btn' type='submit'>⊖</button>
-            </form>
+            <div class='cmt-btn'>
+              <form action='/plans/<%= plan._id %>/comments/<%= comment._id %>?_method=DELETE' method='POST'>
+                <button class='delete-btn' type='submit'>⊖</button>
+            </div>
+            </form></div>
           <% } %>
         </li>
       <% }) %>

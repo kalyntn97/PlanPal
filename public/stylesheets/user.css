@@ -237,6 +237,7 @@ div.card-body a:hover {
 .display-name { 
   grid-area: display-name; 
   margin-right: auto;
+  color: #44323B;
 }
 
 .payment-forms-head { 
@@ -247,6 +248,7 @@ div.card-body a:hover {
 .payment-forms { 
   grid-area: payment-forms; 
   margin-right: auto;
+  color: #44323B;
 }
 
 #user-payment-forms {
@@ -398,4 +400,8 @@ div.card-body a:hover {
     font-size: 4vw;
     display: block;
   }
+}
+
+.name-title {
+  font-size: 3vw;
 }

@@ -1,5 +1,6 @@
 import mongoose from "mongoose"
 import { Profile} from "../models/profile.js"
+import { Plan } from "../models/plan.js"
 
 function index(req, res) {
 	Profile.find({})
@@ -118,7 +119,6 @@ function addFriend(req, res) {
 		res.redirect('/')
 	})
 }
-
 
 export {
 	index,

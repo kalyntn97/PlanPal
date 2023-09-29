@@ -5,7 +5,7 @@
 <main>
   <section>
     <div class='box-head'>
-      <h1>Task <%= task.name %> Details </h1>
+      <h1><%= task.name %> <span> Details</span></h1>
       <%# Edit the task %>
       <% if (task.creator.equals(user?.profile._id)) { %>
         <a href='/plans/<%= plan._id %>/tasks/<%= task._id %>/edit'>
@@ -15,17 +15,17 @@
     </div>
       <%# Show the task %>
     <div class='details-box'>
-      <div>
-        <p>Name: <%= task.name %></p>
-        <p>Date: <%= task.date %></p>
-        <p>Creator: <%= task.creator.name %></p>
-        <p>Status: <%= task.status %></p>
+      <div class='left-column'>
+        <p>Name: <span><%= task.name %></span></p>
+        <p>Date: <span><%= task.date.toDateString() %></span></p>
+        <p>Creator: <span><%= task.creator.name %></span></p>
+        <p>Status: <span><%= task.status %></span></p>
       </div>
-      <div>
+      <div class='right-column'>
         <p>Expenses:
           <ul>
             <% task.expenses.forEach(expense => { %>
-              <li>
+              <li style='list-style: none;'>
                 <%= expense.name %>
                 <a class='link-no-style' href='/expenses/<%= expense._id %>'>
                   <button class='details-btn'>Details</button>
@@ -44,7 +44,7 @@
           <button class='sub-btn' type='submit'>Add Expense</button>
          </form>
         <% } %>
-        <p>Notes: <%= task.notes %></p>
+        <p>Notes: <span><%= task.notes %></span></p>
       </div>
     </div>
   </section>
@@ -52,27 +52,30 @@
   <%# Comments Section %>
   <section>
     <% if (user) { %>
-      <form class="comment-form" id="taskcomment-form" action="/plans/<%= plan._id %>/tasks/<%= task._id %>/comments" method="POST">
+      <form class="comment-form" id="plan-comment-form" action="/plans/<%= plan._id %>/comments" method="POST">
+        <div class='cmt-icon'><img class="profile-icon" src="<%= user.profile.avatar %>" alt="<%= user.profile.name %>'s avatar"><p><%= user.profile.name %></p></div>
         <textarea name="content"></textarea>
         <button class='main-btn' type="submit">Add Comment</button>
       </form>
-      <% } %>
+    <% } %>
       
       <%# Show all comments %>
       <h2>💬 <%= task.comments.length %> Comments</h2>
       <ul>
         <% task.comments.forEach(comment => { %>
-          <li>
-            <%= comment.author.name %> - <%= comment.content %>
+          <li class='comment'>
+            <div class='cmt-icon'><img class="profile-icon" src="<%= comment.author.avatar %>" alt="<%= comment.author.name %>'s avatar"><p><%= comment.author.name %></p></div>
+            <div class='cmt-content'><span><%= comment.content %></span>
             <% if (comment.author.equals(user?.profile)) { %>
-              <form action='/plans/<%= plan._id %>/tasks/<%= task._id %>/comments/<%= comment._id %>?_method=DELETE' method='POST'>
-                <button class='delete-btn' type='submit'>⊖</button>
-              </form>
+              <div class='cmt-btn'>
+                <form action='/plans/<%= plan._id %>/comments/<%= comment._id %>?_method=DELETE' method='POST'>
+                  <button class='delete-btn' type='submit'>⊖</button>
+              </div>
+              </form></div>
             <% } %>
           </li>
-          <% }) %>
-        </ul>
-        
+        <% }) %>
+      </ul>
   </section>    
 </main>
 

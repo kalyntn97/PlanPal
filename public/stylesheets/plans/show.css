@@ -1,3 +1,7 @@
+main {
+  height: max-content;
+}
+
 .details-box {
   display: flex;
   flex-direction: row;
@@ -7,6 +11,9 @@
   padding: 10px;
   margin-top: 5px;
   margin-bottom: 60px;
+  width: 70vw;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+
 }
 
 .details-box > div {
@@ -21,4 +28,53 @@
 
 li > form {
   display: inline;
+}
+
+.left-column span, .right-column span {
+  color: #44323B;
+  margin-left: 20px;
+  font-size: 18px;
+}
+
+.details-box li {
+  color: #44323B;
+}
+
+#add-member-form select {
+  width: 180px;
+}
+
+#add-expense-form select {
+  width: 30vw;
+}
+
+.comment {
+  display: flex;
+  background-color: #FFF4FE;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  border-radius: 8px;
+  list-style: none;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  width: 50vw;
+  height: fit-content;
+  margin: 5px;
+  display: flex;
+  flex-direction: row;
+  
+}
+
+.comment .cmt-icon {
+  margin-right: auto;
+  padding: 7px;
+}
+
+.comment .cmt-content {
+  display: flex;
+  align-items: center;
+  padding: 5px;
+  margin-left: 25px;
+}
+
+.comment .cmt-btn {
+  margin-left: auto;
 }
