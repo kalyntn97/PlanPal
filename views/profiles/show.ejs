@@ -1,98 +1,133 @@
 <%- include('../partials/html-head.ejs') %>
-<link rel='stylesheet' href='/stylesheets/nav.css' />
 <link rel='stylesheet' href='/stylesheets/user.css' />
 <%- include('../partials/nav.ejs') %>
 
 <main>
   <!-- sidebar for user page -->
-  <div class="sidebar">
-    <a href="/profiles/<%= profile._id %>" class="<%= title === 'My Info' ? 'active' : '' %>"><i class="fas fa-solid fa-user"></i> My Info</a>
-    <a href="/plans"><i class="fas fa-solid fa-calendar"></i> My Plans</a>
-    <a href="/expenses"><i class="fas fa-solid fa-receipt"></i> My Expenses</a>
-    <a href='/profiles/<%= profile._id %>'><i class="fas fa-solid fa-heart"></i> My Friends</button>
-    <a href='/profiles/<%= profile._id %>'><i class="fas fa-solid fa-user-plus"></i> Friend Requests</button>
-  </div>
+  <% if (isSelf) { %>
+    <div class="sidebar">
+      <a class="tablinks active" onclick="openTab(event, 'info')"><i class="fas fa-solid fa-user"></i>My Info</a>
+      <a class="tablinks" onclick="openTab(event, 'friends')"><i class="fas fa-solid fa-heart"></i>My Friends</button></a>
+        <a class="tablinks" onclick="openTab(event, 'friend-requests')" ><i class="fas fa-solid fa-user-plus"></i> Friend Requests</button></a>
+        <a class="tablinks" onclick="openTab(event, 'plans')"><i class="fas fa-solid fa-calendar"></i> My Plans</a>
+        <a class="tablinks" onclick="openTab(event, 'expenses')"><i class="fas fa-solid fa-receipt"></i> My Expenses</a>
+      </div>
+  <% } %>
 
+  <%# main user profile page %>
   <div class='page-content'>
-    <div class='profile-box'>
-      <div class='profile-name'>
-        <h2><%= user ? user.profile.name : "" %></h2>
-        <% if (user?.profile.avatar) { %>
-          <img class="profile-avatar" src="<%= profile.avatar %>" alt="<%= profile.name %>'s avatar">
-        <% } %>
+    <div class ='tabcontent' class='profile-box' id='info'>
+      <div class='profile-name-box'>
+        
         <%# option to send friend request when viewing other profiles %>
-        <% if (!isSelf && !profile.friendRequests.includes(user.profile._id) && !profile.friends.includes(user.profile._id)) { %>
-          <form action='/profiles/<%= profile._id %>?_method=PATCH' method='POST'>
-            <button class='sub-btn' type='submit'>Add Friend</button>
-          </form>
+        <% if (!isSelf) { %>
+          <h2><%= profile.name %></h2>
+          <% if (profile?.avatar) { %>
+            <img class="profile-avatar" src="<%= profile.avatar %>" alt="<%= profile.name %>'s avatar">
+          <% } %>
+          <% if (profile.friendRequests.some(profile => profile._id.toString() === user.profile._id.toString())) { %>
+            <button class='hover-btn' class='no-click'>Friend Request Sent!</button>
+          <% } else if (profile.friends.some(profile => profile._id.toString() === user.profile._id.toString())) { %>
+            <button class='main-btn' class='no-click'>Friends <i class="fas fa-solid fa-user-check"></i></button>
+          <% } else { %>
+            <form action='/profiles/<%= profile._id %>?_method=PATCH' method='POST'>
+              <button class='hover-btn'>Add Friend</button>
+            </form>
+          <% } %>
         <% } %>
 
         <%# option to edit profile for user %>
         <% if (isSelf) { %>
+          <h2><%= user ? user.profile.name : "" %></h2>
+          <% if (user?.profile.avatar) { %>
+            <img class="profile-avatar" src="<%= profile.avatar %>" alt="<%= profile.name %>'s avatar">
+          <% } %>
           <a class='link-no-style' href='/profiles/<%= profile._id %>/edit'>
             <button class='main-btn'>Edit your profile</button>
           </a>
         <% } %>
       </div>
+
       <div class='profile-details-box'>
         <div class='display-name-head'>Display Name:</div>
         <div class='display-name'><%= profile.displayName ? profile.displayName : profile.name %></div>
         <div class='payment-forms-head'>Payment Forms</div>
         <div class='payment-forms'>
-          <% if (profile.zelleId) { %>
-            <div>
-                <img class='icons' src='/images/zelle-icon.png' alt='zelle-icon'>
-                <%= profile.zelleId %>
-            </div>
+          <% if (!profile.zelleId && !profile.venmoId && !profile.paypalId) { %>
+            <p>No payment forms saved</p>
+          <% } else { %>
+            <button class='no-style-btn' onclick="document.getElementById('user-payment-forms').style.display='block'">Show Payment Forms</button>
           <% } %>
-          <% if (profile.venmoId) { %>
-            <div>
-              <img class='icons' src='/images/venmo-icon.png' alt='venmo-icon'>
-              <%= profile.venmoId %>
-            </div>
-          <% } %>
-          <% if (profile.paypalId) { %>
-            <div>
-              <img class='icons' src='/images/paypal-icon.png' alt='paypal-icon'>
-              <%= profile.paypalId %>
-            </div>
-          <% } %>
+
+          <div id='user-payment-forms' style='display: none;'>
+            <% if (profile.zelleId) { %>
+              <div>
+                  <img class='pm-icons' src='/images/zelle-icon.png' alt='zelle-icon'>
+                  <%= profile.zelleId %>
+              </div>
+            <% } %>
+            <% if (profile.venmoId) { %>
+              <div>
+                <img class='pm-icons' src='/images/venmo-icon.png' alt='venmo-icon'>
+                <%= profile.venmoId %>
+              </div>
+            <% } %>
+            <% if (profile.paypalId) { %>
+              <div>
+                <img class='pm-icons' src='/images/paypal-icon.png' alt='paypal-icon'>
+                <%= profile.paypalId %>
+              </div>
+            <% } %>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
     
     <% if (isSelf) { %>
       <%# show friends %>
-    <% if (profile.friends.length === 0) { %>
-      <P>You don't have any friends yet</P>
-      <a href='/profiles'>Find friends</a>
-      <% } else { %>
-        <ul>
-          <% profile.friends.forEach(friend => { %>
-            <li>
-              <img class='profile-avatar' src='<%= friend.avatar %>' alt="<%= friend.name %>'s avatar"><%= friend.name %> is your friend!
-            </li>
-            <% }) %>
-          </ul>
-          <% } %>
-          
-    <%# show friend requests %>
-    <% if (profile.friendRequests.length === 0) { %>
-      <p>You don't have any friend requests</p>
-      <% } else { %>
-        <ul>
-          <% profile.friendRequests.forEach(friendRequest => { %>
-            <li>
-              <form action='/profiles/<%= profile._id %>/friends?_method=PATCH' method='POST'>
-                <img class='profile-avatar' src='<%= friendRequest.avatar %>' alt="<%= friendRequest.name %>'s avatar"><%= friendRequest.name %> sent you a friend request!
-                <button class='main-btn' type='submit' value='<%= friendRequest._id %>' name='friendRequestId'>Confirm</button>
-              </form>
-            </li>
+      <div id="friends" class="tabcontent">
+        <% if (profile.friends.length === 0) { %>
+              <P>You don't have any friends yet</P>
+              <a href='/profiles'>Find friends</a>
+        <% } else {%>
+          <ul>Your Friends
+            <% profile.friends.forEach(friend => { %>
+              <li>
+                <img class='profile-icon' src='<%= friend.avatar %>' alt="<%= friend.name %>'s avatar"><%= friend.name %>
+              </li>
             <% }) %>
           </ul>
         <% } %>
-      <% } %>
-    </div>  
-  </main>
+      </div>
+      
+      <%# show friend requests %>
+      <div id="friend-requests" class="tabcontent">
+       <% if (isSelf) { %>    
+          <% if (profile.friendRequests.length === 0) { %>
+            <p>You don't have any friend requests</p>
+          <% } else { %>
+            <ul>
+              <% profile.friendRequests.forEach(friendRequest => { %>
+                <li>
+                  <form action='/profiles/<%= profile._id %>/friends?_method=PATCH' method='POST'>
+                    <img class='profile-avatar' src='<%= friendRequest.avatar %>' alt="<%= friendRequest.name %>'s avatar"><%= friendRequest.name %> sent you a friend request!
+                    <button class='main-btn' type='submit' value='<%= friendRequest._id %>' name='friendRequestId'>Confirm</button>
+                  </form>
+                </li>
+              <% }) %>
+            </ul>
+          <% } %>
+        <% } %>
+      </div>
+    <% } %>
+
+  <div id="plans" class="tabcontent">
+ 
+  </div>
+  <div id="expenses" class="tabcontent">
+ 
+  </div>
+
+</main>
         
 <%- include('../partials/footer.ejs') %>

@@ -1,40 +1,46 @@
 <%- include('./partials/html-head') %>
 <link rel='stylesheet' href='/stylesheets/user.css' />
-<%- include('./partials/nav') %>
+<% if (!user) { %>
+  <script defer src="https://accounts.google.com/gsi/client"></script>
+<% } %>
+<% if (user) { %>
+  <%- include('./partials/nav') %>
+<% } %>
 
 <main>
-  <div id='index-container'>
-    <div class='title-slogan-box'>
-      <%# title animation %>
-      <h1 class="title">
-        <span class="title-word title-word-1">PLAN</span>
-        <span class="title-word title-word-2">PAL</span>
-      </h1>
-      <h2 class='slogan'>Connecting moments and</h2> 
-      <h2 class='slogan'>crafting memories...</h2>
-    </div>
+  <%# landing page %>
+  <% if (!user) { %>
+    <div id='index-container'>
+      <div class='title-slogan-box'>
+        <%# title animation %>
+        <h1 class="title">
+          <span class="title-word title-word-1">PLAN</span>
+          <span class="title-word title-word-2">PAL</span>
+        </h1>
+        <h2 class='slogan'>Connecting moments and</h2> 
+        <h2 class='slogan'>crafting memories...</h2>
+      </div>
     
     <div class='sign-in-box'>
       <img id='index-img' src='/images/index-img.jpg'>
       <div class='get-started-box'>
-        <h2>
-          <button class='no-style-btn' id='get-started-btn' onmouseover="document.getElementById('g-id-login').style.display='block'">
-            <div class="waviy">
-              <span style="--i:1">G</span>
-              <span style="--i:2">E</span>
-              <span style="--i:3">T</span>
-              <span style="--i:4"></span>
-              <span style="--i:5">S</span>
-              <span style="--i:6">T</span>
-              <span style="--i:7">A</span>
-              <span style="--i:8">R</span>
-              <span style="--i:9">T</span>
-              <span style="--i:10">E</span>
-              <span style="--i:11">D</span>
-            </div>
-          </button>
-          <i class="fas fa-solid fa-angles-right fa-bounce"></i>
-        </h2>
+        <button class='no-style-btn' id='get-started-btn' onmouseover="document.getElementById('g-id-login').style.display='block'">
+          <div class="waviy">
+            <span style="--i:1">G</span>
+            <span style="--i:2">E</span>
+            <span style="--i:3">T </span>
+            <span style="--i:4"></span>
+            <span style="--i:5">S</span>
+            <span style="--i:6">T</span>
+            <span style="--i:7">A</span>
+            <span style="--i:8">R</span>
+            <span style="--i:9">T</span>
+            <span style="--i:10">E</span>
+            <span style="--i:11">D </span>
+            <span style="--i:12"></span>
+            <i class="fas fa-solid fa-angles-right fa-bounce"></i>
+          </div>
+        </button>
         <div class='g-id-box' id='g-id-login'>
           <div
             id="g_id_onload"
@@ -51,7 +57,34 @@
         </div>
       </div>
     </div>
-  </div>
+  <% } %> 
+
+  <%# user landing page %>
+  <% if (user) { %>
+    <div id='user-index-container'>
+      <div id='user-welcome'>
+        <%# title animation %>
+        <h2 class='slogan'>Welcome to <span class='title-name'> PlanPal</span></h2> 
+        <h1 class="title">
+          <span class="sub-title-word title-word-1" class='sub-title-word'><%= user.profile.name.split(' ').slice(0, -1).join(' ') %> </span>
+          <span class="sub-title-word title-word-2" class='sub-title-word'><%= user.profile.name.split(' ').slice(-1).join(' ') %></span>
+        </h1>
+      <div>
+      <div class='link-box'>
+        <a class='link-no-style' href='/plans'><i class="fa-solid fa-hashtag"></i>create-a-plan</a>
+        <a class='link-no-style' href='/expenses'><i class="fa-solid fa-hashtag"></i>add-an-expense</a>
+        <a class='link-no-style' href='/profiles'><i class="fa-solid fa-hashtag"></i>friends</a>
+        <a class='link-no-style' href='/profiles/<%= user.profile._id %>'><i class="fa-solid fa-hashtag"></i>my-profile</a></br>
+        <div class='decoy'>
+          <span><i class="fa-solid fa-hashtag"></i>creative</span>
+          <span><i class="fa-solid fa-hashtag"></i>travel</span>
+          <span><i class="fa-solid fa-hashtag"></i>planner</span>
+          <span><i class="fa-solid fa-hashtag"></i>fun</span>
+        </div>
+      </div>
+      <div class='aside'></div>
+    </div> 
+  <% } %>
 </main>
 
 <%- include('./partials/footer') %>

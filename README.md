@@ -31,7 +31,7 @@ Communication: Comments provide a channel for users to discuss specific event ta
 * HTML, CSS, Express, Nodejs, Mongoose, and MongooseDB
 
 ### Contribution
-Contributions are welcome! If you'd like to improve the game, add more fun features, or fix any issues, please fork the repository and submit a pull request.
+Contributions are welcome! If you'd like to improve the app, add more fun features, or fix any issues, please fork the repository and submit a pull request.
 
 ### License
 This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details.
