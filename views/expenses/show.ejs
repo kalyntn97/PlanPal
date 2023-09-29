@@ -16,15 +16,15 @@
     </div>
       <%# Show the expense %>
     <div class='details-box'>
-      <div>
-        <p>Name: <%= expense.name %></p>
-        <p>Date: <%= expense.date %></p>
-        <p>Creator: <%= expense.creator.name %></p>
+      <div class='left-column'>
+        <p>Name: <span><%= expense.name %></span></p>
+        <p>Date: <span><%= expense.date %></span></p>
+        <p>Creator: <span><%= expense.creator.name %></span></p>
       </div>
-      <div>
-        <p>Occasion: <%= expense.occasion %></p>
-        <p>Cost: <%= expense.cost %></p>
-        <p>Notes: <%= expense.notes %></p>
+      <div class='right-column'>
+        <p>Occasion: <span><%= expense.occasion %></span></p>
+        <p>Cost: <span><%= expense.cost %></span></p>
+        <p>Notes: <span><%= expense.notes %></span></p>
       </div>
     </div>
   </section>

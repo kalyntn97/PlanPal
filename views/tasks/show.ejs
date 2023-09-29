@@ -5,8 +5,8 @@
 <main>
   <section>
     <div class='box-head'>
-      <h1><%= task.name %> <span> Details</span></h1>
-      <%# Edit the task %>~/.fly/bin/flyctl deploy
+      <h1><%= task.name %> <span class='small-header'>  Details</span></h1>
+      <%# Edit the task %>
       <% if (task.creator.equals(user?.profile._id)) { %>
         <a href='/plans/<%= plan._id %>/tasks/<%= task._id %>/edit'>
           <button class='main-btn'>Edit Task</button>

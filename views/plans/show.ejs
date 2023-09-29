@@ -1,8 +1,8 @@
 <%- include('../partials/html-head.ejs') %>
 <link rel='stylesheet' href='/stylesheets/plans/show.css'/>
 <%- include('../partials/nav.ejs') %>
-
-<main>
+<main class="sky" id="top">
+  
   <section>
     <div class='box-head'>
       <h1><%= plan.name %> <span class='small-header'>Details</span></h1>
@@ -97,7 +97,9 @@
         </li>
       <% }) %>
     </ul>
-  </section>   
+  </section>
+
 </main>
 
+<div id="bottom"></div>
 <%- include('../partials/footer.ejs') %>

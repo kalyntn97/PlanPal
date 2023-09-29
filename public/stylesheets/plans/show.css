@@ -1,5 +1,7 @@
+
 main {
-  height: max-content;
+  display: flex;
+  align-items: start;
 }
 
 .details-box {
@@ -78,3 +80,28 @@ li > form {
 .comment .cmt-btn {
   margin-left: auto;
 }
+
+/* background effect */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+/* Styles for links */
+a.top {
+  bottom: 0;
+}
+
+#bottom {
+  height: 0;
+}
+
+.sky {
+  background: linear-gradient(to bottom, #64b3f4, #c2e59c);
+  height: 150vh;
+  position: relative;
+}
+
