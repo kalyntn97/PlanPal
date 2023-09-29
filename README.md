@@ -26,7 +26,7 @@ Communication: Comments provide a channel for users to discuss specific event ta
 3. Leave comments, questions, and chat with your friends throughout the planning process.
 
 ### Screenshots
-[Screenshot of Home Page](/public/images/PlanPal-HomePage.png)
+![Screenshot of Home Page](/public/images/PlanPal-HomePage.png)
 
 ### Technologies Used
 ## [Trello planning materials](https://trello.com/b/ypMyZC8Z/planpal)
