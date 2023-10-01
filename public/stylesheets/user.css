@@ -26,10 +26,11 @@
 }
 
 #index-img {
-  height: 50vh;
   margin-bottom: 10vh;
   margin-top: 10vh;
   border-radius: 15px;
+  max-height: 50vh;
+  width: 100%;
 }
 
 .slogan {
@@ -55,7 +56,9 @@
   width: fit-content;
 }
 
-
+#g-id-login {
+  display: none;
+}
 
 #user-index-container {
   display: grid;

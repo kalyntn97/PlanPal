@@ -30,7 +30,7 @@ Communication: Comments provide a channel for users to discuss specific event ta
 
 ### Technologies Used
 ## [Trello planning materials](https://trello.com/b/ypMyZC8Z/planpal)
-* HTML, CSS, , EJS templates, Express, Nodejs, Mongoose, MongoDB, GoogleOAuth authentication
+* HTML, CSS, , EJS templates, Express, Nodejs, Mongoose, MongoDB, GoogleOAuth authentication, fly.io, Git & GitHub
 
 ### Contribution
 Contributions are welcome! If you'd like to improve the app, add more fun features, or fix any issues, please fork the repository and submit a pull request.
@@ -40,6 +40,7 @@ This project is licensed under the MIT License - see the [LICENSE](./LICENSE) fi
 
 ### Attributions
 https://www.w3schools.com/howto/default.asp https://www.vecteezy.com/ https://fontawesome.com/ https://www.figma.com/ https://mycolor.space/ https://www.sliderrevolution.com/resources/css-text-animation/ https://codepen.io/imjuangarcia/pen/RwbQLPe 
+
 
 
 ### Next Steps
