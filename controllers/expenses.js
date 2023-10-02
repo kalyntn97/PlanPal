@@ -44,11 +44,9 @@ function show(req, res) {
 function edit(req, res) {
   Expense.findById(req.params.expenseId)
   .then(expense => {
-    const expenseDate = expense.date.toISOString().slice(0, 16)
     res.render('expenses/edit', {
       expense,
       title: '',
-      expenseDate
     })
   })
   .catch(err => {

@@ -1,5 +1,5 @@
 html {
- 
+
 }
 
 /* The Universal Selector */
@@ -167,4 +167,33 @@ input, textarea, select {
 
 .no-click {
   pointer-events: none;
+}
+
+/* background effect */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+/* Styles for links */
+a.top {
+  bottom: 0;
+}
+
+#bottom {
+  height: 0;
+}
+
+.sky {
+  background: linear-gradient(to bottom, #64b3f4, #c2e59c);
+  height: fit-content;
+  min-height: calc(100vh - 9vh);
+  position: relative;
+}
+
+.sky.purple {
+  background: linear-gradient(to bottom, #a564f4, #e59cb2);
 }

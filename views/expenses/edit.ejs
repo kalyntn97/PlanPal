@@ -8,7 +8,7 @@
     <label for='expense-name-input'>Name</label>
     <input type='text' name='name' id='expense-name-input' autocomplete='off' value='<%= expense.name %>'>
     <label for='expense-date-input'>Date</label>
-    <input type='datetime-local' name='date' id='expense-date-input' value='<%= expenseDate %>'>
+    <input type='date' name='date' id='expense-date-input' value='<%= expense.date?.toDateString() %>'>
     <label for='occasion-input'>Occasion</label>
     <input type='text' name='occasion' id='occasion-input' autocomplete='off' value='<%= expense.occasion %>'>
     <label for='cost-input'>Cost</label>

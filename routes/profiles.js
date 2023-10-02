@@ -10,6 +10,8 @@ router.get('/:profileId/edit', isLoggedIn, profilesCtrl.edit)
 router.put('/:profileId', isLoggedIn, profilesCtrl.update)
 router.patch('/:profileId', isLoggedIn, profilesCtrl.sendFriendRequest)
 router.patch('/:profileId/friends', isLoggedIn, profilesCtrl.addFriend)
+router.patch('/:profileId/hashtags', isLoggedIn, profilesCtrl.addHashTag)
+router.delete('/:profileId/hashtags/:hashtagId', isLoggedIn, profilesCtrl.deleteHashTag)
 
 export {
   router

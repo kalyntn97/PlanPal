@@ -75,12 +75,33 @@
         <a class='link-no-style' href='/expenses'><i class="fa-solid fa-hashtag"></i>add-an-expense</a>
         <a class='link-no-style' href='/profiles'><i class="fa-solid fa-hashtag"></i>friends</a>
         <a class='link-no-style' href='/profiles/<%= user.profile._id %>'><i class="fa-solid fa-hashtag"></i>my-profile</a></br>
-        <div class='decoy'>
-          <span><i class="fa-solid fa-hashtag"></i>creative</span>
-          <span><i class="fa-solid fa-hashtag"></i>travel</span>
-          <span><i class="fa-solid fa-hashtag"></i>planner</span>
-          <span><i class="fa-solid fa-hashtag"></i>fun</span>
+      <div class='decoy' onmouseover="document.getElementById('add-hashtag-btn').style.display='block'">
+        <span><i class="fa-solid fa-hashtag"></i>creative</span>
+        <span><i class="fa-solid fa-hashtag"></i>travel</span>
+        <span><i class="fa-solid fa-hashtag"></i>planner</span>
+        <span><i class="fa-solid fa-hashtag"></i>fun</span>
+        <span><i class="fa-solid fa-hashtag"></i>memories</span>
+      </div>
+        <div id='user-hashtag-box'>
+          <ul>
+            <% profile.hashtags.forEach(hashtag => { %>
+              <li style='list-style-type: none;'>
+                <i class="fa-solid fa-hashtag"></i>
+                <%= hashtag.content %>
+                <form id='delete-hashtag-form' action='/profiles/<%= user.profile._id %>/hashtags/<%= hashtag._id %>?_method=DELETE' method='POST'>
+                  <button class='delete-btn' type='submit'>⊖</button>
+                </form>
+              </li>
+              <% }) %>
+            <button id='add-hashtag-btn' class='no-style-btn' onclick="document.getElementById('add-hashtag-form').style.display='block';" style='display: none;'> + </button>
+          </ul>
         </div>
+        <%# add hashtag form %>
+        <form id='add-hashtag-form' action='/profiles/<%= user.profile._id %>/hashtags?_method=PATCH' method='POST' style='display: none;'>
+          <label for='hash-tag-input'><i class="fa-solid fa-hashtag"></i></label>
+          <input type='text' name='content' id='hash-tag-input' required>
+          <button class='no-style-btn' type='submit'>+</button>
+        </form>
       </div>
       <div class='aside'></div>
     </div> 

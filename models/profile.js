@@ -2,6 +2,12 @@ import mongoose from 'mongoose'
 
 const Schema = mongoose.Schema
 
+const hashtagSchema = new Schema({
+  content: String,
+}, {
+  timestamps: true
+})
+
 const profileSchema = new Schema({
   name: String,
   displayName: String,
@@ -9,6 +15,7 @@ const profileSchema = new Schema({
   zelleId: String,
   venmoId: String,
   paypalId: String,
+  hashtags: [hashtagSchema],
   friends: [{type: Schema.Types.ObjectId, ref: 'Profile'}],
   friendRequests: [{type: Schema.Types.ObjectId, ref: 'Profile'}],
 }, {

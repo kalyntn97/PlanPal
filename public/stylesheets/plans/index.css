@@ -5,6 +5,11 @@
   border: 1px solid #EFC3D9;
   padding: 20px;
   background: #FFF4FE;
+  width: 50vw;
+  max-width: 90vw;
+}
+.add-edit-form > * {
+  width: 100%;
 }
 
 .add-edit-form > button {
@@ -13,11 +18,14 @@
   margin-left: auto;
 }
 
+
 table {
   border-radius: 10px;
   border: 1px solid #EFC3D9;
   background-color: #FFF4FE;
   padding: 10px;
+  width: 50vw;
+  max-width: 90vw;
 }
 
 td {
@@ -28,3 +36,11 @@ th {
   border-bottom: 1px solid #44323B;
 }
 
+@media screen and (max-width: 400px) {
+  .add-edit-form {
+    width: 90vw;
+  }
+  table {
+    width: 90vw;
+  }
+}

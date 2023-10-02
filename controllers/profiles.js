@@ -120,6 +120,39 @@ function addFriend(req, res) {
 	})
 }
 
+function addHashTag(req, res) {
+	Profile.findById(req.user.profile._id)
+  .then(profile => {
+		profile.hashtags.push(req.body)
+		profile.save()
+		res.redirect('/')
+  })
+  .catch(err => {
+    console.log(err)
+    res.redirect('/')
+  })
+}
+
+function deleteHashTag(req, res) {
+	Profile.findById(req.user.profile._id)
+	.then(profile => {
+		const hashtag = profile.hashtags.id(req.params.hashtagId)
+		profile.hashtags.remove(hashtag)
+		profile.save()
+		.then(() => {
+			res.redirect('/')
+		})
+		.catch(err => {
+			console.log(err)
+			res.redirect('/')
+		})
+	})
+	.catch(err => {
+    console.log(err)
+    res.redirect('/')
+  })
+}
+
 export {
 	index,
 	show,
@@ -127,4 +160,6 @@ export {
 	update,
 	sendFriendRequest,
 	addFriend,
+	addHashTag,
+	deleteHashTag,
 }

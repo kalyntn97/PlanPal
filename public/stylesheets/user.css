@@ -71,6 +71,7 @@
     "user-welcome aside"
     "link-box aside";
   max-height: calc(100vh - 9vh);
+  position: relative;
 }
 
 
@@ -95,9 +96,40 @@
   color: #005B4C;
   padding: 2%;
 }
-.decoy > span {
+.decoy span {
   padding: 2%;
 }
+#user-hashtag-box {
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0;
+  display: flex;
+  max-width: 50vw;
+}
+
+#user-hashtag-box ul {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  max-width: 50vw;
+  flex-wrap: wrap;
+}
+#user-hashtag-box li {
+  padding: 0 2%;
+}
+#add-hashtag-btn {
+  padding-bottom: 2%;
+  font-size: 2vw;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#add-hashtag-form #hash-tag-input{
+  width: 10vw;
+  margin: 0;
+}
+
 .link-box > a:visited {
   color: #005B4C;
 }

@@ -8,7 +8,7 @@
       <h1>Add a plan</h1>
       <form  class="add-edit-form" id="add-plan-form" action="/plans" method="POST">
         <label for='plan-name-input'>Name</label>
-        <input type="string" name="name" autocomplete="off" id='plan-name-input'>
+        <input type="string" name="name" autocomplete="off" id='plan-name-input' required>
         <label for='plan-date-input'>Date</label>
         <input type="date" name="date" id='planDate-input'>
         <label for='plan-notes-input'>Notes</label>
@@ -20,34 +20,38 @@
   
   <section class='right'>
     <h1>All plans</h1>
-    <table>
-      <thead>
-        <tr>
-          <th>Date</th>
-          <th>Name</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% plans.forEach(plan => { %>
+    <% if (plans.length === 0) { %>
+     <tr>No plans yet!</tr>
+    <% } else { %>
+      <table>
+        <thead>
           <tr>
-            <td><%= plan.name %></td>
-            <td><%= plan.date.toDateString() %></td>
-            <td>
-              <a href="/plans/<%= plan._id %>">
-                <button class='details-btn'>Details</button>
-              </a>
-            </td>
-            <% if (plan.creator.equals(user?.profile._id)) { %>
+            <th>Date</th>
+            <th>Name</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% plans.forEach(plan => { %>
+            <tr>
+              <td><%= plan.name %></td>
+              <td><%= plan.date?.toDateString() %></td>
               <td>
-                <form action='/plans/<%= plan._id %>?_method=DELETE' method='POST'>
-                  <button class='delete-btn' type='submit'>⊖</button>
-                </form>
+                <a href="/plans/<%= plan._id %>">
+                  <button class='details-btn'>Details</button>
+                </a>
               </td>
+              <% if (plan.creator.equals(user?.profile._id)) { %>
+                <td>
+                  <form action='/plans/<%= plan._id %>?_method=DELETE' method='POST'>
+                    <button class='delete-btn' type='submit'>⊖</button>
+                  </form>
+                </td>
               <% } %>
             </tr>
-            <% }) %>
-          </tbody>
-        </table>
+          <% }) %>
+        </tbody>
+      </table>
+    <% } %>
   </section>
 </main>
       

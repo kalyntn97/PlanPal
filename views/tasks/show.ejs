@@ -2,7 +2,7 @@
 <link rel='stylesheet' href='/stylesheets/plans/show.css'/>
 <%- include('../partials/nav.ejs') %>
 
-<main>
+<main class='sky purple' id='top'>
   <section>
     <div class='box-head'>
       <h1><%= task.name %> <span class='small-header'>  Details</span></h1>
@@ -17,7 +17,7 @@
     <div class='details-box'>
       <div class='left-column'>
         <p>Name: <span><%= task.name %></span></p>
-        <p>Date: <span><%= task.date.toDateString() %></span></p>
+        <p>Date: <span><%= task.date?.toDateString() %></span></p>
         <p>Creator: <span><%= task.creator.name %></span></p>
         <p>Status: <span><%= task.status %></span></p>
       </div>
@@ -52,7 +52,7 @@
   <%# Comments Section %>
   <section>
     <% if (user) { %>
-      <form class="comment-form" id="plan-comment-form" action="/plans/<%= plan._id %>/comments" method="POST">
+      <form class="comment-form" id="task-comment-form" action="/plans/<%= plan._id %>/tasks/<%= task._id %>/comments" method="POST">
         <div class='cmt-icon'><img class="profile-icon" src="<%= user.profile.avatar %>" alt="<%= user.profile.name %>'s avatar"><p><%= user.profile.name %></p></div>
         <textarea name="content"></textarea>
         <button class='main-btn' type="submit">Add Comment</button>
@@ -61,22 +61,25 @@
       
       <%# Show all comments %>
       <h2>💬 <%= task.comments.length %> Comments</h2>
-      <ul>
+      <ul class='comment-box'>
         <% task.comments.forEach(comment => { %>
-          <li class='comment'>
+          <li class='comments'>
+            <div class="cmt-content <%= comment.author.equals(user?.profile) ? 'user-cmt' : 'other-cmt'%>">
+              <p><%= comment.content %></p>
+              <% if (comment.author.equals(user?.profile)) { %>
+                <div class='cmt-btn'>
+                  <form action='/plans/<%= plan._id %>/tasks/<%= task._id %>/comments/<%= comment._id %>?_method=DELETE' method='POST'>
+                    <button class='delete-btn' type='submit'>⊖</button>
+                  </form>
+                </div>
+                <% } %>
+            </div>
             <div class='cmt-icon'><img class="profile-icon" src="<%= comment.author.avatar %>" alt="<%= comment.author.name %>'s avatar"><p><%= comment.author.name %></p></div>
-            <div class='cmt-content'><span><%= comment.content %></span>
-            <% if (comment.author.equals(user?.profile)) { %>
-              <div class='cmt-btn'>
-                <form action='/plans/<%= plan._id %>/comments/<%= comment._id %>?_method=DELETE' method='POST'>
-                  <button class='delete-btn' type='submit'>⊖</button>
-              </div>
-              </form></div>
-            <% } %>
           </li>
         <% }) %>
       </ul>
   </section>    
 </main>
 
+<div id="bottom"></div>
 <%- include('../partials/footer.ejs') %>

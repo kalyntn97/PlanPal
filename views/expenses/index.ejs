@@ -8,13 +8,13 @@
     <h1>Add an Expense</h1>
     <form class='add-edit-form' id='add-expense-form' action='/expenses' method='POST'>
       <label for='expense-name-input'>Name</label>
-      <input type='text' name='name' id='expense-name-input' autocomplete='off'>
+      <input type='text' name='name' id='expense-name-input' autocomplete='off' required>
       <label for='expense-date-input'>Date</label>
       <input type='date' name='date' id='expense-date-input'>
       <label for='occasion-input'>Occasion</label>
       <input type='text' name='occasion' id='occasion-input' autocomplete='off'>
       <label for='cost-input'>Cost</label>
-      <input type='number' name='cost' id='cost-input'>
+      <input type='number' name='cost' id='cost-input' required>
       <label for='expense-notes-input'>Notes</label>
       <textarea name='notes' id='expense-notes-input'></textarea>
       <button class='main-btn' type='submit'>Add Expense</button>
@@ -35,7 +35,7 @@
         <% expenses.forEach(expense => { %>
           <% if (expense.creator.equals(user?.profile._id)) { %>
           <tr>
-            <td><%= expense.date %></td> 
+            <td><%= expense.date?.toDateString() %></td> 
             <td><%= expense.name %></td>
             <td><%= expense.cost %></td>
             <td>

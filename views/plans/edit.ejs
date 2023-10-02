@@ -8,7 +8,7 @@
     <label for='plan-name-input'>Name</label>
     <input type="string" name="name" autocomplete="off" value='<%= plan.name %>' id='plan-name-input'>
     <label for='plan-date-input'>Date</label>
-    <input type="date" name="date" value='<%= plan.date.toDateString()%>' id='plan-date-input'>
+    <input type="date" name="date" value='<%= plan.date?.toDateString()%>' id='plan-date-input'>
     <label for='plan-notes-input'>Notes</label>
     <textarea type="string", name="notes" value='<%= plan.notes %>' id='plan-notes-input'></textarea>
     <button class='main-btn' type="submit">Save</button>
