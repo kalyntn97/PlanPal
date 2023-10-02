@@ -18,7 +18,7 @@
       <div class='left-column'>
         <p>Name: <span><%= task.name %></span></p>
         <p>Date: <span><%= task.date?.toDateString() %></span></p>
-        <p>Creator: <span><%= task.creator.name %></span></p>
+        <p>Creator: <span><%= task.creator.displayName ? task.creator.displayName : task.creator.name %></span></p>
         <p>Status: <span><%= task.status %></span></p>
       </div>
       <div class='right-column'>
@@ -53,7 +53,7 @@
   <section>
     <% if (user) { %>
       <form class="comment-form" id="task-comment-form" action="/plans/<%= plan._id %>/tasks/<%= task._id %>/comments" method="POST">
-        <div class='cmt-icon'><img class="profile-icon" src="<%= user.profile.avatar %>" alt="<%= user.profile.name %>'s avatar"><p><%= user.profile.name %></p></div>
+        <div class='cmt-icon'><img class="profile-icon" src="<%= user.profile.avatar %>" alt="<%= user.profile.name %>'s avatar"><p><%= user.profile.displayName ? user.profile.displayName : user.profile.name %></p></div>
         <textarea name="content"></textarea>
         <button class='main-btn' type="submit">Add Comment</button>
       </form>
@@ -74,7 +74,7 @@
                 </div>
                 <% } %>
             </div>
-            <div class='cmt-icon'><img class="profile-icon" src="<%= comment.author.avatar %>" alt="<%= comment.author.name %>'s avatar"><p><%= comment.author.name %></p></div>
+            <div class='cmt-icon'><img class="profile-icon" src="<%= comment.author.avatar %>" alt="<%= comment.author.name %>'s avatar"><p><%= comment.author.displayName ? comment.author.displayName : comment.author.name %></p></div>
           </li>
         <% }) %>
       </ul>

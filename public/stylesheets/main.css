@@ -195,5 +195,9 @@ a.top {
 }
 
 .sky.purple {
-  background: linear-gradient(to bottom, #a564f4, #e59cb2);
+  background: linear-gradient(to bottom, #9464f4, #e59cdc);
+}
+
+.sky.yellow {
+  background: linear-gradient(to bottom, #f48164, #e5e09c);
 }

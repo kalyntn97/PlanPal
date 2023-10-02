@@ -2,7 +2,7 @@
 <link rel='stylesheet' href='/stylesheets/plans/show.css' />
 <%- include('../partials/nav') %>
 
-<main>
+<main class='sky yellow' id='top'>
 
   <section>
     <div class='box-head'>
@@ -19,7 +19,7 @@
       <div class='left-column'>
         <p>Name: <span><%= expense.name %></span></p>
         <p>Date: <span><%= expense.date?.toDateString() %></span></p>
-        <p>Creator: <span><%= expense.creator.name %></span></p>
+        <p>Creator: <span><%= expense.creator.displayName ? expense.creator.displayName : expense.creator.name %></span></p>
       </div>
       <div class='right-column'>
         <p>Occasion: <span><%= expense.occasion %></span></p>
@@ -31,4 +31,5 @@
 
 </main>
 
+<div id="bottom"></div>
 <%- include('../partials/footer.ejs') %>

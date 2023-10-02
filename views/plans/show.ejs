@@ -17,7 +17,7 @@
       <div class='left-column'>
         <p>Name: <span><%= plan.name %></span></p>
         <p>Date: <span><%= plan.date?.toDateString() %></span></p>
-        <p>Creator: <span><%= plan.creator.name %></span></p>
+        <p>Creator: <span><%= plan.creator.displayName ? plan.creator.displayName : plan.creator.name %></span></p>
         <p>Members:
           <ul>
             <% plan.members.forEach(member => { %>
@@ -36,7 +36,7 @@
             <form id='add-member-form' action='/plans/<%= plan._id %>/members?_method=PATCH' method='POST'>
               <select name='memberId'>
                 <% creatorFriends.forEach(friend => { %>
-                  <option value='<%= friend._id %>'><%= friend.name %></option>
+                  <option value='<%= friend._id %>'><%= friend.displayName ? friend.displayName : friend.name %></option>
                 <% }) %>
               </select>
               <button class='sub-btn' type='submit'>Add Member</button>
@@ -74,7 +74,7 @@
   <section>
     <% if (user) { %>
       <form class="comment-form" id="plan-comment-form" action="/plans/<%= plan._id %>/comments" method="POST">
-        <div class='cmt-icon'><img class="profile-icon" src="<%= user.profile.avatar %>" alt="<%= user.profile.name %>'s avatar"><p><%= user.profile.name %></p></div>
+        <div class='cmt-icon'><img class="profile-icon" src="<%= user.profile.avatar %>" alt="<%= user.profile.name %>'s avatar"><p><%= user.profile.displayName ? user.profile.displayName : user.profile.name %></p></div>
         <textarea name="content"></textarea>
         <button class='main-btn' type="submit">Add Comment</button>
       </form>
@@ -95,7 +95,7 @@
               </div>
               <% } %>
           </div>
-          <div class='cmt-icon'><img class="profile-icon" src="<%= comment.author.avatar %>" alt="<%= comment.author.name %>'s avatar"><p><%= comment.author.name %></p></div>
+          <div class='cmt-icon'><img class="profile-icon" src="<%= comment.author.avatar %>" alt="<%= comment.author.name %>'s avatar"><p><%= comment.author.displayName ? comment.author.displayName : comment.author.name %></p></div>
         </li>
       <% }) %>
     </ul>
