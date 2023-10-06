@@ -93,9 +93,9 @@
                 </button>
               </a>
         <% } else {%>
-          <div class='card-container'>
-            <h1>Your Friends</h1>
-            <ul>
+          <h1>Your Friends</h1>
+          <ul>
+              <div class='card-container'>
               <% profile.friends.forEach(friend => { %>
                 <div class='card'>
                   <li style='list-style: none;'>
@@ -106,8 +106,8 @@
                   </li>
                 </div>
               <% }) %>
+            </div>
             </ul>
-          </div>
         <% } %>
       </div>
       
