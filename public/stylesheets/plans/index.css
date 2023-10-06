@@ -1,3 +1,27 @@
+main {
+  display: flex;
+  flex-direction: row;
+  align-items: start;
+  justify-content: space-evenly;
+}
+
+section {
+  width: 45%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+main.add-edit-task {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+}
+main.add-edit-task form {
+  width: 70%;
+}
+
 .add-edit-form {
   display: flex;
   flex-direction: column;
@@ -5,42 +29,47 @@
   border: 1px solid #EFC3D9;
   padding: 20px;
   background: #FFF4FE;
-  width: 50vw;
-  max-width: 90vw;
+  width: 80%;
 }
-.add-edit-form > * {
-  width: 100%;
-}
-
 .add-edit-form > button {
-  margin: 20px;
-  width: fit-content;
   margin-left: auto;
 }
-
+.legend {
+  text-align: right;
+  width: 100%;
+  padding: 1%;
+}
+.legend span {
+  padding: 2%;
+}
 
 table {
   border-radius: 10px;
   border: 1px solid #EFC3D9;
   background-color: #FFF4FE;
   padding: 10px;
-  width: 50vw;
-  max-width: 90vw;
+  width: 100%;
 }
-
 td {
   padding: 7px 10px 7px 10px;
 }
-
 th {
   border-bottom: 1px solid #44323B;
 }
 
 @media screen and (max-width: 400px) {
+  main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  section {
+    width: 90%;
+  }
   .add-edit-form {
-    width: 90vw;
+    width: 100%;
   }
   table {
-    width: 90vw;
+    width: 100%;
   }
 }

@@ -41,12 +41,18 @@ function show(req, res) {
 	.then(plan => {
     Profile.find({_id: {$in: plan.creator.friends}})
     .then(creatorFriends => {
+      const isCreatorsFriend = creatorFriends.some(profile => profile._id.toString() === req.user.profile._id.toString())
       Task.find({})
       .then(tasks => {
+        const isMember = plan.members.some(member => member._id.toString() === req.user.profile._id.toString())
+        const isCreator = plan.creator.equals(req.user.profile._id)
         res.render('plans/show', {
           plan,
           tasks,
           creatorFriends,
+          isCreatorsFriend,
+          isMember,
+          isCreator,
           title:'My Plans',
         })     
       })
@@ -180,18 +186,24 @@ function addTask(req, res) {
 function showTask(req, res) {
   Plan.findById(req.params.planId)
   .then(plan => {
+    const isPlanCreator = plan.creator.equals(req.user.profile._id)
+    const isMember = plan.members.some(member => member._id.toString() === req.user.profile._id.toString())
     Task.findById(req.params.taskId)
     .populate([
       {path: 'creator'},
       {path: 'comments.author'},
-      {path: 'expenses'}
+      {path: 'expenses'},
     ])
     .then(task => {
+      const isTaskCreator = task.creator.equals(req.user.profile._id)
       Expense.find({_id: {$nin: task.expenses}})
       .then(expenses => {
         res.render('tasks/show', {
           plan,
           task,
+          isPlanCreator,
+          isTaskCreator,
+          isMember,
           expenses,
           title: 'My Plans',
         })

@@ -6,8 +6,8 @@
   <section>
     <div class='box-head'>
       <h1><%= plan.name %> <span class='small-header'>Details</span></h1>
-      <%# Edit the plan %>
-      <% if (plan.creator.equals(user?.profile._id)) { %>
+      <%# Edit the plan if plan creator or member %>
+      <% if (isCreator || isMember) { %>
         <a href='/plans/<%= plan._id %>/edit'>
           <button class='main-btn'>Edit Plan</button>
         </a>
@@ -22,7 +22,7 @@
           <ul>
             <% plan.members.forEach(member => { %>
               <li style='list-style-type: none;'>
-                <%= member.name %>
+                <%= member.displayName ? member.displayName : member.name %>
                 <a class='link-no-style' href='/profiles/<%= member._id %>'>
                   <button class='details-btn'>See Profile</button>
                 </a>
@@ -32,7 +32,8 @@
               </li>
             <% }) %>
           </ul>
-          <% if (plan.creator.equals(user?.profile)) { %>
+          <%# Add members for creator %>
+          <% if (isCreator) { %>
             <form id='add-member-form' action='/plans/<%= plan._id %>/members?_method=PATCH' method='POST'>
               <select name='memberId'>
                 <% creatorFriends.forEach(friend => { %>
@@ -52,16 +53,22 @@
             <% plan.tasks.forEach(task => { %>
               <li style='list-style-type: none;'>
                 <%= task.name %>
-                <a class='link-no-style' href='/plans/<%= plan._id %>/tasks/<%= task._id %>'>
-                  <button class='details-btn'>Details</button>
-                </a>
-                <form action='/plans/<%= plan._id %>/tasks/<%= task._id %>?_method=DELETE' method='POST'>
-                  <button class='delete-btn' type='submit'>⊖</button>
-                </form>
+                <% if (isCreator || isMember) { %>
+                  <a class='link-no-style' href='/plans/<%= plan._id %>/tasks/<%= task._id %>'>
+                    <button class='details-btn'>Details</button>
+                  </a>
+                <% } %>
+                <% if (isCreator || task.creator.equals(user?.profile._id)) { %>
+                  <i class="fas fa-solid fa-pencil"></i>
+                  <form action='/plans/<%= plan._id %>/tasks/<%= task._id %>?_method=DELETE' method='POST'>
+                    <button class='delete-btn' type='submit'>⊖</button>
+                  </form>
+                <% } %>
               </li>
             <% }) %>
           </ul>
-          <% if (user) { %>
+          <%# Add task for creator and members %>
+          <% if (isCreator || isMember) { %>
             <a href='/plans/<%= plan._id %>/tasks/new'>
               <button class='sub-btn'>Add Task</button>
             </a>
@@ -72,22 +79,24 @@
   </section>
         
   <section>
-    <% if (user) { %>
+    <%# Add comment also for creator's friends %>
+    <% if (isCreator || isCreatorsFriend) { %>
       <form class="comment-form" id="plan-comment-form" action="/plans/<%= plan._id %>/comments" method="POST">
         <div class='cmt-icon'><img class="profile-icon" src="<%= user.profile.avatar %>" alt="<%= user.profile.name %>'s avatar"><p><%= user.profile.displayName ? user.profile.displayName : user.profile.name %></p></div>
-        <textarea name="content"></textarea>
+        <textarea name="content" required></textarea>
         <button class='main-btn' type="submit">Add Comment</button>
       </form>
     <% } %>
       
     <%# Show all comments %>
-    <h2>💬 <%= plan.comments.length %> Comments</h2>
     <ul class='comment-box'>
+      <h2>💬 <%= plan.comments.length %> Comments</h2>
       <% plan.comments.forEach(comment => { %>
         <li class='comments'>
           <div class="cmt-content <%= comment.author.equals(user?.profile) ? 'user-cmt' : 'other-cmt'%>">
             <p><%= comment.content %></p>
-            <% if (comment.author.equals(user?.profile)) { %>
+            <%# Delete comment for creator and its author %>
+            <% if (isCreator || comment.author.equals(user?.profile)) { %>
               <div class='cmt-btn'>
                 <form action='/plans/<%= plan._id %>/comments/<%= comment._id %>?_method=DELETE' method='POST'>
                   <button class='delete-btn' type='submit'>⊖</button>

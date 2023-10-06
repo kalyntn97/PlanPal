@@ -18,14 +18,14 @@
             </a>
           </div>
          
-          <div class='more-btns'>
+          <div class='add-friend'>
             <% if (profile.friendRequests.some(profile => profile._id.toString() === user.profile._id.toString())) { %>
-              <button class='hover-btn'>Friend Request Sent!</button>
+              <button class='add-friend-btn' disabled>Friend Request Sent!</button>
             <% } else if (profile.friends.some(profile => profile._id.toString() === user.profile._id.toString())) { %>
               <button class='main-btn'>Friends <i class="fas fa-solid fa-user-check"></i></button>
             <% } else { %>
               <form action='/profiles/<%= profile._id %>?_method=PATCH' method='POST'>
-                  <button class='hover-btn' type='submit'>Add Friend</button>
+                  <button class='add-friend-btn' type='submit'>Add Friend</button>
               </form>
             <% } %>
           </div>

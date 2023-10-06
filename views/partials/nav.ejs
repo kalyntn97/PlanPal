@@ -4,7 +4,7 @@
   <link rel='stylesheet' href='/stylesheets/nav.css' />
 </head>
 <body>
-  <nav>
+  <nav id='navbar'>
     <% if (user) { %>
       <a href='/' class='<%= title === "Home Page" ? "active" : "" %>'>
         <i class="fas fa-solid fa-house"></i> Home
@@ -29,6 +29,7 @@
         <span onclick="document.getElementById('profile-log-modal').style.display='none'" class="close" title="Close Modal">&times;</span>
         <div class='profile-log-modal-content'>
           <div class='profile-avatar-container'>
+            <p>Hi, <%= user.profile.displayName ? user.profile.displayName : user.profile.name.split(' ').splice(0, 1).join('') %>!</p>
             <img class="profile-avatar-log" src="<%= user.profile.avatar %>" alt="<%= user.profile.name %>'s avatar">
           </div>
           <div class='logout-container'>

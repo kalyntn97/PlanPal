@@ -1,41 +1,35 @@
-
-
-#index-container {
-  display: grid; 
-  grid-auto-columns: auto auto; 
-  grid-template-rows: 1fr; 
-  gap: 0px 0px; 
-  grid-template-areas: 
-    "title-slogan-box sign-in-box";
+main.noNav {
+  display: flex;
+  flex-direction: row;
   align-items: center;
-  justify-content: center;
+  justify-content: space-around;
+  height: calc(100vh - 3vh);
+  background-color: #FEF2DD;
 }
 
 .title-slogan-box {
-  grid-area: title-slogan-box;
   display: flex;
   flex-direction: column;
-  width: 50vw;
+  height: fit-content;
+  margin: 2%;
+  width: 50%;
 }
 
 .sign-in-box {
-  grid-area: sign-in-box;
   display: flex;
   flex-direction: column;
-  width: 40vw;
+  max-height: 80%;
+  width: 40%;
 }
 
 #index-img {
-  margin-bottom: 10vh;
-  margin-top: 10vh;
   border-radius: 15px;
-  max-height: 50vh;
-  width: 100%;
+  max-width: 100%;
 }
 
 .slogan {
-  font-size: 1.5vw;
-  margin: 1vw;
+  font-size: 2vw;
+  margin: 0.5vw;
 }
 
 .slogan .title-name {
@@ -54,150 +48,124 @@
   margin-bottom: 2%;
   margin-left: 20%;
   width: fit-content;
+  align-items: center;
 }
 
-#g-id-login {
+.g-id-box {
   display: none;
 }
 
-#user-index-container {
-  display: grid;
-  grid-template-columns: 1.2fr 0.8fr;
-  grid-template-rows: 1.2fr 0.8fr;
-  grid-auto-columns: 1fr;
-  gap: 0px 0px;
-  grid-auto-rows: 50vh;
-  grid-template-areas:
-    "user-welcome aside"
-    "link-box aside";
-  max-height: calc(100vh - 9vh);
-  position: relative;
+/* Hashtags on Home Page */
+.link-box {
+  margin: 2%;
+  font-size: 1.0vw;
+  max-height: 50vh;
+  max-width: 60vw;
+  width: 100%;
+  overflow: scroll;
 }
 
-
-#user-welcome { 
-  grid-area: user-welcome;
-  margin-top: 10%;
-}
-
-.aside { 
-  grid-area: aside; 
-}
-
-.link-box { 
-  grid-area: link-box;
-  width: 80vw;
-  height: 20vh;
-  font-size: 1.5vw;
-  padding: 10%;
-}
-
-.link-box > * {
-  color: #005B4C;
+.link-box > *, .decoy span {
   padding: 2%;
 }
-.decoy span {
-  padding: 2%;
-}
+
 #user-hashtag-box {
-  margin-left: auto;
-  margin-right: auto;
-  padding: 0;
-  display: flex;
-  max-width: 50vw;
-}
-
-#user-hashtag-box ul {
   display: flex;
   margin: 0;
   padding: 0;
+}
+#user-hashtag-box ul {
+  display: flex;
   width: 100%;
-  max-width: 50vw;
+  margin: 0;
+  padding: 0;
   flex-wrap: wrap;
+  justify-content: center;
 }
 #user-hashtag-box li {
-  padding: 0 2%;
+  display: flex;
+  padding: 1%;
+  flex-direction: row;
+  align-items: center;
 }
-#add-hashtag-btn {
-  padding-bottom: 2%;
+#user-hashtag-box button {
+  padding: 0;
+  margin: 5px;
+}
+.add-hashtag-btn {
   font-size: 2vw;
   margin-left: auto;
   margin-right: auto;
 }
-
-#add-hashtag-form #hash-tag-input{
-  width: 10vw;
-  margin: 0;
+.add-hashtag-btn:hover {
+  color: rgb(255, 0, 123);
 }
-
-.link-box > a:visited {
-  color: #005B4C;
+#add-hashtag-form #hash-tag-input{
+  width: 50%;
+  margin: 0;
 }
 .link-box > a:hover {
   font-size: 2vw;
 }
-
+/* user index page */
 .card-container {
-  width: 90%;
   display: flex;
   flex-direction: row;
-  gap: 16px;
   flex-wrap: wrap;
   justify-content: center;
-  align-items: start;
-  margin-top: 8vh;
+  align-items: center;
+  margin-top: 5%;
   margin-bottom: auto;
+  width: 80%;
+  gap: 16px;
 }
-
-div.card-container>div:nth-of-type(odd) {
+.card-container>:nth-of-type(odd) {
   background: #CAF4EC;
 }
-
-div.card {
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-  width: 12vw;
-  height: 30vh;
-  border-radius: 8px;
+.card {
   display: flex;
   flex-direction: column;
-  text-align: center;
+  width: 200px;
+  height: 300px;
   justify-content: center;
+  text-align: center;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
   padding: 1vw;
   background-color: #FCE8D3;
 }
-
-div.card:hover {
-  box-shadow: 4px 8px rgba(0, 0, 0, 0.2);
+.card:hover {
+  box-shadow: 0px 0px 3px 3px rgb(0, 200, 255);
+  transition: all 0.25s;
 }
-
-div.more-btns {
-  margin-top: auto;
-}
-
-div.card-body a {
+.card-body a {
   color: #6C5963;
 }
-
-div.card-body a:hover {
+.card-body a:hover {
   text-shadow: 2px 2px 4px #b59da9;
   font-weight: 800;
   color: #612e49;
 }
-
-.hover-btn {
+/* add friend buttons*/
+.add-friend {
+  margin-top: auto;
+}
+.add-friend .main-btn {
+  pointer-events: none;
+}
+.add-friend-btn {
   width: 8vw;
   border-radius: 8px;
-  border: 1px solid #95808A;
-  background-color: #F6DFEA;
-  padding: 5px;
+  border: none;
+  background-color: #fcfa94;
 }
-
-.hover-btn:hover {
+.add-friend-btn:hover {
+  background-color: #cbc96d;
   box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.2);
   transition: all 0.2s;
-
 }
 
+/* user */
 .user-box {
   display: flex;
   flex-direction: column;
@@ -251,7 +219,7 @@ div.card-body a:hover {
     "display-name-head display-name"
     "payment-forms-head payment-forms";
   grid-area: 2 / 1 / 3 / 2;
-  width: 45vw;
+  width: 60vw;
   height: 30vh;
   background-color: #FFF4FD;
   border-radius: 8px;
@@ -307,6 +275,10 @@ div.card-body a:hover {
 }
 .profile-name-box > * {
   margin: 2vh;
+}
+
+.name-title {
+  font-size: 3vw;
 }
 
 /* title animation */
@@ -396,31 +368,21 @@ div.card-body a:hover {
 
 /* responsive screen */
 @media screen and (max-width: 800px) {
-  #index-container {
+   main, main.noNav {
     display: flex;
     flex-direction: column;
-    max-height: 100vh;
   }
   .title-slogan-box {
-    margin-top: 10vh;
-    width: 100vw;
+    width: 90%;
   }
   .slogan {
     font-size: 5vw;
-  }
-  #index-img {
-    height: 50%;
   }
   .title-word {
     font-size: 15vw;
   }
   .sign-in-box {
-    width: 100vw;
-  }
-  #user-index-container {
-    display: flex;
-    flex-direction: row;
-    max-height: 100vh;
+    width: 100%;
   }
   .sub-title-word {
     font-size: 10vw;
@@ -435,8 +397,26 @@ div.card-body a:hover {
     font-size: 4vw;
     display: block;
   }
+  .link-box a:hover{
+    font-size: 6vw;
+  }
+  .name-title {
+    font-size: 7vw;
+  }
+  
+  .card {
+    width: 150px;
+    height: 200px;
+  }
+  div.typewriter {
+    margin-top: 5%;
+  }
+  div h1 {
+   font-size: 5vw;
+  }
+  .card * {
+    font-size: 15px;
+    width: 100%;
+  }
 }
 
-.name-title {
-  font-size: 3vw;
-}

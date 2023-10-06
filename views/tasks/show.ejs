@@ -6,8 +6,8 @@
   <section>
     <div class='box-head'>
       <h1><%= task.name %> <span class='small-header'>  Details</span></h1>
-      <%# Edit the task %>
-      <% if (task.creator.equals(user?.profile._id)) { %>
+      <%# Edit the task for creators and all members (task creator is included in members)%>
+      <% if (isPlanCreator || isMember) { %>
         <a href='/plans/<%= plan._id %>/tasks/<%= task._id %>/edit'>
           <button class='main-btn'>Edit Task</button>
         </a>
@@ -26,15 +26,18 @@
           <ul>
             <% task.expenses.forEach(expense => { %>
               <li style='list-style: none;'>
-                <%= expense.name %>
-                <a class='link-no-style' href='/expenses/<%= expense._id %>'>
-                  <button class='details-btn'>Details</button>
-                </a>
+                $<%= expense.cost %> - <%= expense.name %>
+                <% if (isPlanCreator || isMember) { %>
+                  <a class='link-no-style' href='/expenses/<%= expense._id %>'>
+                    <button class='details-btn'>Details</button>
+                  </a>
+                <% } %>
               </li>    
             <% }) %>
           </ul>
         </p>
-        <% if (user) { %>
+        <%# Add expense for creators and all members %>
+        <% if (isPlanCreator || isMember) { %>
          <form id='add-expense-form' action='/plans/<%= plan._id %>/tasks/<%= task._id %>/expenses' method='POST'>
           <select name='expenseId'>
             <% expenses.forEach(expense => { %>
@@ -51,7 +54,8 @@
   
   <%# Comments Section %>
   <section>
-    <% if (user) { %>
+    <%# Comment for creators and all members %>
+    <% if (isPlanCreator || isMember) { %>
       <form class="comment-form" id="task-comment-form" action="/plans/<%= plan._id %>/tasks/<%= task._id %>/comments" method="POST">
         <div class='cmt-icon'><img class="profile-icon" src="<%= user.profile.avatar %>" alt="<%= user.profile.name %>'s avatar"><p><%= user.profile.displayName ? user.profile.displayName : user.profile.name %></p></div>
         <textarea name="content"></textarea>
@@ -66,7 +70,8 @@
           <li class='comments'>
             <div class="cmt-content <%= comment.author.equals(user?.profile) ? 'user-cmt' : 'other-cmt'%>">
               <p><%= comment.content %></p>
-              <% if (comment.author.equals(user?.profile)) { %>
+              <%# delete comments for creators and their authors %>
+              <% if (isPlanCreator || isTaskCreator || comment.author.equals(user?.profile)) { %>
                 <div class='cmt-btn'>
                   <form action='/plans/<%= plan._id %>/tasks/<%= task._id %>/comments/<%= comment._id %>?_method=DELETE' method='POST'>
                     <button class='delete-btn' type='submit'>⊖</button>

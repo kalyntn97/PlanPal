@@ -1,9 +1,4 @@
-body > main {
-  background-color: #FCE5F0;
-  height: calc(100vh - 9vh);
-}
-
-body > footer {
+footer {
   background-color: #FCE5F0;
 }
 
@@ -12,34 +7,27 @@ nav > .menu-icon {
   object-fit: contain;
   display: none;
 }
-
 nav > a {
   padding: 10px;
   color: #005B48;
   text-decoration: none;
   font-weight: bold;
 }
-
 .split {
   margin-left: auto;
 }
-
 nav > a:hover .dropdown:hover .drop-btn {
   text-decoration: underline;
-
 }
-
 nav > a.active {
   border-radius: 10px;
   background-color: #F7C1CA;
   text-decoration: none;
 }
-
 .dropdown {
   float: left;
   overflow: hidden;
 }
-
 .drop-btn {
   border: none;
   background: none;
@@ -47,7 +35,6 @@ nav > a.active {
   color: #005B48;
   padding: 10px;
 }
-
 .dropdown-content {
   display: none;
   position: absolute;
@@ -56,7 +43,6 @@ nav > a.active {
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   z-index: 1;
 }
-
 .dropdown-content a {
   float: none;
   padding: 12px 16px;
@@ -65,28 +51,26 @@ nav > a.active {
   text-align: left;
   color: #005B48;
 }
-
-nav > a:hover, .drop-btn:hover {
-  text-decoration: underline;
-}
-
-
 .dropdown-content a:hover {
   background-color: #FAB0BD;
 }
-
-
 .dropdown:hover .dropdown-content {
   display: block;
 }
 
+/* avatar photos */
+.profile-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  box-shadow: 0px 4px 8px 0px rgba(0,0,0,0.2);
+}
 .profile-avatar {
   width: 100px;
   height: 100px;
   border-radius: 50%;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
 }
-
 .profile-avatar-log {
   width: 60px;
   border-radius: 50%;
@@ -103,25 +87,20 @@ nav > a:hover, .drop-btn:hover {
   border-radius: 10px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
 }
-
 .profile-log-modal-content {
-  border: 1px solid #EFC3D9;
   background-color: #FCE5F0;
   padding: 20px 10px;
 }
-
 .profile-avatar-container {
   text-align: center;
   margin: 20px 10px;
 }
-
 .logout-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   margin: 20px 10px;
 }
-
 .close {
   position: absolute;
   right: 15px;
@@ -130,15 +109,13 @@ nav > a:hover, .drop-btn:hover {
   font-size: 35px;
   font-weight: bold;
 }
-
 .close:hover,
 .close:focus {
   color: red;
 }
 
-
 /* responsive screen */
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 800px) {
   nav.responsive {
     position: relative;
   }
@@ -208,13 +185,36 @@ div.page-content {
 }
 
 /* responsive side bar */
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 800px) {
   .sidebar {
-    padding-top: 15px;
+    margin: 0;
+    width: 100%;
+    height: 6vh;
+    position: relative;
+    padding: 0;
+    display: flex;
   }
   .sidebar a {
-    text-align: center;
-    float: none;
-    font-size: 18px;
+    margin: 0;
+    margin-left: auto;
+    margin-right: auto;
+    flex-direction: row;
+    width: fit-content;
+
+  }
+  .sidebar-head {
+    display: none;
+  }
+  div.page-content {
+    margin-left: 0;
+  }
+  .profile-details-box {
+    width: 100vw;
+    height: 40vh;
+  }
+  .profile-details-box div {
+    font-size: 4vw;
+    padding: 10%;
   }
 }
+

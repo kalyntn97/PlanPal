@@ -20,8 +20,12 @@
   
   <section class='right'>
     <h1>All plans</h1>
+    <div class='legend'>
+      <span><i class="fas fa-solid fa-pencil"></i>Creator</span>
+      <span><i class="fas fa-solid fa-star"></i>Member</span>
+    </div>
     <% if (plans.length === 0) { %>
-     <tr>No plans yet!</tr>
+     <tr><h3>No plans yet!</h3></tr>
     <% } else { %>
       <table>
         <thead>
@@ -33,14 +37,18 @@
         <tbody>
           <% plans.forEach(plan => { %>
             <tr>
-              <td><%= plan.name %></td>
               <td><%= plan.date?.toDateString() %></td>
+              <td><%= plan.name %></td>
               <td>
                 <a href="/plans/<%= plan._id %>">
                   <button class='details-btn'>Details</button>
                 </a>
               </td>
+              <% if (plan.members.some(member => member._id.toString() === user.profile._id.toString())) { %>
+                <td><i class="fas fa-solid fa-star"></i></td>
+                <% } %>
               <% if (plan.creator.equals(user?.profile._id)) { %>
+                <td><i class="fas fa-solid fa-pencil"></i></td>
                 <td>
                   <form action='/plans/<%= plan._id %>?_method=DELETE' method='POST'>
                     <button class='delete-btn' type='submit'>⊖</button>

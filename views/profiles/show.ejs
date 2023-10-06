@@ -6,10 +6,10 @@
   <!-- sidebar for user page -->
   <% if (isSelf) { %>
     <div class="sidebar">
-      <a class="tablinks active" onclick="openTab(event, 'info')"><i class="fas fa-solid fa-user"></i>My Info</a>
-      <a class="tablinks" onclick="openTab(event, 'friends')"><i class="fas fa-solid fa-heart"></i>My Friends</button></a>
-        <a class="tablinks" onclick="openTab(event, 'friend-requests')" ><i class="fas fa-solid fa-user-plus"></i> Friend Requests</button></a>
-      </div>
+      <a class="tablinks active" onclick="openTab(event, 'info')"><i class="fas fa-solid fa-user"></i><span class='sidebar-head'>My Info</span></a>
+      <a class="tablinks" onclick="openTab(event, 'friends')"><i class="fas fa-solid fa-heart"></i><span class='sidebar-head'>My Friends</span></a>
+      <a class="tablinks" onclick="openTab(event, 'friend-requests')" ><i class="fas fa-solid fa-user-plus"></i><span class='sidebar-head'>Friend Requests</span></a>
+    </div>
   <% } %>
   
   <%# main user profile page %>
@@ -97,7 +97,7 @@
             <h1>Your Friends</h1>
             <ul>
               <% profile.friends.forEach(friend => { %>
-                <div class='card' class='card-friend'>
+                <div class='card'>
                   <li style='list-style: none;'>
                     <img class='profile-avatar-log' src='<%= friend.avatar %>' alt="<%= friend.name %>'s avatar">
                         <p><%= friend.name %></p>

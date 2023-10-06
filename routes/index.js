@@ -1,9 +1,8 @@
 import { Router } from 'express'
 import { Profile } from '../models/profile.js'
-import { isLoggedIn } from '../middleware/middleware.js'
-import { User } from '../models/user.js'
 
 const router = Router()
+
 
 router.get('/', function (req, res) {
   if (req.user) {

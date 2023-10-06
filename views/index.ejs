@@ -7,24 +7,23 @@
   <%- include('./partials/nav') %>
 <% } %>
 
-<main>
+<main class=<%= !user ? 'noNav' : '' %>>
   <%# landing page %>
-  <% if (!user) { %>
-    <div id='index-container'>
-      <div class='title-slogan-box'>
-        <%# title animation %>
-        <h1 class="title">
-          <span class="title-word title-word-1">PLAN</span>
-          <span class="title-word title-word-2">PAL</span>
-        </h1>
-        <h2 class='slogan'>Connecting moments and</h2> 
-        <h2 class='slogan'>crafting memories...</h2>
-      </div>
+  <% if (!user) { %>   
+    <div class='title-slogan-box'>
+      <%# title animation %>
+      <h1 class="title">
+        <span class="title-word title-word-1">PLAN</span>
+        <span class="title-word title-word-2">PAL</span>
+      </h1>
+      <h2 class='slogan'>Connecting moments and</h2> 
+      <h2 class='slogan'>crafting memories...</h2>
+    </div>
     
     <div class='sign-in-box'>
       <img id='index-img' src='/images/index-img.jpg'>
       <div class='get-started-box'>
-        <button class='no-style-btn' id='get-started-btn' onmouseover="document.getElementById('g-id-login').style.display='block'">
+        <button class='no-style-btn' id='get-started-btn' onmouseover="document.querySelector('.g-id-box').style.display='block'">
           <div class="waviy">
             <span style="--i:1">G</span>
             <span style="--i:2">E</span>
@@ -41,7 +40,7 @@
             <i class="fas fa-solid fa-angles-right fa-bounce"></i>
           </div>
         </button>
-        <div class='g-id-box' id='g-id-login'>
+        <div class='g-id-box'>
           <div
             id="g_id_onload"
             data-client_id="<%= googleClientID %>"
@@ -57,54 +56,51 @@
         </div>
       </div>
     </div>
-  <% } %> 
+  <% } %>
 
   <%# user landing page %>
   <% if (user) { %>
-    <div id='user-index-container'>
-      <div id='user-welcome'>
-        <%# title animation %>
-        <h2 class='slogan'>Welcome to <span class='title-name'> PlanPal</span></h2> 
-        <h1 class="title">
-          <span class="sub-title-word title-word-1" class='sub-title-word'><%= user.profile.name.split(' ').slice(0, -1).join(' ') %> </span>
-          <span class="sub-title-word title-word-2" class='sub-title-word'><%= user.profile.name.split(' ').slice(-1).join(' ') %></span>
-        </h1>
-      <div>
-      <div class='link-box'>
-        <a class='link-no-style' href='/plans'><i class="fa-solid fa-hashtag"></i>create-a-plan</a>
-        <a class='link-no-style' href='/expenses'><i class="fa-solid fa-hashtag"></i>add-an-expense</a>
-        <a class='link-no-style' href='/profiles'><i class="fa-solid fa-hashtag"></i>friends</a>
-        <a class='link-no-style' href='/profiles/<%= user.profile._id %>'><i class="fa-solid fa-hashtag"></i>my-profile</a></br>
-      <div class='decoy' onmouseover="document.getElementById('add-hashtag-btn').style.display='block'">
+    <div class='title-slogan-box'>
+      <%# title animation %>
+      <h2 class='slogan'>Welcome to <span class='title-name'> PlanPal</span></h2> 
+      <h1 class="title">
+        <span class="sub-title-word title-word-1" class='sub-title-word'><%= user.profile.name.split(' ').slice(0, -1).join(' ') %> </span>
+        <span class="sub-title-word title-word-2" class='sub-title-word'><%= user.profile.name.split(' ').slice(-1).join(' ') %></span>
+      </h1>
+    </div>
+    <div class='link-box'>
+      <a class='link-no-style' href='/plans'><i class="fa-solid fa-hashtag"></i>create-a-plan</a>
+      <a class='link-no-style' href='/expenses'><i class="fa-solid fa-hashtag"></i>add-an-expense</a>
+      <a class='link-no-style' href='/profiles'><i class="fa-solid fa-hashtag"></i>friends</a>
+      <a class='link-no-style' href='/profiles/<%= user.profile._id %>'><i class="fa-solid fa-hashtag"></i>my-profile</a></br>
+      <div class='decoy' onmouseover="document.querySelector('.add-hashtag-btn').style.display='block'">
         <span><i class="fa-solid fa-hashtag"></i>creative</span>
         <span><i class="fa-solid fa-hashtag"></i>travel</span>
         <span><i class="fa-solid fa-hashtag"></i>planner</span>
         <span><i class="fa-solid fa-hashtag"></i>fun</span>
         <span><i class="fa-solid fa-hashtag"></i>memories</span>
       </div>
-        <div id='user-hashtag-box'>
-          <ul>
-            <% profile.hashtags.forEach(hashtag => { %>
-              <li style='list-style-type: none;'>
-                <i class="fa-solid fa-hashtag"></i>
-                <%= hashtag.content %>
-                <form id='delete-hashtag-form' action='/profiles/<%= user.profile._id %>/hashtags/<%= hashtag._id %>?_method=DELETE' method='POST'>
-                  <button class='delete-btn' type='submit'>⊖</button>
-                </form>
-              </li>
-              <% }) %>
-            <button id='add-hashtag-btn' class='no-style-btn' onclick="document.getElementById('add-hashtag-form').style.display='block';" style='display: none;'> + </button>
-          </ul>
-        </div>
-        <%# add hashtag form %>
-        <form id='add-hashtag-form' action='/profiles/<%= user.profile._id %>/hashtags?_method=PATCH' method='POST' style='display: none;'>
-          <label for='hash-tag-input'><i class="fa-solid fa-hashtag"></i></label>
-          <input type='text' name='content' id='hash-tag-input' required>
-          <button class='no-style-btn' type='submit'>+</button>
-        </form>
+      <div id='user-hashtag-box'>
+        <ul>
+          <% profile.hashtags.forEach(hashtag => { %>
+            <li style='list-style-type: none;'>
+              <i class="fa-solid fa-hashtag"></i>
+              <%= hashtag.content %>
+              <form id='delete-hashtag-form' action='/profiles/<%= user.profile._id %>/hashtags/<%= hashtag._id %>?_method=DELETE' method='POST'>
+                <button class='delete-btn' type='submit'>⊖</button>
+              </form>
+            </li>
+            <% }) %>
+          <button class='add-hashtag-btn no-style-btn' onclick="document.getElementById('add-hashtag-form').style.display='block';" style='display: none;'> + </button>
+        </ul>
       </div>
-      <div class='aside'></div>
-    </div> 
+      <%# add hashtag form %>
+      <form id='add-hashtag-form' action='/profiles/<%= user.profile._id %>/hashtags?_method=PATCH' method='POST' style='display: none;'>
+        <label for='hash-tag-input'><i class="fa-solid fa-hashtag"></i></label>
+        <input type='text' name='content' id='hash-tag-input' required>
+        <button class='add-hashtag-btn no-style-btn' type='submit'>+</button>
+      </form>
+    </div>
   <% } %>
 </main>
 

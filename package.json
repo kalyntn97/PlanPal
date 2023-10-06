@@ -15,6 +15,7 @@
     "method-override": "^3.0.0",
     "mongoose": "^7.5.0",
     "morgan": "^1.10.0",
+    "openai": "^4.11.0",
     "passport": "^0.6.0",
     "passport-google-one-tap": "^1.0.1"
   },

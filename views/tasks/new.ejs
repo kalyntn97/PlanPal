@@ -2,7 +2,7 @@
 <link rel='stylesheet' href='/stylesheets/plans/index.css'/>
 <%- include('../partials/nav.ejs') %>
 
-<main>
+<main class='add-edit-task'>
   <h1>Add a Task</h1>
   <form class='add-edit-form' id='add-task-form' action='/plans/<%= plan._id %>/tasks' method='POST'>
     <label for='taskName-input'>Name</label>

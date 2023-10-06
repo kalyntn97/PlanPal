@@ -1,6 +1,6 @@
 import mongoose from "mongoose"
-import { Profile} from "../models/profile.js"
-import { Plan } from "../models/plan.js"
+import { Profile } from "../models/profile.js"
+import OpenAI from "openai"
 
 function index(req, res) {
 	Profile.find({})
