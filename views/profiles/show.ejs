@@ -2,19 +2,19 @@
 <link rel='stylesheet' href='/stylesheets/user.css' />
 <%- include('../partials/nav.ejs') %>
 
-<main>
+<main class='user-profile'>
   <!-- sidebar for user page -->
-  <% if (isSelf) { %>
-    <div class="sidebar">
-      <a class="tablinks active" onclick="openTab(event, 'info')"><i class="fas fa-solid fa-user"></i><span class='sidebar-head'>My Info</span></a>
-      <a class="tablinks" onclick="openTab(event, 'friends')"><i class="fas fa-solid fa-heart"></i><span class='sidebar-head'>My Friends</span></a>
+  <div class="sidebar">
+    <a class="tablinks active" onclick="openTab(event, 'info')"><i class="fas fa-solid fa-user"></i><span class='sidebar-head'><%= isSelf ? 'My ' : '' %>Info</span></a>
+    <a class="tablinks" onclick="openTab(event, 'friends')"><i class="fas fa-solid fa-heart"></i><span class='sidebar-head'><%= isSelf ? 'My ' : '' %> Friends</span></a>
+    <% if (isSelf) { %>
       <a class="tablinks" onclick="openTab(event, 'friend-requests')" ><i class="fas fa-solid fa-user-plus"></i><span class='sidebar-head'>Friend Requests</span></a>
+    <% } %>
     </div>
-  <% } %>
   
   <%# main user profile page %>
   <div class='page-content'>
-    <div class ='tabcontent' class='profile-box' id='info'>
+    <div class ='tabcontent profile-box' id='info'>
       <div class='profile-name-box'>
         
         <%# option to send friend request when viewing other profiles %>
@@ -81,32 +81,35 @@
       </div>
     </div>
     
-    <% if (isSelf) { %>
-      <%# show friends %>
+    <%# show friends %>
+    <%  if (isSelf || profile.friends.some(profile => profile._id.toString() === user.profile._id.toString())) { %>
       <div id="friends" class="tabcontent">
         <% if (profile.friends.length === 0) { %>
-              <h1>You don't have any friends yet</h1>
-              
-              <a class='link-no-style' href='/profiles'>
-                <button class='main-btn'>
-                  Find friends
-                </button>
-              </a>
+          <% if (isSelf) { %>
+            <h1>You don't have any friends yet</h1>
+            <a class='link-no-style' href='/profiles'>
+              <button class='main-btn'>
+                Find friends
+              </button>
+            </a>
+          <% } else { %>
+            <h1><%= profile.displayName ? profile.displayName : profile.name %> doesn't have any friends yet</h1>
+          <% } %>       
         <% } else {%>
-          <h1>Your Friends</h1>
-          <ul>
-              <div class='card-container'>
+          <% if (isSelf) { %>
+            <h1>Your Friends</h1>
+          <% } else { %>
+            <h1><%= profile.displayName ? profile.displayName : profile.name %>'s Friends</h1>
+          <% } %>
+            <ul>
               <% profile.friends.forEach(friend => { %>
-                <div class='card'>
+                <div class='card '>
                   <li style='list-style: none;'>
                     <img class='profile-avatar-log' src='<%= friend.avatar %>' alt="<%= friend.name %>'s avatar">
                         <p><%= friend.name %></p>
-                      </a>
-                    </a>
                   </li>
                 </div>
               <% }) %>
-            </div>
             </ul>
         <% } %>
       </div>
@@ -129,14 +132,18 @@
                         <button class='main-btn' type='submit' value='<%= friendRequest._id %>' name='friendRequestId'>Confirm</button>
                       </form>
                     </li>
-                    <% }) %>
-                  </ul>
-                </div>
-              <% } %>
-          <% } %>
+                  <% }) %>
+                </ul>
+              </div>
+            <% } %>
         <% } %>
       </div>
+    <% } else { %>
+      <div id="friends" class="tabcontent">
+        <h1>You don't have permission to view this page</h1>
+      </div>
+    <% } %> 
+  </div>
 
 </main>
-        
 <%- include('../partials/footer.ejs') %>

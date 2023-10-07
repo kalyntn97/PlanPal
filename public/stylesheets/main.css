@@ -55,7 +55,9 @@ main {
   flex-direction: column;
   min-height: calc(100vh - 9vh);
   height: fit-content;
-  overflow: scroll;   
+  overflow: auto;
+  scrollbar-gutter: stable both-edges;
+  scrollbar-color: #fce5f0 #fef1de;
   width: 100%;
   margin: 0;
   padding: 0;
