@@ -62,7 +62,7 @@ main.noNav {
   max-height: 50vh;
   max-width: 60vw;
   width: 100%;
-  overflow: scroll;
+  overflow: auto;
 }
 
 .link-box > *, .decoy span {
