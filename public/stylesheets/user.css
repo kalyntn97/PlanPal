@@ -3,7 +3,7 @@ main.noNav {
   flex-direction: row;
   align-items: center;
   justify-content: space-around;
-  height: calc(100vh - 3vh);
+  height: 100vh;
   background-color: #FEF2DD;
 }
 

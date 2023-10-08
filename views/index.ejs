@@ -104,4 +104,6 @@
   <% } %>
 </main>
 
-<%- include('./partials/footer') %>
+<% if (user) { %>
+  <%- include('./partials/footer') %>
+<% } %>
