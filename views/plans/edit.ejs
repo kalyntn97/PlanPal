@@ -2,7 +2,7 @@
 <link rel='stylesheet' href='/stylesheets/plans/index.css' />
 <%- include('../partials/nav.ejs') %>
 
-<main>
+<main class='add-edit-task purple sky'>
   <h1>Edit plan</h1>
   <form  class="add-edit-form" id="edit-plan-form" action="/plans/<%= plan._id %>?_method=PUT" method="POST">
     <label for='plan-name-input'>Name</label>
@@ -11,9 +11,21 @@
     <input type="date" name="date" value='<%= plan.date?.toDateString()%>' id='plan-date-input'>
     <label for='plan-notes-input'>Notes</label>
     <textarea type="string", name="notes" value='<%= plan.notes %>' id='plan-notes-input'></textarea>
+    <fieldset class='make-public-box'>
+      <legend>Make your plan public for non-members?</legend>
+      <div>
+        <label for='isPublicForEveryone-input'>For Everyone</label>
+        <input type='checkbox' name='isPublicForEveryone' id='isPublicForEveryone-input'>
+      </div>
+      <div>
+        <label for='isPublicForFriends-input'>For Friends</label>
+        <input type='checkbox' name='isPublicForFriends' id='isPublicForFriends-input'>
+      </div>
+    </fieldset>
     <button class='main-btn' type="submit">Save</button>
   </form>
 </main>
+
   
 <%- include('../partials/footer.ejs') %>
 

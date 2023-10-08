@@ -1,3 +1,11 @@
+nav {
+  background-color: #6d49f0cf;
+}
+
+footer {
+  background-color: #cb9ce5;
+}
+
 main {
   display: flex;
   flex-direction: row;
@@ -5,10 +13,14 @@ main {
   justify-content: space-evenly;
 }
 
+main h1, .legend {
+  color: whitesmoke;
+}
+
 section {
   width: 45%;
   display: flex;
-  flex-direction: column;
+  flex-direction: column; 
   align-items: center;
 }
 
@@ -29,7 +41,7 @@ main.add-edit-task form {
   border: 1px solid #EFC3D9;
   padding: 20px;
   background: #FFF4FE;
-  width: 80%;
+  width: 90%;
 }
 .add-edit-form > button {
   margin-left: auto;
@@ -55,6 +67,21 @@ td {
 }
 th {
   border-bottom: 1px solid #44323B;
+}
+
+.make-public-box {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+.make-public-box label {
+  margin-left: 30px;
+}
+
+#isPublicForEveryone-input, #isPublicForFriends-input {
+  width: fit-content;
+  margin: 0 15px;
+  padding: 0;
 }
 
 @media screen and (max-width: 400px) {

@@ -2,7 +2,7 @@
 <link rel='stylesheet' href='/stylesheets/plans/index.css'/>
 <%- include('../partials/nav.ejs') %>
 
-<main class='add-edit-task'>
+<main class='add-edit-task sky purple' id='top'>
   <h1>Add a Task</h1>
   <form class='add-edit-form' id='add-task-form' action='/plans/<%= plan._id %>/tasks' method='POST'>
     <label for='taskName-input'>Name</label>
@@ -19,5 +19,6 @@
     <button class='main-btn' type='submit'>Add Task</button>
   </form>
 </main>
-  
+
+<div id="bottom"></div>  
 <%- include('../partials/footer.ejs') %>

@@ -1,5 +1,13 @@
 
-
+nav {
+  background-color: #35a0f7ab;
+}
+footer {
+  background-color: #c2e59c;
+}
+main {
+  color: #00453b;
+}
 /* details box */
 .details-box {
   display: flex;

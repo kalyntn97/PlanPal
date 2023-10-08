@@ -1,9 +1,8 @@
 <%- include('../partials/html-head.ejs') %>
-<link rel='stylesheet' href='/stylesheets/user.css' />
 <link rel='stylesheet' href='/stylesheets/plans/index.css' />
 <%- include('../partials/nav.ejs') %>
 
-<main class='add-edit-task'>
+<main class='add-edit-task purple sky'>
   <h1>Edit task</h1>
   <form class='add-edit-form' id='edit-task-form' action='/plans/<%= plan._id %>/tasks/<%= task._id %>?_method=PUT' method='POST'>
     <label for='taskName-input'>Name</label>

@@ -2,7 +2,7 @@
 <link rel='stylesheet' href='/stylesheets/plans/index.css' />
 <%- include('../partials/nav.ejs') %>
 
-<main>
+<main class='sky purple' id='top'>
   <section class='left'>
     <% if (user) { %>
       <h1>Add a plan</h1>
@@ -13,6 +13,13 @@
         <input type="date" name="date" id='planDate-input'>
         <label for='plan-notes-input'>Notes</label>
         <textarea name='notes' id='plan-notes-input'></textarea>
+        <fieldset class='make-public-box'>
+          <legend>Make your plan public for non-members?</legend>
+          <label for='isPublicForEveryone-input'>For Everyone</label>
+          <input type='checkbox' name='isPublicForEveryone' id='isPublicForEveryone-input'>
+          <label for='isPublicForFriends-input'>For Friends</label>
+          <input type='checkbox' name='isPublicForFriends' id='isPublicForFriends-input'>
+        </fieldset>
         <button class='main-btn' type="submit">Add Plan</button>
       </form>
       <% } %>
@@ -22,7 +29,9 @@
     <h1>All plans</h1>
     <div class='legend'>
       <span><i class="fas fa-solid fa-pencil"></i>Creator</span>
-      <span><i class="fas fa-solid fa-star"></i>Member</span>
+      <span><i class="fas fa-solid fa-heart"></i>Member</span>
+      <span><i class="fas fa-solid fa-star"></i>By Friends</span>
+      <span><i class="fas fa-solid fa-p"></i>Public</span>
     </div>
     <% if (plans.length === 0) { %>
      <tr><h3>No plans yet!</h3></tr>
@@ -36,33 +45,46 @@
         </thead>
         <tbody>
           <% plans.forEach(plan => { %>
-            <tr>
-              <td><%= plan.date?.toDateString() %></td>
-              <td><%= plan.name %></td>
-              <td>
-                <a href="/plans/<%= plan._id %>">
-                  <button class='details-btn'>Details</button>
-                </a>
-              </td>
-              <% if (plan.members.some(member => member._id.toString() === user.profile._id.toString())) { %>
-                <td><i class="fas fa-solid fa-star"></i></td>
-                <% } %>
-              <% if (plan.creator.equals(user?.profile._id)) { %>
-                <td><i class="fas fa-solid fa-pencil"></i></td>
+            <%# show plans that are created by user, user is a member of, public, or created by the user's friends %>
+            <% if (plan.creator.equals(user?.profile._id) || plan.members.some(member => member._id.toString() === user?.profile._id.toString()) || plan.isPublicForEveryone || (plan.isPublicForFriends && profile.friends.some(friend => friend._id.toString() === plan.creator.toString()))) { %>
+              <tr>
+                <td><%= plan.date?.toDateString() %></td>
+                <td><%= plan.name %></td>
                 <td>
-                  <form action='/plans/<%= plan._id %>?_method=DELETE' method='POST'>
-                    <button class='delete-btn' type='submit'>⊖</button>
-                  </form>
+                  <a href="/plans/<%= plan._id %>">
+                    <button class='details-btn'>Details</button>
+                  </a>
                 </td>
-              <% } %>
-            </tr>
+                <%# if user is a plan member %>
+                <% if (plan.members.some(member => member._id.toString() === user?.profile._id.toString())) { %>
+                  <td><i class="fas fa-solid fa-heart"></i></td>
+                <% } %>
+                <%# if plan is created by a user's friend and is public %>
+                <% if (profile.friends.some(friend => friend._id.toString() === plan.creator.toString())) { %>
+                  <td><i class="fas fa-solid fa-star"></i></td>
+                  <% } %>
+                <%# if plan is public %>
+                <% if (plan.isPublicForEveryone) { %>
+                  <td><i class="fa-solid fa-p"></i></td>
+                <% } %>
+                <%# if user is plan's creator %>
+                <% if (plan.creator.equals(user?.profile._id)) { %>
+                  <td><i class="fas fa-solid fa-pencil"></i></td>
+                  <td>
+                    <form action='/plans/<%= plan._id %>?_method=DELETE' method='POST'>
+                      <button class='delete-btn' type='submit'>⊖</button>
+                    </form>
+                  </td>
+                <% } %>
+              </tr>
+            <% } %>
           <% }) %>
         </tbody>
       </table>
     <% } %>
   </section>
+
 </main>
       
-      
-      
+<div id="bottom"></div>  
 <%- include('../partials/footer.ejs') %>
