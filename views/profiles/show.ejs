@@ -5,8 +5,8 @@
 <main class='user-profile'>
   <!-- sidebar for user page -->
   <div class="sidebar">
-    <a class="tablinks active" onclick="openTab(event, 'info')"><i class="fas fa-solid fa-user"></i><span class='sidebar-head'><%= isSelf ? 'My ' : '' %>Info</span></a>
-    <a class="tablinks" onclick="openTab(event, 'friends')"><i class="fas fa-solid fa-heart"></i><span class='sidebar-head'><%= isSelf ? 'My ' : '' %> Friends</span></a>
+    <a class="tablinks active" onclick="openTab(event, 'info')"><i class="fas fa-solid fa-user"></i><span class='sidebar-head'><%= isSelf ? 'Your ' : '' %>Info</span></a>
+    <a class="tablinks" onclick="openTab(event, 'friends')"><i class="fas fa-solid fa-heart"></i><span class='sidebar-head'><%= isSelf ? 'Your ' : '' %> Friends</span></a>
     <% if (isSelf) { %>
       <a class="tablinks" onclick="openTab(event, 'friend-requests')" ><i class="fas fa-solid fa-user-plus"></i><span class='sidebar-head'>Friend Requests</span></a>
     <% } %>
@@ -24,16 +24,19 @@
             <img class="profile-avatar" src="<%= profile.avatar %>" alt="<%= profile.name %>'s avatar">
           <% } %>
           <% if (profile.friendRequests.some(profile => profile._id.toString() === user.profile._id.toString())) { %>
-            <button class='hover-btn' class='no-click'>Friend Request Sent!</button>
+            <button class='add-friend-btn disabled'>Friend Request Sent!</button>
           <% } else if (profile.friends.some(profile => profile._id.toString() === user.profile._id.toString())) { %>
-            <button class='main-btn' class='no-click'>Friends <i class="fas fa-solid fa-user-check"></i></button>
-          <% } else { %>
+            <button class='main-btn disabled'>Friends <i class="fas fa-solid fa-user-check"></i></button>
+          <% } else if (userProfile.friendRequests.some(request => request._id.toString() === profile._id.toString())) { %>
+            <form action='/profiles/<%= profile._id %>/friends?_method=PATCH' method='POST'>
+              <button class='main-btn' type='submit' name='friendRequestId' value='<%= profile._id %>'>Confirm Friend Request</button>
+            </form>
+          <% } else { %>          
             <form action='/profiles/<%= profile._id %>?_method=PATCH' method='POST'>
               <button class='main-btn'>Add Friend</button>
             </form>
           <% } %>
         <% } %>
-
         <%# option to edit profile for user %>
         <% if (isSelf) { %>
           <h1><%= user ? user.profile.name : "" %></h1>
@@ -98,19 +101,21 @@
         <% } else {%>
           <% if (isSelf) { %>
             <h1>Your Friends</h1>
-          <% } else { %>
-            <h1><%= profile.displayName ? profile.displayName : profile.name %>'s Friends</h1>
-          <% } %>
-            <ul>
+            <% } else { %>
+              <h1><%= profile.displayName ? profile.displayName : profile.name %>'s Friends</h1>
+              <% } %>
+            <div class='card-container'>
               <% profile.friends.forEach(friend => { %>
                 <div class='card '>
-                  <li style='list-style: none;'>
+                  <div class='card-body'>
                     <img class='profile-avatar-log' src='<%= friend.avatar %>' alt="<%= friend.name %>'s avatar">
-                        <p><%= friend.name %></p>
-                  </li>
+                    <a class='link-no-style' href='/profiles/<%= friend._id %>'>
+                      <p><%= friend.name %></p> 
+                    </a>
+                  </div>
                 </div>
               <% }) %>
-            </ul>
+              </div>
         <% } %>
       </div>
       
@@ -120,22 +125,20 @@
           <% if (profile.friendRequests.length === 0) { %>
             <h1>You don't have any friend requests</h1>
           <% } else { %>
-            <div class='card-container'></div>
             <h1> Your Friend Requests</h1>
-              <ul>
-                <% profile.friendRequests.forEach(friendRequest => { %>
-                  <div class='card' class='card-friend'>
-                    <li class='link-no-style' style='list-style: none;'>
-                      <form action='/profiles/<%= profile._id %>/friends?_method=PATCH' method='POST'>
-                        <img class='profile-avatar' src='<%= friendRequest.avatar %>' alt="<%= friendRequest.name %>'s avatar">
-                        <p><%= friendRequest.name %> sent you a friend request!</p>
-                        <button class='main-btn' type='submit' value='<%= friendRequest._id %>' name='friendRequestId'>Confirm</button>
-                      </form>
-                    </li>
-                  <% }) %>
-                </ul>
-              </div>
-            <% } %>
+            <div class='card-container'>
+              <% profile.friendRequests.forEach(friendRequest => { %>
+                <div class='card'>              
+                  <form action='/profiles/<%= profile._id %>/friends?_method=PATCH' method='POST'>
+                    <img class='profile-avatar' src='<%= friendRequest.avatar %>' alt="<%= friendRequest.name %>'s avatar">
+                    <p><a class='link-no-style' href='/profiles/<%= friendRequest._id %>'>
+                    <%= friendRequest.name %></a> sent you a friend request!</p>
+                    <button class='main-btn' type='submit' value='<%= friendRequest._id %>' name='friendRequestId'>Confirm</button>
+                  </form>        
+                </div>
+              <% }) %>
+            </div>
+          <% } %>
         <% } %>
       </div>
     <% } else { %>

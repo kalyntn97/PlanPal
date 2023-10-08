@@ -22,7 +22,7 @@
   </section>
 
   <section>
-    <h1>All Expenses</h1>
+    <h1>Your Expenses</h1>
     <table>
       <thead>
         <tr>
@@ -32,25 +32,31 @@
         </tr>
       </thead>
       <tbody>
-        <% expenses.forEach(expense => { %>
-          <% if (expense.creator.equals(user?.profile._id)) { %>
+        <% if (expenses.some(expense => expense.creator.equals(user?.profile._id))) { %>
+          <% expenses.forEach(expense => { %>
+            <tr>
+              <td><%= expense.date?.toDateString() %></td> 
+              <td><%= expense.name %></td>
+              <td><%= expense.cost %></td>
+              <td>
+                <a class='link-no-style' href='/expenses/<%= expense._id %>'>
+                  <button class='details-btn'>Details</button>
+                </a>
+              </td>
+              <td>
+                <form action='/expenses/<%= expense._id %>?_method=DELETE' method='POST'>
+                  <button class='delete-btn' type='submit'>⊖</button>
+                </form>
+              </td>
+            </tr>
+          <% }) %>
+        <% } else { %>
           <tr>
-            <td><%= expense.date?.toDateString() %></td> 
-            <td><%= expense.name %></td>
-            <td><%= expense.cost %></td>
-            <td>
-              <a class='link-no-style' href='/expenses/<%= expense._id %>'>
-                <button class='details-btn'>Details</button>
-              </a>
-            </td>
-            <td>
-              <form action='/expenses/<%= expense._id %>?_method=DELETE' method='POST'>
-                <button class='delete-btn' type='submit'>⊖</button>
-              </form>
-            </td>
+            <td></td>
+            <td>No available expenses to view.</td>
+            <td></td>
           </tr>
-            <% } %>
-        <% }) %>
+        <% } %>
       </tbody>
     </table>
   </section>

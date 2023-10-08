@@ -28,60 +28,61 @@
   <section class='right'>
     <h1>All plans</h1>
     <div class='legend'>
-      <span><i class="fas fa-solid fa-pencil"></i>Creator</span>
+      <span><i class="fas fa-solid fa-pencil"></i>By You</span>
       <span><i class="fas fa-solid fa-heart"></i>Member</span>
       <span><i class="fas fa-solid fa-star"></i>By Friends</span>
       <span><i class="fas fa-solid fa-p"></i>Public</span>
     </div>
-    <% if (plans.length === 0) { %>
-     <tr><h3>No plans yet!</h3></tr>
-    <% } else { %>
-      <table>
-        <thead>
-          <tr>
-            <th>Date</th>
-            <th>Name</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% plans.forEach(plan => { %>
-            <%# show plans that are created by user, user is a member of, public, or created by the user's friends %>
-            <% if (plan.creator.equals(user?.profile._id) || plan.members.some(member => member._id.toString() === user?.profile._id.toString()) || plan.isPublicForEveryone || (plan.isPublicForFriends && profile.friends.some(friend => friend._id.toString() === plan.creator.toString()))) { %>
-              <tr>
-                <td><%= plan.date?.toDateString() %></td>
-                <td><%= plan.name %></td>
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Name</th>
+        </tr>
+      </thead>
+      <tbody>
+        <%# show plans that are created by user, user is a member of, public, or created by the user's friends %>
+        <% if (plans.some(plan => plan.creator.equals(user?.profile._id) || plan.members.some(member => member._id.toString() === user?.profile._id.toString()) || plan.isPublicForEveryone || (plan.isPublicForFriends && profile.friends.some(friend => friend._id.toString() === plan.creator.toString())))) { %>
+          <% plans.forEach(plan => { %>    
+            <tr>
+              <td><%= plan.date?.toDateString() %></td>
+              <td><%= plan.name %></td>
+              <td>
+                <a href="/plans/<%= plan._id %>">
+                  <button class='details-btn'>Details</button>
+                </a>
+              </td>
+              <%# if user is a plan member %>
+              <% if (plan.members.some(member => member._id.toString() === user?.profile._id.toString())) { %>
+                <td><i class="fas fa-solid fa-heart"></i></td>
+              <% } %>
+              <%# if plan is created by a user's friend and is public for friends %>
+              <% if (plan.isPublicForFriends || profile.friends.some(friend => friend._id.toString() === plan.creator.toString())) { %>
+                <td><i class="fas fa-solid fa-star"></i></td>
+                <% } %>
+              <%# if plan is public %>
+              <% if (plan.isPublicForEveryone) { %>
+                <td><i class="fa-solid fa-p"></i></td>
+              <% } %>
+              <%# if user is plan's creator %>
+              <% if (plan.creator.equals(user?.profile._id)) { %>
+                <td><i class="fas fa-solid fa-pencil"></i></td>
                 <td>
-                  <a href="/plans/<%= plan._id %>">
-                    <button class='details-btn'>Details</button>
-                  </a>
+                  <form action='/plans/<%= plan._id %>?_method=DELETE' method='POST'>
+                    <button class='delete-btn' type='submit'>⊖</button>
+                  </form>
                 </td>
-                <%# if user is a plan member %>
-                <% if (plan.members.some(member => member._id.toString() === user?.profile._id.toString())) { %>
-                  <td><i class="fas fa-solid fa-heart"></i></td>
-                <% } %>
-                <%# if plan is created by a user's friend and is public %>
-                <% if (profile.friends.some(friend => friend._id.toString() === plan.creator.toString())) { %>
-                  <td><i class="fas fa-solid fa-star"></i></td>
-                  <% } %>
-                <%# if plan is public %>
-                <% if (plan.isPublicForEveryone) { %>
-                  <td><i class="fa-solid fa-p"></i></td>
-                <% } %>
-                <%# if user is plan's creator %>
-                <% if (plan.creator.equals(user?.profile._id)) { %>
-                  <td><i class="fas fa-solid fa-pencil"></i></td>
-                  <td>
-                    <form action='/plans/<%= plan._id %>?_method=DELETE' method='POST'>
-                      <button class='delete-btn' type='submit'>⊖</button>
-                    </form>
-                  </td>
-                <% } %>
-              </tr>
-            <% } %>
+              <% } %>
+            </tr>
           <% }) %>
-        </tbody>
-      </table>
-    <% } %>
+        <% } else { %>
+          <tr>
+            <td></td>
+            <td>There is no plan available to view</td>
+            </tr>
+        <% } %>
+      </tbody>
+    </table>
   </section>
 
 </main>

@@ -20,10 +20,14 @@
          
           <div class='add-friend'>
             <% if (profile.friendRequests.some(profile => profile._id.toString() === user.profile._id.toString())) { %>
-              <button class='add-friend-btn' disabled>Friend Request Sent!</button>
+              <button class='add-friend-btn disabled'>Friend Request Sent!</button>
             <% } else if (profile.friends.some(profile => profile._id.toString() === user.profile._id.toString())) { %>
-              <button class='main-btn'>Friends <i class="fas fa-solid fa-user-check"></i></button>
-            <% } else { %>
+              <button class='main-btn disabled'>Friends <i class="fas fa-solid fa-user-check"></i></button>
+            <% } else if (userProfile.friendRequests.some(request => request._id.toString() === profile._id.toString())) { %>
+              <form action='/profiles/<%= profile._id %>/friends?_method=PATCH' method='POST'>
+                <button class='main-btn' type='submit' name='friendRequestId' value='<%= profile._id %>'>Confirm Friend Request</button>
+              </form>
+              <% } else { %>
               <form action='/profiles/<%= profile._id %>?_method=PATCH' method='POST'>
                   <button class='add-friend-btn' type='submit'>Add Friend</button>
               </form>

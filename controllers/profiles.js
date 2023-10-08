@@ -5,9 +5,17 @@ import OpenAI from "openai"
 function index(req, res) {
 	Profile.find({})
 		.then(profiles => {
-			res.render('profiles/index', {
-				profiles,
-				title: 'People'
+			Profile.findById(req.user.profile.id)
+			.then(userProfile => {
+				res.render('profiles/index', {
+					profiles,
+					userProfile,
+					title: 'People'
+				})
+			})
+			.catch(err => {
+				console.log(err)
+				res.redirect('/')
 			})
 		})
 		.catch(err => {
@@ -20,11 +28,19 @@ function show(req, res) {
 	Profile.findById(req.params.profileId)
 	.populate([{path: 'friends'}, {path: 'friendRequests'}])
 		.then(profile => {
-			const isSelf = profile._id.equals(req.user.profile._id)
-			res.render('profiles/show', {
-				profile,
-				isSelf,
-				title: 'My Profile'
+			Profile.findById(req.user.profile.id)
+			.then(userProfile => {
+				const isSelf = profile._id.equals(req.user.profile._id)
+				res.render('profiles/show', {
+					profile,
+					userProfile,
+					isSelf,
+					title: 'My Profile'
+				})
+			})
+			.catch(err => {
+				console.log(err)
+				res.redirect('/')
 			})
 		})
 		.catch(err => {
@@ -87,7 +103,7 @@ function sendFriendRequest(req, res) {
 
 function addFriend(req, res) {
 	// find user profile and push friend request profile id to friends array
-	Profile.findById(req.params.profileId)
+	Profile.findById(req.user.profile._id)
 	.then(userProfile => {
 		// find friend profile
 		Profile.findById(req.body.friendRequestId)

@@ -151,14 +151,14 @@ main.noNav {
 .add-friend {
   margin-top: auto;
 }
-.add-friend .main-btn {
-  pointer-events: none;
-}
 .add-friend-btn {
-  width: 8vw;
+  width: 100%;
   border-radius: 8px;
   border: none;
   background-color: #fcfa94;
+}
+.disabled {
+  pointer-events: none;
 }
 .add-friend-btn:hover {
   background-color: #cbc96d;

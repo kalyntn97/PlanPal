@@ -13,7 +13,7 @@ main {
   justify-content: space-evenly;
 }
 
-main h1, .legend {
+main h1, main h3, .legend {
   color: whitesmoke;
 }
 
