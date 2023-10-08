@@ -11,17 +11,12 @@
     <input type="date" name="date" value='<%= plan.date?.toDateString()%>' id='plan-date-input'>
     <label for='plan-notes-input'>Notes</label>
     <textarea type="string", name="notes" value='<%= plan.notes %>' id='plan-notes-input'></textarea>
-    <fieldset class='make-public-box'>
-      <legend>Make your plan public for non-members?</legend>
-      <div>
-        <label for='isPublicForEveryone-input'>For Everyone</label>
-        <input type='checkbox' name='isPublicForEveryone' id='isPublicForEveryone-input'>
-      </div>
-      <div>
-        <label for='isPublicForFriends-input'>For Friends</label>
-        <input type='checkbox' name='isPublicForFriends' id='isPublicForFriends-input'>
-      </div>
-    </fieldset>
+    <label for='isPublic-input'>Privacy</label>
+    <select name='isPublic' id='isPublic-input'>
+      <option value='Members' <%= plan.isPublic === 'Members' ? 'selected' : '' %>>Members</option>
+      <option value='Friends' <%= plan.isPublic === 'Friends' ? 'selected' : '' %>>Friends</option>
+      <option value='Public' <%= plan.isPublic === 'Public' ? 'selected' : '' %>>Public</option>
+    </select>
     <button class='main-btn' type="submit">Save</button>
   </form>
 </main>

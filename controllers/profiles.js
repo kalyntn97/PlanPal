@@ -123,7 +123,7 @@ function addFriend(req, res) {
 			Promise.all([userProfile.save(), friendProfile.save()])
 		})
 		.then(() => {
-			res.redirect(`/profiles/${userProfile._id}`)
+			res.redirect(`/profiles/${friendProfile._id}`)
 		})
 		.catch(err => {
 			console.log(err)

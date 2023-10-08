@@ -28,8 +28,6 @@ function index(req, res) {
 }
 
 function create(req, res) {
-  req.body.isPublicForEveryone = !! req.body.isPublicForEveryone
-  req.body.isPublicForFriends = !! req.body.isPublicForFriends
   req.body.creator = req.user.profile._id
   Plan.create(req.body)
   .then(plan => {
@@ -98,9 +96,7 @@ function edit(req, res) {
 }
 
 function update(req, res) {
-  req.body.isPublicForEveryone = !! req.body.isPublicForEveryone
-  req.body.isPublicForFriends = !! req.body.isPublicForFriends
-  Plan.findById(req.params.planId, req.body, {new: true})
+  Plan.findById(req.params.planId)
   .then(plan => {
     if (plan.creator.equals(req.user.profile._id)) {
       plan.updateOne(req.body)

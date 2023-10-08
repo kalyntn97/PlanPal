@@ -15,8 +15,7 @@ const planSchema = new Schema({
   notes: String,
   tasks: [{type: Schema.Types.ObjectId, ref: 'Task'}],
   comments: [commentSchema],
-  isPublicForEveryone: {type: Boolean, default: false},
-  isPublicForFriends: {type: Boolean, default: false},
+  isPublic: {type: String, enum: ['Public', 'Friends', 'Members'], default: 'Members'}
 }, {
   timestamps: true
 })
