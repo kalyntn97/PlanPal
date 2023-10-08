@@ -13,7 +13,6 @@ const planSchema = new Schema({
   creator: {type: Schema.Types.ObjectId, ref: 'Profile'},
   members: [{type: Schema.Types.ObjectId, ref: 'Profile'}],
   notes: String,
-  // members: [{type: Schema.Types.ObjectId, ref: 'Profile'}],
   tasks: [{type: Schema.Types.ObjectId, ref: 'Task'}],
   comments: [commentSchema],
   isPublicForEveryone: {type: Boolean, default: false},

@@ -16,7 +16,7 @@
     <div class='details-box'>
       <div class='left-column'>
         <p>Name: <span><%= plan.name %></span></p>
-        <p>Date: <span><%= plan.date.toDateString() %></span></p>
+        <p>Date: <span><%= plan.date?.toDateString() %></span></p>
         <p>Creator: <span><%= plan.creator.displayName ? plan.creator.displayName : plan.creator.name %></span></p>
         <p>Members:
           <ul>
