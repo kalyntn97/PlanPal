@@ -2,6 +2,9 @@
 nav {
   background-color: #35a0f7ab;
 }
+nav * {
+  color: black;
+}
 footer {
   background-color: #c2e59c;
 }

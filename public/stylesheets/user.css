@@ -7,6 +7,10 @@ main.noNav {
   background-color: #FEF2DD;
 }
 
+footer {
+  background-color: #FCE5EF;
+}
+
 .title-slogan-box {
   display: flex;
   flex-direction: column;

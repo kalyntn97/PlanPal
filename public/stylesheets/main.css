@@ -41,6 +41,9 @@ nav {
   background-color: #ce4b8a3a;
   font-size: 18px;
 }
+nav * {
+  color: #005B4C;
+}
 
 footer {
   height: 3vh;
@@ -48,6 +51,8 @@ footer {
   margin: 0;
   padding: 0;
   background-color: #fef1de;
+  font-size: 10px;
+  text-align: center;
 }
 
 main {

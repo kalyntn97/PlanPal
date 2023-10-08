@@ -1,7 +1,9 @@
 nav {
   background-color: #6d49f0cf;
 }
-
+nav * {
+  color: black;
+}
 footer {
   background-color: #cb9ce5;
 }
